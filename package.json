@@ -9,6 +9,7 @@
   "type": "module",
   "types": "dist/index.d.ts",
   "scripts": {
+    "dev": "vite",
     "build": "vite build",
     "lint": "npx eslint ./src --ext .ts,.vue --ignore-path .eslintignore",
     "lint:fix": "npx eslint ./src --ext .ts,.vue --ignore-path .eslintignore --fix",
