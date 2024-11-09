@@ -1,0 +1,46 @@
+# local IDE settings and editors
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# build files and temporary files
+node_modules
+coverage
+*.log
+*.tmp
+*.temp
+
+# dev files
+index.html
+demo/
+.prettierrc.json
+
+# npm configuration files
+npm-debug.log
+yarn-error.log
+
+# files specific to the operating system
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# caches and temporary files
+.cache
+.npm
+.yarn
+.pnpm-store
+
+# git files
+.git
+.gitignore
+
+# miscellaneous
+*.bak
+*.orig
+*.rej
+*.swp
+*.swo
