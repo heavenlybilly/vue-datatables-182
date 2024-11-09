@@ -64,7 +64,7 @@ module.exports = {
 
     // Vue
     'vue/v-on-event-hyphenation': 'error',
-    'vue/attributes-order': ['error', { alphabetical: true },],
+    'vue/attributes-order': ['error', { alphabetical: true }],
     'vuejs-accessibility/click-events-have-key-events': 'off',
     'vuejs-accessibility/form-control-has-label': 'off',
     'vuejs-accessibility/heading-has-content': 'off',
@@ -88,10 +88,9 @@ module.exports = {
     'import/resolver': {
       'eslint-import-resolver-custom-alias': {
         alias: {
-          '@': './resources/ts',
+          '@': './src',
         },
         extensions: ['.ts', '.vue'],
-        packages: ['packages/*'],
       },
     },
   },
