@@ -1,8 +1,8 @@
+import { DTColumn, DTOrder, DTRowItem, DTTableData } from '@/types'
 import { Ref } from 'vue'
 import filterItemsBySearch from '@/composables/data/helpers/filterItemsBySearch'
 import getItemsByPage from '@/composables/data/helpers/getItemsByPage'
 import orderItems from '@/composables/data/helpers/orderItems'
-import { DTColumn, DTOrder, DTRowItem, DTTableData } from '@/types'
 
 export const useDataClient = () => {
   const processItems = (

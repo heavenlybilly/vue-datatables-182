@@ -1,5 +1,5 @@
-import { Ref, ref } from 'vue'
 import { DTOrder } from '@/types'
+import { Ref, ref } from 'vue'
 
 export const useOrder = () => {
   const order: Ref<DTOrder | null> = ref(null)

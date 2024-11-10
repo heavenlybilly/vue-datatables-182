@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { PropType, computed } from 'vue'
 // @ts-ignore
+import { DTColumn, DTOrder } from '@/types'
+import { PropType, computed } from 'vue'
 import orderDescIcon from '@/assets/order-asc.svg'
 // @ts-ignore
 import orderDefaultIcon from '@/assets/order-default.svg'
 // @ts-ignore
 import orderAscIcon from '@/assets/order-desc.svg'
-import { DTColumn, DTOrder } from '@/types'
 
 const props = defineProps({
   column: {

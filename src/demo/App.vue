@@ -5,7 +5,11 @@ import DataTableColumn from '@/DataTableColumn.vue'
 
 <template>
   <div>
-    <data-table actions data-source="client" numbering>
+    <data-table
+      actions
+      data-source="client"
+      numbering
+    >
       <data-table-column field="" />
     </data-table>
   </div>

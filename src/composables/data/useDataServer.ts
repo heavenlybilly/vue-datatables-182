@@ -1,6 +1,6 @@
+import { DTColumn, DTOrder, DTRowItem, DTTableData } from '@/types'
 import { Ref } from 'vue'
 import makeQueryParams from '@/composables/data/helpers/makeQueryParams'
-import { DTColumn, DTOrder, DTRowItem, DTTableData } from '@/types'
 
 export const useDataServer = () => {
   const fetchRemoteItems = async (

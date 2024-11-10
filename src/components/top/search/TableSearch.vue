@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { PropType, Ref, computed, ref } from 'vue'
 // @ts-ignore
+import { PropType, Ref, computed, ref } from 'vue'
 import crossIcon from '@/assets/cross.svg'
 // @ts-ignore
 import searchIcon from '@/assets/search.svg'

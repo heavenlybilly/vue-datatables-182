@@ -1,14 +1,7 @@
 <script lang="ts">
-import Vue, { defineComponent, getCurrentInstance, onMounted, toRefs, watch } from 'vue'
-import { useData } from '@/composables/data/useData'
-import { useColumns } from '@/composables/useColumns'
-import { useErrors } from '@/composables/useErrors'
-import { useOrder } from '@/composables/useOrder'
-import { usePagination } from '@/composables/usePagination'
-import { useRowSelection } from '@/composables/useRowSelection'
-import { useSearch } from '@/composables/useSearch'
 import { componentProps, validateProps } from '@/props'
 import { DTOrder } from '@/types'
+import Vue, { defineComponent, getCurrentInstance, onMounted, toRefs, watch } from 'vue'
 import debounce from '@/helpers/debounce'
 import TableContent from '@/components/content/TableContent.vue'
 import TableBody from '@/components/content/body/TableBody.vue'
@@ -20,6 +13,13 @@ import TablePagination from '@/components/footer/pagination/TablePagination.vue'
 import RowsPerPageControl from '@/components/footer/rows-per-page-control/RowsPerPageControl.vue'
 import TableTop from '@/components/top/TableTop.vue'
 import TableSearch from '@/components/top/search/TableSearch.vue'
+import { useData } from '@/composables/data/useData'
+import { useColumns } from '@/composables/useColumns'
+import { useErrors } from '@/composables/useErrors'
+import { useOrder } from '@/composables/useOrder'
+import { usePagination } from '@/composables/usePagination'
+import { useRowSelection } from '@/composables/useRowSelection'
+import { useSearch } from '@/composables/useSearch'
 
 export default defineComponent({
   name: 'DataTable',
@@ -171,7 +171,11 @@ export default defineComponent({
         <slot name="topLeftBeforeActions" />
       </template>
       <template #topSearch>
-        <table-search v-if="searching" :value="search" @input="handleSearchInput" />
+        <table-search
+          v-if="searching"
+          :value="search"
+          @input="handleSearchInput"
+        />
       </template>
       <template #topLeftAfterActions>
         <slot name="topLeftAfterActions" />
@@ -186,7 +190,10 @@ export default defineComponent({
         {{ error.message }}
       </div>
     </div>
-    <table-content v-else :scroll-x="scrollX">
+    <table-content
+      v-else
+      :scroll-x="scrollX"
+    >
       <table-head
         :actions="actions"
         :columns="columns"
@@ -216,7 +223,10 @@ export default defineComponent({
           @select-row="handleSelectRow"
         >
           <template #actions>
-            <slot name="actions" :row="row" />
+            <slot
+              name="actions"
+              :row="row"
+            />
           </template>
         </table-row>
       </table-body>

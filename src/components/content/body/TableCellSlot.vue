@@ -1,8 +1,8 @@
 <script lang="ts">
+import { DTRow } from '@/types'
 import { PropType, defineComponent } from 'vue'
 // eslint-disable-next-line import/no-unresolved
 import { NormalizedScopedSlot } from 'vue/types/vnode'
-import { DTRow } from '@/types'
 
 export default defineComponent({
   name: 'DtCell',

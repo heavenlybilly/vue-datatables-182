@@ -1,5 +1,5 @@
-import { ExtractPropTypes, PropType } from 'vue'
 import { DTDataSource, DTOrderDirection, DTRowItem } from '@/types'
+import { ExtractPropTypes, PropType } from 'vue'
 
 export const componentProps = {
   // data

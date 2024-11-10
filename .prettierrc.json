@@ -8,12 +8,12 @@
   "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "importOrder": [
     "<THIRD_PARTY_MODULES>",
-    "^[./]",
-    "^@/i18n",
     "^@/helpers",
     "^@/components",
     "^@/composables",
-    "^@/scss"
+    "^@/scss",
+    "^@/assets",
+    "^[./]"
   ],
   "importOrderSortSpecifiers": true
 }

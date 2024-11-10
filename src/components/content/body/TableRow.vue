@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { DTColumn, DTRow } from '@/types'
 import { PropType, Ref, computed, nextTick, onMounted, ref } from 'vue'
+import { stickElements } from '@/helpers/stickElements'
 import TableCell from '@/components/content/body/TableCell.vue'
 import TableCellActions from '@/components/content/body/TableCellActions.vue'
 import TableCellNumbering from '@/components/content/body/TableCellNumbering.vue'
 import TableCellSelection from '@/components/content/body/TableCellSelection.vue'
-import { stickElements } from '@/helpers/stickElements'
-import { DTColumn, DTRow } from '@/types'
 
 const props = defineProps({
   row: {

@@ -1,7 +1,7 @@
+import { DTColumn, DTColumnProps } from '@/types'
 import Vue, { Ref, ref } from 'vue'
 // eslint-disable-next-line import/no-unresolved
 import { VNode } from 'vue/types/vnode'
-import { DTColumn, DTColumnProps } from '@/types'
 
 const resolveBooleanProp = (value: any): boolean => value !== undefined && value !== false
 

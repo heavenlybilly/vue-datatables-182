@@ -1,13 +1,7 @@
+import { DTColumn, DTDataSource, DTOrder, DTRowItem, DTTableData } from '@/types'
 import { Ref, ref } from 'vue'
 import { useDataClient } from '@/composables/data/useDataClient'
 import { useDataServer } from '@/composables/data/useDataServer'
-import {
-  DTColumn,
-  DTDataSource,
-  DTOrder,
-  DTRowItem,
-  DTTableData,
-} from '@/types'
 
 export const useData = (
   dataSource: Ref<DTDataSource>,
