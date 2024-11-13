@@ -53,6 +53,9 @@ jobs:
           echo "$COMMIT_MESSAGES"
           echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
 
+      - name: Print commit messages
+        run: echo "The version is '$COMMIT_MESSAGES'"
+
 #      - name: Create release
 #        uses: actions/create-release@latest
 #        with:
