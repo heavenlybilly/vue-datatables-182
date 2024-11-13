@@ -3,6 +3,10 @@
 @use "content";
 @use "footer";
 
+.data-table {
+  box-sizing: border-box;
+}
+
 .data-table-error {
   display: flex;
   align-items: center;
