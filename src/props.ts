@@ -82,4 +82,10 @@ export const validateProps = (props: TComponentProps) => {
   if (!props.rowsPerPageOptions.includes(props.rowsPerPageCount)) {
     throw new Error('Prop rowsPerPageCount is not present in prop rowsPerPageOptions')
   }
+
+  if (!props.scrollX && (props.fixedColumnsStart || props.fixedColumnsEnd)) {
+    throw new Error(
+      'The props fixedColumnsStart and fixedColumnsEnd may only be set when the scrollX prop is true',
+    )
+  }
 }

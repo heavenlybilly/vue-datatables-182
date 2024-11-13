@@ -16,9 +16,11 @@ export const stickElements = (
 
   selectedElements.reduce((accumulatedWidth, child) => {
     const element = child
-    element.style.position = 'sticky'
-    element.style[positionProp] = `${accumulatedWidth}px`
+    const elementWidth = element.offsetWidth
 
-    return accumulatedWidth + element.offsetWidth + 1
+    element.style[positionProp] = `${accumulatedWidth}px`
+    element.style.position = 'sticky'
+
+    return accumulatedWidth + elementWidth
   }, 0)
 }

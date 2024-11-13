@@ -10,16 +10,21 @@ const data = ref(cities)
 <template>
   <div class="wrapper">
     <data-table
+      actions
       data-source="client"
+      :fixed-columns-end="1"
+      :fixed-columns-start="2"
       :items="data"
       numbering
       row-selection
+      scroll-x
     >
       <data-table-column
         field="title"
         orderable
         searchable
         title="Наименование"
+        width="400px"
       />
       <data-table-column
         align="center"
@@ -27,6 +32,31 @@ const data = ref(cities)
         orderable
         searchable
         title="Численность населения"
+        width="200px"
+      />
+      <data-table-column
+        align="center"
+        field="population"
+        orderable
+        searchable
+        title="Население"
+        width="200px"
+      />
+      <data-table-column
+        align="center"
+        field="population"
+        orderable
+        searchable
+        title="Популяция"
+        width="200px"
+      />
+      <data-table-column
+        align="center"
+        field="population"
+        orderable
+        searchable
+        title="Численность"
+        width="200px"
       />
       <data-table-column
         align="center"
@@ -34,6 +64,7 @@ const data = ref(cities)
         orderable
         searchable
         title="Дата основания"
+        width="150px"
       />
       <data-table-column
         align="center"
@@ -41,7 +72,16 @@ const data = ref(cities)
         orderable
         searchable
         title="Порядок сортировки"
+        width="150px"
       />
+
+      <template #actions="{ row }">
+        <div>
+          <span>
+            Действия над ячейкой с номером: <b>{{ row.number }}</b>
+          </span>
+        </div>
+      </template>
     </data-table>
   </div>
 </template>
