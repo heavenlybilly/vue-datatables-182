@@ -22,21 +22,21 @@ const data = ref(cities)
         title="Наименование"
       />
       <data-table-column
-        class="text-center"
+        align="center"
         field="population"
         orderable
         searchable
         title="Численность населения"
       />
       <data-table-column
-        class="text-center"
+        align="center"
         field="date_foundation"
         orderable
         searchable
         title="Дата основания"
       />
       <data-table-column
-        class="text-center"
+        align="center"
         field="order"
         orderable
         searchable

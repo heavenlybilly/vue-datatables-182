@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { DTColumnProps, DTRow } from '@/types'
+import { DTColumnProps, DTRow, DTTextAlign } from '@/types'
+import { PropType } from 'vue'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props: DTColumnProps = defineProps({
@@ -23,7 +24,11 @@ const props: DTColumnProps = defineProps({
   width: {
     type: String,
     required: false,
-    default: null,
+    default: undefined,
+  },
+  align: {
+    type: String as PropType<DTTextAlign>,
+    default: undefined,
   },
 })
 
