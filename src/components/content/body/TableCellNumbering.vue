@@ -8,17 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <td class="data-table-td-numbering">
-    <div class="data-table-td-numbering-inner">{{ props.number }}</div>
+  <td class="dt-cell-numbering">
+    <div class="dt-cell-numbering-inner">{{ props.number }}</div>
   </td>
 </template>
-
-<style scoped lang="scss">
-.data-table-td-numbering {
-  padding: 0.75rem 1rem;
-
-  &-inner {
-    text-align: center;
-  }
-}
-</style>

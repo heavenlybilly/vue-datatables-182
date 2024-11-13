@@ -20,7 +20,7 @@ export default defineComponent({
   },
   render(createElement) {
     // @ts-ignore
-    return createElement('td', { class: 'data-table-td' }, this.template({ row: this.row }))
+    return createElement('td', { class: 'dt-cell' }, this.template({ row: this.row }))
   },
 })
 </script>

@@ -1,12 +1,9 @@
 <script setup lang="ts">
-// @ts-ignore
-import { DTColumn, DTOrder } from '@/types'
+import { DTColumn, DTOrder, DTOrderDirection } from '@/types'
 import { PropType, computed } from 'vue'
-import orderDescIcon from '@/assets/order-asc.svg'
-// @ts-ignore
-import orderDefaultIcon from '@/assets/order-default.svg'
-// @ts-ignore
-import orderAscIcon from '@/assets/order-desc.svg'
+import orderDescIcon from '@/assets/order-asc.svg?raw'
+import orderDefaultIcon from '@/assets/order-default.svg?raw'
+import orderAscIcon from '@/assets/order-desc.svg?raw'
 
 const props = defineProps({
   column: {
@@ -20,20 +17,14 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['update:order'])
+const emit = defineEmits(['update:order'])
 
 const columnOrderEnable = computed(() => {
   return props.column.params.orderable
 })
 
-const styleObject = computed(() => ({
-  width: props.column.appearance.width ?? 'initial',
-  minWidth: props.column.appearance.width ?? 'initial',
-  maxWidth: props.column.appearance.width ?? 'initial',
-}))
-
 const classObject = computed(() => ({
-  orderable: columnOrderEnable.value,
+  'dt-orderable': columnOrderEnable.value,
   ...props.column.appearance.classObject,
 }))
 
@@ -50,70 +41,42 @@ const handleOrderUpdate = () => {
     return
   }
 
-  let newOrderValue: DTOrder
+  let direction: DTOrderDirection
 
-  if (!props.order || props.order.column !== props.column.params.field) {
-    newOrderValue = {
-      column: props.column.params.field,
-      direction: 'asc',
-    }
-
-    emits('update:order', newOrderValue)
-    return
+  if (
+    !props.order ||
+    props.order.column !== props.column.params.field ||
+    props.order.direction === 'desc'
+  ) {
+    direction = 'asc'
+  } else {
+    direction = 'desc'
   }
 
-  newOrderValue = {
+  const newOrderValue: DTOrder = {
+    direction,
     column: props.column.params.field,
-    direction: 'desc',
   }
 
-  if (props.order.direction === 'desc') {
-    newOrderValue.direction = 'asc'
-  }
-
-  emits('update:order', newOrderValue)
+  emit('update:order', newOrderValue)
 }
 </script>
 
 <template>
   <th
-    class="data-table-th"
+    class="dt-column"
     :class="classObject"
-    :style="styleObject"
+    :style="props.column.appearance.styleObject"
     @click="handleOrderUpdate"
   >
-    <div class="data-table-th-inner">
+    <div class="dt-column-inner">
       <span>{{ props.column.params.title }}</span>
       <div v-if="columnOrderEnable">
-        <img
-          alt=""
-          class="data-table-th-order"
-          :src="orderIcon"
+        <div
+          class="dt-order-column-btn"
+          v-html="orderIcon"
         />
       </div>
     </div>
   </th>
 </template>
-
-<style scoped lang="scss">
-.data-table-th {
-  padding: 0.7rem 1rem;
-  transition: all 200ms ease-in-out;
-  user-select: none;
-
-  &.orderable:hover {
-    cursor: pointer;
-    background-color: #f3f3f3;
-  }
-}
-
-.data-table-th-inner > * {
-  display: inline-block;
-}
-
-.data-table-th-order {
-  margin-left: 0.2rem;
-  width: 10px;
-  height: 10px;
-}
-</style>

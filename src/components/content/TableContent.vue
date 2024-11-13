@@ -15,29 +15,13 @@ const tableContentClassObject = computed(() => ({
 
 <template>
   <div
-    class="data-table-content"
+    class="dt-content"
     :class="tableContentClassObject"
   >
-    <table>
+    <table class="dt-element-table">
       <slot></slot>
     </table>
   </div>
 </template>
 
-<style scoped lang="scss">
-.data-table-content {
-  border-radius: 5px;
-  border: 1px solid #ededf1;
-  overflow: hidden;
-
-  table {
-    width: 100%;
-    min-width: 100%;
-    max-width: 100%;
-  }
-
-  &.scroll-x {
-    overflow-x: scroll;
-  }
-}
-</style>
+<style lang="scss"></style>

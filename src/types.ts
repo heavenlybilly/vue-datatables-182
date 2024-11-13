@@ -5,28 +5,33 @@ import { NormalizedScopedSlot } from 'vue/types/vnode'
  * Columns
  */
 export type DTColumnProps = {
-  field: string
-  title: string | null
-  orderable: boolean
-  searchable: boolean
-  width: string | null
+  readonly field: string
+  readonly title: string | null
+  readonly orderable: boolean
+  readonly searchable: boolean
+  readonly width: string | null
 }
+
+type DTColumnParams = {
+  readonly field: string
+  readonly title: string | null
+  readonly orderable: boolean
+  readonly searchable: boolean
+}
+type DTColumnSlots = {
+  readonly cell: NormalizedScopedSlot | undefined
+  readonly filter: NormalizedScopedSlot | undefined
+}
+type DTColumnAppearance = {
+  readonly styleObject: Record<string, string | number>
+  readonly classObject: Record<string, boolean>
+}
+
 export type DTColumn = {
-  index: number
-  params: {
-    field: string
-    title: string | null
-    orderable: boolean
-    searchable: boolean
-  }
-  slots: {
-    cell: NormalizedScopedSlot | undefined
-    filter: NormalizedScopedSlot | undefined
-  }
-  appearance: {
-    width: string | null
-    classObject: Record<string, boolean>
-  }
+  readonly index: number
+  readonly params: DTColumnParams
+  readonly slots: DTColumnSlots
+  readonly appearance: DTColumnAppearance
 }
 
 /**
@@ -37,15 +42,15 @@ export type DTDataSource = 'server' | 'client'
 export type DTRowItemValue = string | number | boolean | null
 export type DTRowItem = Record<string, DTRowItemValue>
 export type DTRow = {
-  index: number
-  number: number
-  item: DTRowItem
+  readonly index: number
+  readonly number: number
+  readonly item: DTRowItem
 }
 
 export type DTTableData = {
-  total: number
-  filtered: number
-  rows: DTRow[]
+  readonly total: number
+  readonly filtered: number
+  readonly rows: DTRow[]
 }
 
 /**
@@ -53,7 +58,7 @@ export type DTTableData = {
  */
 export type DTOrderDirection = 'asc' | 'desc'
 export type DTOrderColumn = {
-  column: string
-  direction: DTOrderDirection
+  readonly column: string
+  readonly direction: DTOrderDirection
 }
 export type DTOrder = DTOrderColumn

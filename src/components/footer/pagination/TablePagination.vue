@@ -20,7 +20,7 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['input'])
+const emit = defineEmits(['input'])
 
 const countPages = computed(() => {
   return Math.ceil(props.filtered / props.rowsPerPage)
@@ -55,45 +55,45 @@ const canGoNext = computed(() => {
 })
 
 const handleClickPage = (value: number) => {
-  emits('input', value)
+  emit('input', value)
 }
 
 const handleGoPrev = () => {
   if (canGoPrev.value) {
-    emits('input', props.page - 1)
+    emit('input', props.page - 1)
   }
 }
 
 const handleGoFirst = () => {
   if (canGoPrev.value) {
-    emits('input', 1)
+    emit('input', 1)
   }
 }
 
 const handleGoNext = () => {
   if (canGoNext.value) {
-    emits('input', props.page + 1)
+    emit('input', props.page + 1)
   }
 }
 
 const handleGoLast = () => {
   if (canGoNext.value) {
-    emits('input', countPages.value)
+    emit('input', countPages.value)
   }
 }
 </script>
 
 <template>
-  <div class="data-table-pagination">
+  <div class="dt-pagination">
     <div
-      class="data-table-pagination-page data-table-pagination-page-arrow"
+      class="dt-pagination-page dt-pagination-page-arrow"
       :class="{ disabled: !canGoPrev }"
       @click="handleGoFirst"
     >
       <div v-html="chevronDoubleLeftIcon"></div>
     </div>
     <div
-      class="data-table-pagination-page data-table-pagination-page-arrow"
+      class="dt-pagination-page dt-pagination-page-arrow"
       :class="{ disabled: !canGoPrev }"
       @click="handleGoPrev"
     >
@@ -102,21 +102,21 @@ const handleGoLast = () => {
     <div
       v-for="(item, index) of pages"
       :key="index"
-      class="data-table-pagination-page"
+      class="dt-pagination-page"
       :class="{ active: item === props.page }"
       @click="handleClickPage(item)"
     >
       {{ item }}
     </div>
     <div
-      class="data-table-pagination-page data-table-pagination-page-arrow"
+      class="dt-pagination-page dt-pagination-page-arrow"
       :class="{ disabled: !canGoNext }"
       @click="handleGoNext"
     >
       <div v-html="chevronRightIcon"></div>
     </div>
     <div
-      class="data-table-pagination-page data-table-pagination-page-arrow"
+      class="dt-pagination-page dt-pagination-page-arrow"
       :class="{ disabled: !canGoNext }"
       @click="handleGoLast"
     >
@@ -124,49 +124,3 @@ const handleGoLast = () => {
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-.data-table-pagination {
-  display: flex;
-  align-items: center;
-
-  & > *:not(:first-child) {
-    margin-left: 0.25rem;
-  }
-}
-
-.data-table-pagination-page {
-  width: 36px;
-  height: 36px;
-  border-radius: 100%;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 200ms ease-in-out;
-  cursor: pointer;
-  user-select: none;
-
-  &:hover {
-    background-color: #ededf1;
-  }
-
-  &.active {
-    background-color: #ededf1;
-  }
-
-  &.disabled {
-    background-color: #fff !important;
-    color: #c6c6c6 !important;
-    cursor: default;
-  }
-}
-
-.data-table-pagination-page-arrow > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 8px;
-  height: 8px;
-}
-</style>

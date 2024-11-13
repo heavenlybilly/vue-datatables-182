@@ -43,20 +43,20 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['update:order', 'select-all', 'deselect-all'])
+const emit = defineEmits(['update:order', 'select-all', 'deselect-all'])
 
 const rowElement: Ref<HTMLElement | null> = ref(null)
 
 const handleOrderUpdate = (value: DTOrder) => {
-  emits('update:order', value)
+  emit('update:order', value)
 }
 
 const handleSelectAll = () => {
-  emits('select-all')
+  emit('select-all')
 }
 
 const handleDeselectAll = () => {
-  emits('deselect-all')
+  emit('deselect-all')
 }
 
 const initFixedColumns = () => {
@@ -74,7 +74,7 @@ onMounted(initFixedColumns)
 </script>
 
 <template>
-  <thead class="data-table-thead">
+  <thead class="dt-head">
     <tr ref="rowElement">
       <table-column-numbering v-if="props.numbering" />
       <table-column-selection
@@ -93,17 +93,3 @@ onMounted(initFixedColumns)
     </tr>
   </thead>
 </template>
-
-<style scoped lang="scss">
-.data-table-thead {
-  border-radius: 5px;
-  overflow: hidden;
-  background-color: #fbfcfc;
-  border-bottom: 1px solid #ededf1;
-
-  th {
-    background-color: #fbfcfc;
-    border: 1ps solid #fbfcfc;
-  }
-}
-</style>

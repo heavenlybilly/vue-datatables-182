@@ -1,0 +1,12 @@
+@forward "vars";
+@use "top";
+@use "content";
+@use "footer";
+
+.data-table-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-weight: 400;
+}

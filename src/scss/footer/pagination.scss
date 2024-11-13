@@ -1,0 +1,44 @@
+.dt-pagination {
+  display: flex;
+  align-items: center;
+
+  & > *:not(:first-child) {
+    margin-left: 0.25rem;
+  }
+}
+
+.dt-pagination-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 0.84rem;
+  background-color: #fff;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+  user-select: none;
+
+  &:hover {
+    background-color: #ededf1;
+  }
+
+  &.active {
+    background-color: #ededf1;
+  }
+
+  &.disabled {
+    color: #c6c6c6 !important;
+    background-color: #fff !important;
+    cursor: default;
+  }
+}
+
+.dt-pagination-page-arrow > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.5rem;
+  height: 0.5rem;
+}

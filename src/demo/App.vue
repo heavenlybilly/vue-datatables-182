@@ -22,18 +22,21 @@ const data = ref(cities)
         title="Наименование"
       />
       <data-table-column
+        class="text-center"
         field="population"
         orderable
         searchable
         title="Численность населения"
       />
       <data-table-column
+        class="text-center"
         field="date_foundation"
         orderable
         searchable
         title="Дата основания"
       />
       <data-table-column
+        class="text-center"
         field="order"
         orderable
         searchable
@@ -43,8 +46,12 @@ const data = ref(cities)
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .wrapper {
   padding: 2rem;
+}
+
+.text-center {
+  text-align: center;
 }
 </style>

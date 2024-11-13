@@ -42,7 +42,7 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['select-row', 'deselect-row'])
+const emit = defineEmits(['select-row', 'deselect-row'])
 
 const rowElement: Ref<HTMLElement | null> = ref(null)
 
@@ -51,11 +51,11 @@ const isChecked = computed(() => {
 })
 
 const handleSelectRow = (index: number) => {
-  emits('select-row', index)
+  emit('select-row', index)
 }
 
 const handleDeselectRow = (index: number) => {
-  emits('deselect-row', index)
+  emit('deselect-row', index)
 }
 
 const initFixedColumns = () => {
@@ -99,9 +99,3 @@ onMounted(initFixedColumns)
     </table-cell-actions>
   </tr>
 </template>
-
-<style scoped lang="scss">
-td {
-  background-color: #fff;
-}
-</style>

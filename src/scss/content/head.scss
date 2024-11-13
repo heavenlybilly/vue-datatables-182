@@ -1,0 +1,69 @@
+@use '../vars' as *;
+
+.dt-head {
+  overflow: hidden;
+  background-color: $dt-head-bg-color;
+  border-bottom: 1px solid $dt-border-color;
+  border-radius: 5px;
+}
+
+.dt-order-column-btn {
+  width: 0.625rem;
+  height: 0.625rem;
+  margin-left: 0.2rem;
+}
+
+.dt-column {
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  background-color: $dt-head-bg-color;
+  transition: all 200ms ease-in-out;
+  user-select: none;
+
+  &.dt-orderable:hover {
+    background-color: $dt-head-bg-color-hover;
+    cursor: pointer;
+  }
+
+  &-inner {
+    text-align: left;
+  }
+
+  &-inner > * {
+    display: inline-block;
+  }
+}
+
+.dt-column-numbering {
+  max-width: 100px;
+
+  &-inner {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.dt-column-selection {
+  width: 1.8rem;
+  min-width: 1.8rem;
+  max-width: 1.8rem;
+  padding-right: 0;
+  padding-left: 0;
+
+  &-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    input {
+      margin: 0;
+      cursor: pointer;
+      accent-color: $accent-color;
+    }
+  }
+}
+
+.dt-column-actions {
+  width: min-content;
+}

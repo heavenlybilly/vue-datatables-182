@@ -35,15 +35,11 @@ const value = computed(() => {
   <td
     v-else
     :key="props.column.index"
-    class="data-table-td"
+    class="dt-cell"
     :class="props.column.appearance.classObject"
   >
     {{ value }}
   </td>
 </template>
 
-<style scoped lang="scss">
-.data-table-td {
-  padding: 0.75rem 1rem;
-}
-</style>
+<style lang="scss"></style>

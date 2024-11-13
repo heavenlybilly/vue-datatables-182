@@ -5,6 +5,29 @@ import { VNode } from 'vue/types/vnode'
 
 const resolveBooleanProp = (value: any): boolean => value !== undefined && value !== false
 
+const resolveClassObject = (node: VNode): Record<string, boolean> => {
+  const classList = node.data?.staticClass?.split(' ') ?? []
+  return classList.reduce(
+    (classObjectCarry: Record<string, boolean>, className: string) => ({
+      ...classObjectCarry,
+      [className]: true,
+    }),
+    {},
+  )
+}
+
+const resolveStyleObject = (params: { width: string | null }) => {
+  const styleObject: Record<string, string | number> = {}
+
+  if (params.width) {
+    styleObject.width = params.width
+    styleObject.minWidth = params.width
+    styleObject.maxWidth = params.width
+  }
+
+  return styleObject
+}
+
 export const useColumns = () => {
   const columns: Ref<DTColumn[]> = ref([])
 
@@ -21,15 +44,6 @@ export const useColumns = () => {
       const props = node.componentOptions.propsData as DTColumnProps
       const { field, title, orderable, searchable, width } = props
 
-      const classList = node.data?.staticClass?.split(' ') ?? []
-      const classObject = classList.reduce(
-        (classObjectCarry: Record<string, boolean>, className: string) => ({
-          ...classObjectCarry,
-          [className]: true,
-        }),
-        {},
-      )
-
       const column: DTColumn = {
         index,
         params: {
@@ -43,8 +57,8 @@ export const useColumns = () => {
           cell: node.componentInstance?.$scopedSlots.cell,
         },
         appearance: {
-          classObject,
-          width: width ?? null,
+          classObject: resolveClassObject(node),
+          styleObject: resolveStyleObject({ width }),
         },
       }
 

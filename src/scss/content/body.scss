@@ -1,0 +1,53 @@
+@use '../vars' as *;
+
+.dt-body {
+  tr:not(:last-child) {
+    border-bottom: 1px solid $dt-border-color;
+  }
+}
+
+td {
+  background-color: $dt-bg-color;
+}
+
+.dt-cell {
+  padding: 0.75rem 1rem;
+}
+
+.dt-cell-numbering {
+  max-width: 100px;
+
+  &-inner {
+    text-align: center;
+  }
+}
+
+.dt-cell-selection {
+  width: 1.8rem;
+  min-width: 1.8rem;
+  max-width: 1.8rem;
+  padding-right: 0;
+  padding-left: 0;
+
+  &-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+
+    input {
+      cursor: pointer;
+      accent-color: $accent-color;
+    }
+  }
+}
+
+.dt-cell-actions {
+  &-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+  }
+}

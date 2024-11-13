@@ -1,0 +1,18 @@
+@use "body";
+@use "head";
+
+.dt-content {
+  overflow: hidden;
+  border: 1px solid #ededf1;
+  border-radius: 5px;
+
+  .dt-element-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  &.scroll-x {
+    overflow-x: scroll;
+  }
+}

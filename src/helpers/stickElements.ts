@@ -4,6 +4,10 @@ export const stickElements = (
   count: number,
   reverse: boolean = false,
 ): void => {
+  if (!count) {
+    return
+  }
+
   const children = Array.from(root.getElementsByTagName(childElementTag)) as HTMLElement[]
 
   const selectedElements = reverse ? children.slice(-count).reverse() : children.slice(0, count)

@@ -20,6 +20,7 @@ import { useOrder } from '@/composables/useOrder'
 import { usePagination } from '@/composables/usePagination'
 import { useRowSelection } from '@/composables/useRowSelection'
 import { useSearch } from '@/composables/useSearch'
+import '@/scss/index.scss'
 
 export default defineComponent({
   name: 'DataTable',
@@ -263,13 +264,3 @@ export default defineComponent({
     <slot></slot>
   </div>
 </template>
-
-<style scoped lang="scss">
-.data-table-error {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  font-weight: 400;
-}
-</style>

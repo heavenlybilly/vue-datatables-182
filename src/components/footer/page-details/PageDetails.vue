@@ -62,7 +62,7 @@ const totalRecords = computed(() => {
 </script>
 
 <template>
-  <div class="data-table-page-details">
+  <div class="dt-page-details">
     <span>
       Записи с {{ numberStart }} до {{ numberEnd }} из {{ props.filtered }}
       {{ filteredRecords }}</span
@@ -70,11 +70,3 @@ const totalRecords = computed(() => {
     <span v-if="props.total !== props.filtered"> (из {{ props.total }} {{ totalRecords }}) </span>
   </div>
 </template>
-
-<style scoped lang="scss">
-.data-table-page-details {
-  font-size: 13px;
-  line-height: 1;
-  color: #989898;
-}
-</style>
