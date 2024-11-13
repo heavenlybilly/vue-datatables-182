@@ -4,12 +4,15 @@ import { NormalizedScopedSlot } from 'vue/types/vnode'
 /**
  * Columns
  */
+export type DTTextAlign = 'center' | 'left' | 'right'
+
 export type DTColumnProps = {
   readonly field: string
-  readonly title: string | null
+  readonly title: string
   readonly orderable: boolean
   readonly searchable: boolean
-  readonly width: string | null
+  readonly width: string | undefined
+  readonly align: DTTextAlign | undefined
 }
 
 type DTColumnParams = {

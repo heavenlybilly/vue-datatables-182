@@ -15,6 +15,7 @@ export default {
     '!src/index.ts',
     '!src/main.ts',
     '!src/App.vue',
+    '!src/demo/**/*', // Исключение src/demo
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
