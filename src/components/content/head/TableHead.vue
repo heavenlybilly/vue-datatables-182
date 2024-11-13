@@ -78,6 +78,7 @@ onMounted(initFixedColumns)
     <tr ref="rowElement">
       <table-column-numbering v-if="props.numbering" />
       <table-column-selection
+        v-if="props.rowSelection"
         :is-selected-all="props.isSelectedAll"
         @deselect-all="handleDeselectAll"
         @select-all="handleSelectAll"
