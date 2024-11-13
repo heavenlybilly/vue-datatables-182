@@ -37,6 +37,7 @@ const value = computed(() => {
     :key="props.column.index"
     class="dt-cell"
     :class="props.column.appearance.classObject"
+    :style="props.column.appearance.styleObject"
   >
     {{ value }}
   </td>
