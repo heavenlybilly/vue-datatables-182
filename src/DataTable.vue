@@ -166,7 +166,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
+  <div class="data-table">
     <table-top>
       <template #topLeftBeforeActions>
         <slot name="topLeftBeforeActions" />
@@ -196,6 +196,7 @@ export default defineComponent({
       :scroll-x="scrollX"
     >
       <table-head
+        v-if="tableData"
         :actions="actions"
         :columns="columns"
         :fixed-columns-end="fixedColumnsEnd"
