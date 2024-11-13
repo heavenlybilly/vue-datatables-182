@@ -37,19 +37,19 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-      - name: Create tag
-        run: git tag v$VERSION
-
-      - name: Push tag
-        run: git push origin v$VERSION
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Create tag
+#        run: git tag v$VERSION
+#
+#      - name: Push tag
+#        run: git push origin v$VERSION
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release
         uses: actions/create-release@latest
         with:
-          tag_name: v$VERSION
-          release_name: v$VERSION
-          body: 'Release of version $VERSION'
+          tag_name: v${{ VERSION }}
+          release_name: v${{ VERSION }}
+          body: 'Release of version ${{ VERSION }}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
