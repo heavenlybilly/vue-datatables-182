@@ -16,6 +16,6 @@ jobs:
           node-version: 18
       - run: npm ci
       - run: npm test
-      - run: npm lint
-      - run: npm stylelint
+      - run: npm run lint
+      - run: npm run stylelint
       - run: npm run build
