@@ -1,70 +1,26 @@
 name: Develop
 
 on:
-  pull_request:
+  push:
     branches:
-      - main
-      - dev
+      - ci
+#  pull_request:
+#    branches:
+#      - main
+#      - dev
 
 jobs:
-#  build:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#      - uses: actions/setup-node@v4
-#        with:
-#          node-version: 18
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
 #      - run: npm ci
 #      - run: npm test
 #      - run: npm run lint
 #      - run: npm run stylelint
 #      - run: npm run build
-
-  create-release:
-#    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Get version from package.json
-        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
-
-      - name: Print version
-        run: echo "The version is '$VERSION'"
-
-      - name: Set up Git
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git fetch --tags
-
-      - name: Get last release tag
-        id: last_release
-        run: |
-          LAST_RELEASE=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .tag_name)
-          echo "Last release tag: $LAST_RELEASE"
-          echo "LAST_RELEASE=$LAST_RELEASE" >> $GITHUB_ENV
-
-      - name: Get commit messages since last release
-        id: commit_messages
-        run: |
-          COMMIT_MESSAGES=$(git log ${{ env.LAST_RELEASE }}..HEAD --pretty=format:"- %s")
-          echo "Commit messages since last release:"
-          echo "$COMMIT_MESSAGES"
-          echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
-
-      - name: Print commit messages
-        run: echo "The version is '$COMMIT_MESSAGES'"
-
-#      - name: Create release
-#        uses: actions/create-release@latest
-#        with:
-#          tag_name: v${{ env.VERSION }}
-#          release_name: v${{ env.VERSION }}
-#          body: |
-#            Release of version ${{ env.VERSION }}
-#
-#            ## Changes since last release:
-#            ${{ env.COMMIT_MESSAGES }}
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Test
+        run: echo 'Hello'
