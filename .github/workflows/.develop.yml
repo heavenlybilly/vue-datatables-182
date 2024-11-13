@@ -32,10 +32,10 @@ jobs:
       - name: Print version
         run: echo "The version is '$VERSION'"
 
-      - name: Set up Git
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+#      - name: Set up Git
+#        run: |
+#          git config user.name "github-actions"
+#          git config user.email "github-actions@github.com"
 
 #      - name: Create release
 #        uses: actions/create-release@latest
