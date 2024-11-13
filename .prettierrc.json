@@ -11,8 +11,8 @@
     "^@/helpers",
     "^@/components",
     "^@/composables",
-    "^@/scss",
     "^@/assets",
+    "^@/scss",
     "^[./]"
   ],
   "importOrderSortSpecifiers": true
