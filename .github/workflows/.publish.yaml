@@ -1,8 +1,7 @@
 name: Publish
 
 on:
-  pull_request_target:
-    types: [closed]
+  push:
     branches:
       - main
 
@@ -19,6 +18,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run tests
+        run: npm test
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run stylelint
+        run: npm run stylelint
+
       - name: Build project
         run: npm run build
 
@@ -27,27 +35,33 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
-create-release:
-  needs: publish-npm
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v4
+  create-release:
+    needs: publish-npm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-    - name: Get version from package.json
-      id: get_version
-      run: echo "::set-output name=version::$(node -p "require('./package.json').version")"
+      - name: Get version from package.json
+        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
 
-    - name: Create GitHub tag
-      run: git tag v${{ steps.get_version.outputs.version }}
+      - name: Print version
+        run: echo "The version is '$VERSION'"
 
-    - name: Push GitHub tag
-      run: git push origin v${{ steps.get_version.outputs.version }}
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git fetch --tags
 
-    - name: Create GitHub release
-      uses: gh-actions/create-release@v1
-      with:
-        tag_name: v${{ steps.get_version.outputs.version }}
-        release_name: v${{ steps.get_version.outputs.version }}
-        body: 'Release of version ${{ steps.get_version.outputs.version }}'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create release
+        uses: actions/create-release@latest
+        with:
+          tag_name: v${{ env.VERSION }}
+          release_name: v${{ env.VERSION }}
+          body: |
+            Release of version ${{ env.VERSION }}
+
+            ## Changes since last release:
+            ${{ env.COMMIT_MESSAGES }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
