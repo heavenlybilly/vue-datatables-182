@@ -19,3 +19,28 @@ jobs:
       - run: npm run lint
       - run: npm run stylelint
       - run: npm run build
+
+create-release:
+  needs: build
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Get version from package.json
+      id: get_version
+      run: echo "::set-output name=version::$(node -p "require('./package.json').version")"
+
+    - name: Create GitHub tag
+      run: git tag v${{ steps.get_version.outputs.version }}
+
+    - name: Push GitHub tag
+      run: git push origin v${{ steps.get_version.outputs.version }}
+
+    - name: Create GitHub release
+      uses: gh-actions/create-release@v1
+      with:
+        tag_name: v${{ steps.get_version.outputs.version }}
+        release_name: v${{ steps.get_version.outputs.version }}
+        body: 'Release of version ${{ steps.get_version.outputs.version }}'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
