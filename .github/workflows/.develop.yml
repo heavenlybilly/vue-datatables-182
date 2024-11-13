@@ -36,6 +36,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+          git fetch --tags
 
       - name: Get last release tag
         id: last_release
@@ -47,21 +48,20 @@ jobs:
       - name: Get commit messages since last release
         id: commit_messages
         run: |
-          # Get all commits since the last release
           COMMIT_MESSAGES=$(git log ${{ env.LAST_RELEASE }}..HEAD --pretty=format:"- %s")
           echo "Commit messages since last release:"
           echo "$COMMIT_MESSAGES"
           echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
 
-      - name: Create release
-        uses: actions/create-release@latest
-        with:
-          tag_name: v${{ env.VERSION }}
-          release_name: v${{ env.VERSION }}
-          body: |
-            Release of version ${{ env.VERSION }}
-            
-            ## Changes since last release:
-            ${{ env.COMMIT_MESSAGES }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Create release
+#        uses: actions/create-release@latest
+#        with:
+#          tag_name: v${{ env.VERSION }}
+#          release_name: v${{ env.VERSION }}
+#          body: |
+#            Release of version ${{ env.VERSION }}
+#
+#            ## Changes since last release:
+#            ${{ env.COMMIT_MESSAGES }}
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
