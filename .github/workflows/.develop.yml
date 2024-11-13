@@ -1,13 +1,10 @@
 name: Develop
 
 on:
-  push:
+  pull_request:
     branches:
-      - ci
-#  pull_request:
-#    branches:
-#      - main
-#      - dev
+      - main
+      - dev
 
 jobs:
   build:
@@ -17,10 +14,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-#      - run: npm ci
-#      - run: npm test
-#      - run: npm run lint
-#      - run: npm run stylelint
-#      - run: npm run build
-      - name: Test
-        run: echo 'Hello'
+      - run: npm ci
+      - run: npm test
+      - run: npm run lint
+      - run: npm run stylelint
+      - run: npm run build
