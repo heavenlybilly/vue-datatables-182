@@ -22,7 +22,7 @@ export const componentProps = {
   },
   rowsPerPageCount: {
     type: Number,
-    default: 25,
+    default: 10,
   },
   rowsPerPageOptions: {
     type: Array as PropType<number[]>,

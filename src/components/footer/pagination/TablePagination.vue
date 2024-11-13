@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import chevronDoubleLeftIcon from '@/assets/chevron-double-left.svg?raw'
+import chevronDoubleRightIcon from '@/assets/chevron-double-right.svg?raw'
+import chevronLeftIcon from '@/assets/chevron-left.svg?raw'
+import chevronRightIcon from '@/assets/chevron-right.svg?raw'
 
 const props = defineProps({
   page: {
@@ -82,18 +86,18 @@ const handleGoLast = () => {
 <template>
   <div class="data-table-pagination">
     <div
-      class="data-table-pagination-page"
+      class="data-table-pagination-page data-table-pagination-page-arrow"
       :class="{ disabled: !canGoPrev }"
       @click="handleGoFirst"
     >
-      <i class="mdi mdi-chevron-double-left"></i>
+      <div v-html="chevronDoubleLeftIcon"></div>
     </div>
     <div
-      class="data-table-pagination-page"
+      class="data-table-pagination-page data-table-pagination-page-arrow"
       :class="{ disabled: !canGoPrev }"
       @click="handleGoPrev"
     >
-      <i class="mdi mdi-chevron-left"></i>
+      <div v-html="chevronLeftIcon"></div>
     </div>
     <div
       v-for="(item, index) of pages"
@@ -105,18 +109,18 @@ const handleGoLast = () => {
       {{ item }}
     </div>
     <div
-      class="data-table-pagination-page"
+      class="data-table-pagination-page data-table-pagination-page-arrow"
       :class="{ disabled: !canGoNext }"
       @click="handleGoNext"
     >
-      <i class="mdi mdi-chevron-right"></i>
+      <div v-html="chevronRightIcon"></div>
     </div>
     <div
-      class="data-table-pagination-page"
+      class="data-table-pagination-page data-table-pagination-page-arrow"
       :class="{ disabled: !canGoNext }"
       @click="handleGoLast"
     >
-      <i class="mdi mdi-chevron-double-right"></i>
+      <div v-html="chevronDoubleRightIcon"></div>
     </div>
   </div>
 </template>
@@ -156,5 +160,13 @@ const handleGoLast = () => {
     color: #c6c6c6 !important;
     cursor: default;
   }
+}
+
+.data-table-pagination-page-arrow > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8px;
+  height: 8px;
 }
 </style>

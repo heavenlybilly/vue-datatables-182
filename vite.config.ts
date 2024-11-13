@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue2'
 import * as path from 'path'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
+import svgr from "vite-plugin-svgr"
 
 export default defineConfig({
   plugins: [
@@ -13,6 +14,7 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
     }),
+    svgr(),
   ],
   build: {
     lib: {
@@ -26,6 +28,13 @@ export default defineConfig({
         globals: {
           vue: 'Vue',
         },
+      },
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler',
       },
     },
   },

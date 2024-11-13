@@ -32,6 +32,7 @@ module.exports = {
     project: 'tsconfig.json',
   },
   rules: {
+    'import/no-unresolved': ['error', { ignore: ['\\.svg\\?raw$'] }],
     'import/prefer-default-export': 'off',
     'import/extensions': [
       'error',
@@ -65,6 +66,7 @@ module.exports = {
     // Vue
     'vue/v-on-event-hyphenation': 'error',
     'vue/attributes-order': ['error', { alphabetical: true }],
+    'vue/no-v-html': 'off',
     'vuejs-accessibility/click-events-have-key-events': 'off',
     'vuejs-accessibility/form-control-has-label': 'off',
     'vuejs-accessibility/heading-has-content': 'off',
