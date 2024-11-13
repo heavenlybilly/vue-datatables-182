@@ -1,4 +1,4 @@
-import { DTColumn, DTColumnProps } from '@/types'
+import { DTColumn, DTColumnProps, DTTextAlign } from '@/types'
 import Vue, { Ref, ref } from 'vue'
 // eslint-disable-next-line import/no-unresolved
 import { VNode } from 'vue/types/vnode'
@@ -16,8 +16,15 @@ const resolveClassObject = (node: VNode): Record<string, boolean> => {
   )
 }
 
-const resolveStyleObject = (params: { width: string | null }) => {
-  const styleObject: Record<string, string | number> = {}
+const resolveStyleObject = (params: { width?: string; align?: DTTextAlign }) => {
+  const styleObject: {
+    width?: string
+    minWidth?: string
+    maxWidth?: string
+    textAlign: DTTextAlign
+  } = {
+    textAlign: params.align ?? 'left',
+  }
 
   if (params.width) {
     styleObject.width = params.width
@@ -42,7 +49,7 @@ export const useColumns = () => {
       }
 
       const props = node.componentOptions.propsData as DTColumnProps
-      const { field, title, orderable, searchable, width } = props
+      const { field, title, orderable, searchable, width, align } = props
 
       const column: DTColumn = {
         index,
@@ -58,7 +65,7 @@ export const useColumns = () => {
         },
         appearance: {
           classObject: resolveClassObject(node),
-          styleObject: resolveStyleObject({ width }),
+          styleObject: resolveStyleObject({ width, align }),
         },
       }
 

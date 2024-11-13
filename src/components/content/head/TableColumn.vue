@@ -66,10 +66,12 @@ const handleOrderUpdate = () => {
   <th
     class="dt-column"
     :class="classObject"
-    :style="props.column.appearance.styleObject"
     @click="handleOrderUpdate"
   >
-    <div class="dt-column-inner">
+    <div
+      class="dt-column-inner"
+      :style="props.column.appearance.styleObject"
+    >
       <span>{{ props.column.params.title }}</span>
       <div v-if="columnOrderEnable">
         <div
