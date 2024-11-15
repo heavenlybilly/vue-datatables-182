@@ -41,14 +41,14 @@ export default defineComponent({
   props: tableProps,
   emits: ['update:selected-rows', 'click:row'],
   setup(props, { emit }) {
-    const { dataSource, url, items, searching, pagination } = toRefs(props)
+    const { source, url, items, searching, pagination } = toRefs(props)
 
     const { error, handleError } = useErrors()
     const { columns, initColumns } = useColumns()
     const { page, rowsPerPage, setPage, setRowsPerPage } = usePagination()
     const { search, setSearch } = useSearch()
     const { order, setOrder } = useOrder()
-    const { tableData, fetchTableData } = useData(dataSource, url, items, columns, {
+    const { tableData, fetchTableData } = useData(source, url, items, columns, {
       searching,
       search,
       pagination,

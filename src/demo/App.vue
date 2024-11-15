@@ -21,11 +21,11 @@ const url = import.meta.env.VITE_DEMO_TABLE_URL
   <div class="wrapper">
     <data-table
       ref="tableElement"
-      data-source="server"
       :items="data"
       numbering
       row-selection
       rows-clickable
+      source="server"
       :url="url"
       @click:row="handleClickRow"
     >

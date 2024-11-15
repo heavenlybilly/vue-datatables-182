@@ -1,10 +1,11 @@
-import { DTColumn, DTDataSource, DTOrder, DTRowItem, DTTableData } from '@/types'
+import { DomainError } from '@/DomainError'
+import { DTColumn, DTOrder, DTRowItem, DTSource, DTTableData } from '@/types'
 import { Ref, ref } from 'vue'
 import { useDataClient } from '@/composables/data/useDataClient'
 import { useDataServer } from '@/composables/data/useDataServer'
 
 export const useData = (
-  dataSource: Ref<DTDataSource>,
+  source: Ref<DTSource>,
   url: Ref<string | null>,
   items: Ref<DTRowItem[]>,
   columns: Ref<DTColumn[]>,
@@ -23,7 +24,7 @@ export const useData = (
   const { fetchRemoteItems } = useDataServer()
 
   const fetchTableData = async () => {
-    switch (dataSource.value) {
+    switch (source.value) {
       case 'client':
         tableData.value = processItems(items, columns, params)
         break
@@ -31,7 +32,7 @@ export const useData = (
         tableData.value = await fetchRemoteItems(url, columns, params)
         break
       default:
-        throw new Error('Unknown prop dataSource value')
+        throw new DomainError('Unknown prop source value')
     }
   }
 

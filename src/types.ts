@@ -50,7 +50,7 @@ export type DTColumn = {
 /**
  * Table data
  */
-export type DTDataSource = 'server' | 'client'
+export type DTSource = 'server' | 'client'
 
 export type DTRowItemValue = string | number | boolean | null
 export type DTRowItem = Record<string, DTRowItemValue>

@@ -1,11 +1,11 @@
 import { DomainError } from '@/DomainError'
-import { DTDataSource, DTOrderDirection, DTRowItem, DTTableProps } from '@/types'
+import { DTOrderDirection, DTRowItem, DTSource, DTTableProps } from '@/types'
 import { PropType } from 'vue'
 
 export const tableProps = {
   // data
-  dataSource: {
-    type: String as PropType<DTDataSource>,
+  source: {
+    type: String as PropType<DTSource>,
     default: 'server',
   },
   url: {
