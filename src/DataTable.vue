@@ -1,5 +1,5 @@
 <script lang="ts">
-import { componentProps, validateProps } from '@/props'
+import { tableProps, validateTableProps } from '@/props'
 import { DTOrder, DTRow } from '@/types'
 import Vue, { defineComponent, getCurrentInstance, onMounted, toRefs, watch } from 'vue'
 import debounce from '@/helpers/debounce'
@@ -38,17 +38,17 @@ export default defineComponent({
     TableBody,
     TableHead,
   },
-  props: componentProps,
+  props: tableProps,
   emits: ['update:selected-rows', 'click:row'],
   setup(props, { emit }) {
-    const { dataSource, url, items, searching, pagination } = toRefs(props)
+    const { source, url, items, searching, pagination } = toRefs(props)
 
     const { error, handleError } = useErrors()
     const { columns, initColumns } = useColumns()
     const { page, rowsPerPage, setPage, setRowsPerPage } = usePagination()
     const { search, setSearch } = useSearch()
     const { order, setOrder } = useOrder()
-    const { tableData, fetchTableData } = useData(dataSource, url, items, columns, {
+    const { tableData, fetchTableData } = useData(source, url, items, columns, {
       searching,
       search,
       pagination,
@@ -68,7 +68,7 @@ export default defineComponent({
 
     const init = async () => {
       try {
-        validateProps(props)
+        validateTableProps(props)
 
         const instance = getCurrentInstance() as { proxy: Vue }
         initColumns(instance.proxy)

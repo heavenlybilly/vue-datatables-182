@@ -1,10 +1,10 @@
 import DataTable from '@/DataTable.vue'
-import { componentProps } from '@/props'
+import { tableProps } from '@/props'
 import { ExtractPropTypes } from 'vue'
 // eslint-disable-next-line import/no-unresolved
 import { NormalizedScopedSlot } from 'vue/types/vnode'
 
-export type DTTableProps = ExtractPropTypes<typeof componentProps>
+export type DTTableProps = ExtractPropTypes<typeof tableProps>
 
 export type DTTable = typeof DataTable &
   DTTableProps & {
@@ -50,7 +50,7 @@ export type DTColumn = {
 /**
  * Table data
  */
-export type DTDataSource = 'server' | 'client'
+export type DTSource = 'server' | 'client'
 
 export type DTRowItemValue = string | number | boolean | null
 export type DTRowItem = Record<string, DTRowItemValue>

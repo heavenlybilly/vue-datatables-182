@@ -1,11 +1,11 @@
 import { DomainError } from '@/DomainError'
-import { DTDataSource, DTOrderDirection, DTRowItem, DTTableProps } from '@/types'
+import { DTOrderDirection, DTRowItem, DTSource, DTTableProps } from '@/types'
 import { PropType } from 'vue'
 
-export const componentProps = {
+export const tableProps = {
   // data
-  dataSource: {
-    type: String as PropType<DTDataSource>,
+  source: {
+    type: String as PropType<DTSource>,
     default: 'server',
   },
   url: {
@@ -81,7 +81,7 @@ export const componentProps = {
   },
 }
 
-export const validateProps = (props: DTTableProps) => {
+export const validateTableProps = (props: DTTableProps) => {
   if (!props.rowsPerPageOptions.includes(props.rowsPerPageCount)) {
     throw new DomainError(
       'Invalid props declaration',

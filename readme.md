@@ -48,7 +48,7 @@ export default {
 <template>
   <!-- client data source -->
   <data-table
-    data-source="client"
+    source="client"
     :items="items"
     numbering
     row-selection
@@ -70,7 +70,7 @@ export default {
 
   <!-- server data source -->
   <data-table
-    data-source="server"
+    source="server"
     url="/example-table"
     numbering
     row-selection
@@ -99,11 +99,11 @@ export default {
 
 ### Table data
 
-### `data-source`
+### `source`
 Source of data for the table. Available values: `client` and `server`.
 
 ```js
-dataSource: {
+source: {
   type: String,
   default: 'server',
 }
@@ -285,7 +285,7 @@ const handleClickRow = (row) => {
 #### Table
 ```vue
 <data-table
-  data-source="client"
+  source="client"
   :items="items"
   rows-clickable
   @click:row="handleClickRow"
@@ -306,7 +306,7 @@ const handleUpdateSelectedRows = (rows) => {
 #### Table
 ```vue
 <data-table
-  data-source="client"
+  source="client"
   :items="items"
   row-selection
   @update:selected-rows="handleUpdateSelectedRows"
