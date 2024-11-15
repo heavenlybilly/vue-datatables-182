@@ -2,20 +2,27 @@
 import DataTable from '@/DataTable.vue'
 import DataTableColumn from '@/DataTableColumn.vue'
 import { cities } from '@/demo/mocks'
-import { DTRow } from '@/types'
-import { ref } from 'vue'
+import { DTRow, DTTable } from '@/types'
+import { Ref, ref } from 'vue'
 
 const data = ref(cities)
+
+const tableElement: Ref<DTTable | null> = ref(null)
 
 const handleClickRow = (row: DTRow) => {
   // eslint-disable-next-line
   console.log(row)
+
+  if (tableElement.value) {
+    tableElement.value.handleSelectAll()
+  }
 }
 </script>
 
 <template>
   <div class="wrapper">
     <data-table
+      ref="tableElement"
       actions
       data-source="client"
       :items="data"

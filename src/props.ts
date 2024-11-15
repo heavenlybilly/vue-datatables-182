@@ -1,5 +1,5 @@
-import { DTDataSource, DTOrderDirection, DTRowItem } from '@/types'
-import { ExtractPropTypes, PropType } from 'vue'
+import { DTDataSource, DTOrderDirection, DTRowItem, DTTableProps } from '@/types'
+import { PropType } from 'vue'
 
 export const componentProps = {
   // data
@@ -81,9 +81,7 @@ export const componentProps = {
   },
 }
 
-type TComponentProps = ExtractPropTypes<typeof componentProps>
-
-export const validateProps = (props: TComponentProps) => {
+export const validateProps = (props: DTTableProps) => {
   if (!props.rowsPerPageOptions.includes(props.rowsPerPageCount)) {
     throw new Error('Prop rowsPerPageCount is not present in prop rowsPerPageOptions')
   }
