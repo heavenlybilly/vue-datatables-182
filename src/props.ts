@@ -74,6 +74,11 @@ export const componentProps = {
     required: false,
     default: 0,
   },
+  // rows clickable
+  rowsClickable: {
+    type: Boolean,
+    default: false,
+  },
 }
 
 type TComponentProps = ExtractPropTypes<typeof componentProps>

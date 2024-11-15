@@ -1,6 +1,6 @@
 <script lang="ts">
 import { componentProps, validateProps } from '@/props'
-import { DTOrder } from '@/types'
+import { DTOrder, DTRow } from '@/types'
 import Vue, { defineComponent, getCurrentInstance, onMounted, toRefs, watch } from 'vue'
 import debounce from '@/helpers/debounce'
 import TableContent from '@/components/content/TableContent.vue'
@@ -37,7 +37,7 @@ export default defineComponent({
     TableHead,
   },
   props: componentProps,
-  emits: ['update:selected-rows'],
+  emits: ['update:selected-rows', 'click:row'],
   setup(props, { emit }) {
     const { dataSource, url, items, searching, pagination } = toRefs(props)
 
@@ -122,6 +122,10 @@ export default defineComponent({
       deselectRow(index)
     }
 
+    const handleClickRow = (row: DTRow) => {
+      emit('click:row', row)
+    }
+
     onMounted(init)
 
     watch(
@@ -160,6 +164,7 @@ export default defineComponent({
       handleDeselectAll,
       handleSelectRow,
       handleDeselectRow,
+      handleClickRow,
     }
   },
 })
@@ -220,7 +225,9 @@ export default defineComponent({
           :numbering="numbering"
           :row="row"
           :row-selection="rowSelection"
+          :rows-clickable="rowsClickable"
           :selected-row-indexes="selectedRowIndexes"
+          @click="handleClickRow"
           @deselect-row="handleDeselectRow"
           @select-row="handleSelectRow"
         >

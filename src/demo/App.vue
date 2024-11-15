@@ -2,18 +2,27 @@
 import DataTable from '@/DataTable.vue'
 import DataTableColumn from '@/DataTableColumn.vue'
 import { cities } from '@/demo/mocks'
+import { DTRow } from '@/types'
 import { ref } from 'vue'
 
 const data = ref(cities)
+
+const handleClickRow = (row: DTRow) => {
+  // eslint-disable-next-line
+  console.log(row)
+}
 </script>
 
 <template>
   <div class="wrapper">
     <data-table
+      actions
       data-source="client"
       :items="data"
       numbering
       row-selection
+      rows-clickable
+      @click:row="handleClickRow"
     >
       <data-table-column
         field="title"
@@ -46,7 +55,7 @@ const data = ref(cities)
       <template #actions="{ row }">
         <div>
           <span>
-            Действия над ячейкой с номером: <b>{{ row.number }}</b>
+            <b>{{ row.number }}</b>
           </span>
         </div>
       </template>
