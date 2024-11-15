@@ -30,3 +30,4 @@ desktop.ini
 .npm
 .yarn
 .pnpm-store
+.env

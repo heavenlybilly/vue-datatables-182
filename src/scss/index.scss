@@ -3,14 +3,31 @@
 @use "content";
 @use "footer";
 
-.data-table {
+.dt-wrapper {
   box-sizing: border-box;
 }
 
-.data-table-error {
+.dt-error {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 1rem;
   padding: 1rem;
   font-weight: 400;
+  background-color: #fffbfb;
+  border: 1px solid #fbd8d8;
+  border-radius: 5px;
+
+  &-message {
+    display: flex;
+    color: #af3a3a;
+    font-weight: 600;
+  }
+
+  &-description {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    font-style: italic;
+  }
 }

@@ -75,3 +75,11 @@ export type DTOrderColumn = {
   readonly direction: DTOrderDirection
 }
 export type DTOrder = DTOrderColumn
+
+/**
+ * Error
+ */
+export type DTError = {
+  message: string
+  description?: string | null
+}
