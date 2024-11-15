@@ -40,9 +40,13 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  rowsClickable: {
+    type: Boolean,
+    required: true,
+  },
 })
 
-const emit = defineEmits(['select-row', 'deselect-row'])
+const emit = defineEmits(['select-row', 'deselect-row', 'click'])
 
 const rowElement: Ref<HTMLElement | null> = ref(null)
 
@@ -50,12 +54,22 @@ const isChecked = computed(() => {
   return props.selectedRowIndexes.includes(props.row.index)
 })
 
+const classObject = computed(() => ({
+  'dt-row-clickable': props.rowsClickable,
+}))
+
 const handleSelectRow = (index: number) => {
   emit('select-row', index)
 }
 
 const handleDeselectRow = (index: number) => {
   emit('deselect-row', index)
+}
+
+const handleClickRow = () => {
+  if (props.rowsClickable) {
+    emit('click', props.row)
+  }
 }
 
 const initFixedColumns = () => {
@@ -76,6 +90,9 @@ onMounted(initFixedColumns)
   <tr
     :key="props.row.index"
     ref="rowElement"
+    class="dt-row"
+    :class="classObject"
+    @click="handleClickRow"
   >
     <table-cell-numbering
       v-if="props.numbering"
