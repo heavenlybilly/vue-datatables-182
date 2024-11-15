@@ -2,7 +2,7 @@ import { DomainError } from '@/DomainError'
 import { DTDataSource, DTOrderDirection, DTRowItem, DTTableProps } from '@/types'
 import { PropType } from 'vue'
 
-export const componentProps = {
+export const tableProps = {
   // data
   dataSource: {
     type: String as PropType<DTDataSource>,
@@ -81,7 +81,7 @@ export const componentProps = {
   },
 }
 
-export const validateProps = (props: DTTableProps) => {
+export const validateTableProps = (props: DTTableProps) => {
   if (!props.rowsPerPageOptions.includes(props.rowsPerPageCount)) {
     throw new DomainError(
       'Invalid props declaration',

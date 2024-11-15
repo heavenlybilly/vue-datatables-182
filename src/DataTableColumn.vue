@@ -1,42 +1,47 @@
-<script setup lang="ts">
-import { DTColumnProps, DTRow, DTTextAlign } from '@/types'
-import { PropType } from 'vue'
+<script lang="ts">
+import { DTRow, DTTextAlign } from '@/types'
+import { PropType, defineComponent } from 'vue'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const props: DTColumnProps = defineProps({
-  field: {
-    type: String,
-    required: true,
+export default defineComponent({
+  name: 'DataTableColumn',
+  props: {
+    field: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: false,
+      default: null,
+    },
+    orderable: {
+      type: Boolean,
+      default: false,
+    },
+    searchable: {
+      type: Boolean,
+      default: false,
+    },
+    width: {
+      type: String,
+      required: false,
+      default: undefined,
+    },
+    textAlign: {
+      type: String as PropType<DTTextAlign>,
+      default: undefined,
+    },
   },
-  title: {
-    type: String,
-    required: false,
-    default: null,
-  },
-  orderable: {
-    type: Boolean,
-    default: false,
-  },
-  searchable: {
-    type: Boolean,
-    default: false,
-  },
-  width: {
-    type: String,
-    required: false,
-    default: undefined,
-  },
-  textAlign: {
-    type: String as PropType<DTTextAlign>,
-    default: undefined,
+  data() {
+    return {
+      rowPlug: {
+        index: 1,
+        number: 1,
+        item: {},
+      } as DTRow,
+    }
   },
 })
-
-const plug: DTRow = {
-  index: 1,
-  number: 1,
-  item: {},
-}
 </script>
 
 <template>
@@ -44,7 +49,7 @@ const plug: DTRow = {
   <div v-if="false">
     <slot
       name="cell"
-      :row="plug"
+      :row="rowPlug"
     ></slot>
   </div>
 </template>
