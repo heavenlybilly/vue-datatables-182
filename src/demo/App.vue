@@ -2,86 +2,67 @@
 import DataTable from '@/DataTable.vue'
 import DataTableColumn from '@/DataTableColumn.vue'
 import { cities } from '@/demo/mocks'
-import { ref } from 'vue'
+import { DTRow, DTTable } from '@/types'
+import { Ref, ref } from 'vue'
 
 const data = ref(cities)
+
+const tableElement: Ref<DTTable | null> = ref(null)
+
+const handleClickRow = (row: DTRow) => {
+  // eslint-disable-next-line
+  console.log(row)
+}
+
+const url = import.meta.env.VITE_DEMO_TABLE_URL
 </script>
 
 <template>
   <div class="wrapper">
     <data-table
-      actions
-      data-source="client"
-      :fixed-columns-end="1"
-      :fixed-columns-start="2"
+      ref="tableElement"
+      data-source="server"
       :items="data"
       numbering
       row-selection
-      scroll-x
+      rows-clickable
+      :url="url"
+      @click:row="handleClickRow"
     >
       <data-table-column
-        field="title"
+        field="name"
         orderable
         searchable
         title="Наименование"
-        width="400px"
       />
       <data-table-column
-        align="center"
-        field="population"
+        field="type_name"
         orderable
-        searchable
-        title="Численность населения"
-        width="200px"
+        text-align="center"
+        title="Тип"
       />
       <data-table-column
-        align="center"
-        field="population"
+        field="subtype_name"
         orderable
-        searchable
-        title="Население"
-        width="200px"
+        text-align="center"
+        title="Подтип"
       />
       <data-table-column
-        align="center"
-        field="population"
-        orderable
-        searchable
-        title="Популяция"
-        width="200px"
+        field="controlled_entity_name"
+        text-align="center"
+        title="Контролируемое лицо"
       />
       <data-table-column
-        align="center"
-        field="population"
-        orderable
-        searchable
-        title="Численность"
-        width="200px"
+        field="state"
+        text-align="center"
+        title="Статус"
       />
       <data-table-column
-        align="center"
-        field="date_foundation"
+        field="updated_at"
         orderable
-        searchable
-        title="Дата основания"
-        width="150px"
+        text-align="center"
+        title="Дата обновления"
       />
-      <data-table-column
-        align="center"
-        field="order"
-        orderable
-        searchable
-        title="Порядок сортировки"
-        width="150px"
-      />
-
-      <template #actions="{ row }">
-        <div>
-          <span>
-            Действия над ячейкой с номером: <b>{{ row.number }}</b>
-          </span>
-        </div>
-      </template>
     </data-table>
   </div>
 </template>

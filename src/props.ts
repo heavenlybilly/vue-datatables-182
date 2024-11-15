@@ -1,5 +1,6 @@
-import { DTDataSource, DTOrderDirection, DTRowItem } from '@/types'
-import { ExtractPropTypes, PropType } from 'vue'
+import { DomainError } from '@/DomainError'
+import { DTDataSource, DTOrderDirection, DTRowItem, DTTableProps } from '@/types'
+import { PropType } from 'vue'
 
 export const componentProps = {
   // data
@@ -36,7 +37,6 @@ export const componentProps = {
   // order
   orderBy: {
     type: String as PropType<string | null>,
-    required: false,
     default: null,
   },
   orderDirection: {
@@ -74,17 +74,24 @@ export const componentProps = {
     required: false,
     default: 0,
   },
+  // rows clickable
+  rowsClickable: {
+    type: Boolean,
+    default: false,
+  },
 }
 
-type TComponentProps = ExtractPropTypes<typeof componentProps>
-
-export const validateProps = (props: TComponentProps) => {
+export const validateProps = (props: DTTableProps) => {
   if (!props.rowsPerPageOptions.includes(props.rowsPerPageCount)) {
-    throw new Error('Prop rowsPerPageCount is not present in prop rowsPerPageOptions')
+    throw new DomainError(
+      'Invalid props declaration',
+      'Prop rowsPerPageCount is not present in prop rowsPerPageOptions',
+    )
   }
 
   if (!props.scrollX && (props.fixedColumnsStart || props.fixedColumnsEnd)) {
-    throw new Error(
+    throw new DomainError(
+      'Invalid props declaration',
       'The props fixedColumnsStart and fixedColumnsEnd may only be set when the scrollX prop is true',
     )
   }

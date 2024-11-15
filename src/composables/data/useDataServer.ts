@@ -1,3 +1,4 @@
+import { DomainError } from '@/DomainError'
 import { DTColumn, DTOrder, DTRowItem, DTTableData } from '@/types'
 import { Ref } from 'vue'
 import makeQueryParams from '@/composables/data/helpers/makeQueryParams'
@@ -16,7 +17,7 @@ export const useDataServer = () => {
     },
   ): Promise<DTTableData> => {
     if (!url.value) {
-      throw new Error('Prop url is not defined')
+      throw new DomainError('Prop url is not defined')
     }
 
     const queryParams = makeQueryParams({
@@ -28,7 +29,22 @@ export const useDataServer = () => {
     })
 
     const response = await fetch(`${url.value}?${queryParams}`)
+    if (!response.ok) {
+      let description: string | null
+
+      try {
+        description = JSON.stringify(await response.json())
+      } catch (error) {
+        description = null
+      }
+
+      throw new DomainError('Error occurred during fetching remote data', description)
+    }
     const data = await response.json()
+
+    if (data?.error) {
+      throw new DomainError('Error occurred during fetching remote data', data.error)
+    }
 
     let numberOffset = 0
 

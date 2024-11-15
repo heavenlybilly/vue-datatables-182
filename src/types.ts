@@ -1,5 +1,15 @@
+import DataTable from '@/DataTable.vue'
+import { componentProps } from '@/props'
+import { ExtractPropTypes } from 'vue'
 // eslint-disable-next-line import/no-unresolved
 import { NormalizedScopedSlot } from 'vue/types/vnode'
+
+export type DTTableProps = ExtractPropTypes<typeof componentProps>
+
+export type DTTable = typeof DataTable &
+  DTTableProps & {
+    reload: () => Promise<void>
+  }
 
 /**
  * Columns
@@ -12,7 +22,7 @@ export type DTColumnProps = {
   readonly orderable: boolean
   readonly searchable: boolean
   readonly width: string | undefined
-  readonly align: DTTextAlign | undefined
+  readonly textAlign: DTTextAlign | undefined
 }
 
 type DTColumnParams = {
@@ -65,3 +75,11 @@ export type DTOrderColumn = {
   readonly direction: DTOrderDirection
 }
 export type DTOrder = DTOrderColumn
+
+/**
+ * Error
+ */
+export type DTError = {
+  message: string
+  description?: string | null
+}

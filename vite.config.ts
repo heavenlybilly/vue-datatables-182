@@ -4,6 +4,7 @@ import * as path from 'path'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import svgr from "vite-plugin-svgr"
+import Checker from 'vite-plugin-checker'
 
 export default defineConfig({
   plugins: [
@@ -15,6 +16,11 @@ export default defineConfig({
       insertTypesEntry: true,
     }),
     svgr(),
+    Checker({
+      typescript: {
+        tsconfigPath: 'tsconfig.json'
+      },
+    }),
   ],
   build: {
     lib: {

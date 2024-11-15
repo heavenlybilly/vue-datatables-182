@@ -24,12 +24,13 @@ const handleSelectRowClick = (e: Event, index: number) => {
 </script>
 
 <template>
-  <td class="dt-cell-selection">
+  <td class="dt-cell dt-cell-selection">
     <div class="dt-cell-selection-inner">
       <input
         :checked="props.checked"
         type="checkbox"
         @change="(e) => handleSelectRowClick(e, props.index)"
+        @click.stop
       />
     </div>
   </td>
