@@ -10,69 +10,37 @@ const data = ref(cities)
 <template>
   <div class="wrapper">
     <data-table
-      actions
       data-source="client"
-      :fixed-columns-end="1"
-      :fixed-columns-start="2"
       :items="data"
       numbering
       row-selection
-      scroll-x
     >
       <data-table-column
         field="title"
         orderable
         searchable
         title="Наименование"
-        width="400px"
       />
       <data-table-column
-        align="center"
         field="population"
         orderable
         searchable
+        text-align="center"
         title="Численность населения"
-        width="200px"
       />
       <data-table-column
-        align="center"
-        field="population"
-        orderable
-        searchable
-        title="Население"
-        width="200px"
-      />
-      <data-table-column
-        align="center"
-        field="population"
-        orderable
-        searchable
-        title="Популяция"
-        width="200px"
-      />
-      <data-table-column
-        align="center"
-        field="population"
-        orderable
-        searchable
-        title="Численность"
-        width="200px"
-      />
-      <data-table-column
-        align="center"
         field="date_foundation"
         orderable
         searchable
+        text-align="center"
         title="Дата основания"
-        width="150px"
       />
       <data-table-column
-        align="center"
         field="order"
         orderable
         searchable
+        text-align="center"
         title="Порядок сортировки"
-        width="150px"
       />
 
       <template #actions="{ row }">

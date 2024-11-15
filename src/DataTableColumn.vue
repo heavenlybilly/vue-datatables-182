@@ -26,7 +26,7 @@ const props: DTColumnProps = defineProps({
     required: false,
     default: undefined,
   },
-  align: {
+  textAlign: {
     type: String as PropType<DTTextAlign>,
     default: undefined,
   },
