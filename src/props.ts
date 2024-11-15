@@ -37,7 +37,6 @@ export const componentProps = {
   // order
   orderBy: {
     type: String as PropType<string | null>,
-    required: false,
     default: null,
   },
   orderDirection: {
