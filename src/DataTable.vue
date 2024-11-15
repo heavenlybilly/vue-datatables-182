@@ -126,6 +126,10 @@ export default defineComponent({
       emit('click:row', row)
     }
 
+    const reload = async () => {
+      await fetchTableData()
+    }
+
     onMounted(init)
 
     watch(
@@ -165,6 +169,7 @@ export default defineComponent({
       handleSelectRow,
       handleDeselectRow,
       handleClickRow,
+      reload,
     }
   },
 })

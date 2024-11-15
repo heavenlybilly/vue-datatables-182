@@ -1,5 +1,15 @@
+import DataTable from '@/DataTable.vue'
+import { componentProps } from '@/props'
+import { ExtractPropTypes } from 'vue'
 // eslint-disable-next-line import/no-unresolved
 import { NormalizedScopedSlot } from 'vue/types/vnode'
+
+export type DTTableProps = ExtractPropTypes<typeof componentProps>
+
+export type DTTable = typeof DataTable &
+  DTTableProps & {
+    reload: () => Promise<void>
+  }
 
 /**
  * Columns
