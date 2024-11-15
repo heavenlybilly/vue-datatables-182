@@ -1,3 +1,4 @@
+import { DomainError } from '@/DomainError'
 import { DTDataSource, DTOrderDirection, DTRowItem, DTTableProps } from '@/types'
 import { PropType } from 'vue'
 
@@ -83,11 +84,15 @@ export const componentProps = {
 
 export const validateProps = (props: DTTableProps) => {
   if (!props.rowsPerPageOptions.includes(props.rowsPerPageCount)) {
-    throw new Error('Prop rowsPerPageCount is not present in prop rowsPerPageOptions')
+    throw new DomainError(
+      'Invalid props declaration',
+      'Prop rowsPerPageCount is not present in prop rowsPerPageOptions',
+    )
   }
 
   if (!props.scrollX && (props.fixedColumnsStart || props.fixedColumnsEnd)) {
-    throw new Error(
+    throw new DomainError(
+      'Invalid props declaration',
       'The props fixedColumnsStart and fixedColumnsEnd may only be set when the scrollX prop is true',
     )
   }

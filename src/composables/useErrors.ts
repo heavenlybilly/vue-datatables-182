@@ -1,14 +1,17 @@
+import { DomainError } from '@/DomainError'
+import { DTError } from '@/types'
 import { Ref, ref } from 'vue'
 
-export type TError = {
-  message: string
-}
-
 export const useErrors = () => {
-  const error: Ref<TError | null> = ref(null)
+  const error: Ref<DTError | null> = ref(null)
 
-  const handleError = (value: Error | any) => {
-    if (value instanceof Error) {
+  const handleError = (value: Error | DTError | string | any) => {
+    if (value instanceof DomainError) {
+      error.value = {
+        message: value.message,
+        description: value.description,
+      }
+    } else if (value instanceof Error) {
       error.value = {
         message: value.message,
       }

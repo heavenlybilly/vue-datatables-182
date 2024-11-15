@@ -12,60 +12,57 @@ const tableElement: Ref<DTTable | null> = ref(null)
 const handleClickRow = (row: DTRow) => {
   // eslint-disable-next-line
   console.log(row)
-
-  if (tableElement.value) {
-    tableElement.value.handleSelectAll()
-  }
 }
+
+const url = import.meta.env.VITE_DEMO_TABLE_URL
 </script>
 
 <template>
   <div class="wrapper">
     <data-table
       ref="tableElement"
-      actions
-      data-source="client"
+      data-source="server"
       :items="data"
       numbering
       row-selection
       rows-clickable
+      :url="url"
       @click:row="handleClickRow"
     >
       <data-table-column
-        field="title"
+        field="name"
         orderable
         searchable
         title="Наименование"
       />
       <data-table-column
-        field="population"
+        field="type_name"
         orderable
-        searchable
         text-align="center"
-        title="Численность населения"
+        title="Тип"
       />
       <data-table-column
-        field="date_foundation"
+        field="subtype_name"
         orderable
-        searchable
         text-align="center"
-        title="Дата основания"
+        title="Подтип"
       />
       <data-table-column
-        field="order"
-        orderable
-        searchable
+        field="controlled_entity_name"
         text-align="center"
-        title="Порядок сортировки"
+        title="Контролируемое лицо"
       />
-
-      <template #actions="{ row }">
-        <div>
-          <span>
-            <b>{{ row.number }}</b>
-          </span>
-        </div>
-      </template>
+      <data-table-column
+        field="state"
+        text-align="center"
+        title="Статус"
+      />
+      <data-table-column
+        field="updated_at"
+        orderable
+        text-align="center"
+        title="Дата обновления"
+      />
     </data-table>
   </div>
 </template>

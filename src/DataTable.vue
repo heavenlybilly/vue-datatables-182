@@ -3,6 +3,7 @@ import { componentProps, validateProps } from '@/props'
 import { DTOrder, DTRow } from '@/types'
 import Vue, { defineComponent, getCurrentInstance, onMounted, toRefs, watch } from 'vue'
 import debounce from '@/helpers/debounce'
+import ErrorPlug from '@/components/ErrorPlug.vue'
 import TableContent from '@/components/content/TableContent.vue'
 import TableBody from '@/components/content/body/TableBody.vue'
 import TableRow from '@/components/content/body/TableRow.vue'
@@ -25,6 +26,7 @@ import '@/scss/index.scss'
 export default defineComponent({
   name: 'DataTable',
   components: {
+    ErrorPlug,
     TableRow,
     TableContent,
     TableFooter,
@@ -176,7 +178,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="data-table">
+  <div class="dt-wrapper">
     <table-top>
       <template #topLeftBeforeActions>
         <slot name="topLeftBeforeActions" />
@@ -196,15 +198,7 @@ export default defineComponent({
       </template>
     </table-top>
 
-    <div v-if="error">
-      <div class="data-table-error">
-        {{ error.message }}
-      </div>
-    </div>
-    <table-content
-      v-else
-      :scroll-x="scrollX"
-    >
+    <table-content :scroll-x="scrollX">
       <table-head
         v-if="tableData"
         :actions="actions"
@@ -245,6 +239,10 @@ export default defineComponent({
         </table-row>
       </table-body>
     </table-content>
+    <error-plug
+      v-if="error"
+      :error="error"
+    />
 
     <table-footer>
       <template #footerLeft>
