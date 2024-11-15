@@ -12,7 +12,7 @@ export type DTColumnProps = {
   readonly orderable: boolean
   readonly searchable: boolean
   readonly width: string | undefined
-  readonly align: DTTextAlign | undefined
+  readonly textAlign: DTTextAlign | undefined
 }
 
 type DTColumnParams = {

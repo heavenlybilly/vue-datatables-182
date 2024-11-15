@@ -16,14 +16,14 @@ const resolveClassObject = (node: VNode): Record<string, boolean> => {
   )
 }
 
-const resolveStyleObject = (params: { width?: string; align?: DTTextAlign }) => {
+const resolveStyleObject = (params: { width?: string; textAlign?: DTTextAlign }) => {
   const styleObject: {
     width?: string
     minWidth?: string
     maxWidth?: string
     textAlign: DTTextAlign
   } = {
-    textAlign: params.align ?? 'left',
+    textAlign: params.textAlign ?? 'left',
   }
 
   if (params.width) {
@@ -49,7 +49,7 @@ export const useColumns = () => {
       }
 
       const props = node.componentOptions.propsData as DTColumnProps
-      const { field, title, orderable, searchable, width, align } = props
+      const { field, title, orderable, searchable, width, textAlign } = props
 
       const column: DTColumn = {
         index,
@@ -65,7 +65,7 @@ export const useColumns = () => {
         },
         appearance: {
           classObject: resolveClassObject(node),
-          styleObject: resolveStyleObject({ width, align }),
+          styleObject: resolveStyleObject({ width, textAlign }),
         },
       }
 
