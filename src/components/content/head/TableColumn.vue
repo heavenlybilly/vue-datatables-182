@@ -24,7 +24,7 @@ const columnOrderEnable = computed(() => {
 })
 
 const classObject = computed(() => ({
-  'dt-orderable': columnOrderEnable.value,
+  'dt-column-orderable': columnOrderEnable.value,
   ...props.column.appearance.classObject,
 }))
 
@@ -73,12 +73,11 @@ const handleOrderUpdate = () => {
       :style="props.column.appearance.styleObject"
     >
       <span>{{ props.column.params.title }}</span>
-      <div v-if="columnOrderEnable">
-        <div
-          class="dt-order-column-btn"
-          v-html="orderIcon"
-        />
-      </div>
+      <div
+        v-if="columnOrderEnable"
+        class="dt-order-column-btn"
+        v-html="orderIcon"
+      />
     </div>
   </th>
 </template>

@@ -1,32 +1,43 @@
-@use '../vars' as *;
+@use '../vars';
 
 .dt-head {
   overflow: hidden;
-  background-color: $dt-head-bg-color;
-  border-bottom: 1px solid $dt-border-color;
+  background-color: vars.$dt-head-bg-color;
+  border-bottom: 1px solid vars.$dt-border-color;
   border-radius: 5px;
 }
 
 .dt-order-column-btn {
-  width: 0.625rem;
-  height: 0.625rem;
-  margin-left: 0.2rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 100%;
+
+  svg {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
 }
 
 .dt-column {
+  position: relative;
   padding: 0.7rem 1rem;
   font-weight: 600;
   vertical-align: middle;
-  background-color: $dt-head-bg-color;
-  transition: all $transition-duration ease-in-out;
+  background-color: vars.$dt-head-bg-color;
+  transition: all vars.$transition-duration ease-in-out;
   user-select: none;
 
-  &.dt-orderable:hover {
-    background-color: $dt-head-bg-color-hover;
+  &.dt-column-orderable:hover {
+    background-color: vars.$dt-head-bg-color-hover;
     cursor: pointer;
   }
 
-  &-inner > * {
+  &-inner > span {
     display: inline-block;
   }
 }
@@ -59,7 +70,7 @@
     input[type="checkbox"] {
       margin: 0!important;
       cursor: pointer;
-      accent-color: $accent-color;
+      accent-color: vars.$accent-color;
     }
   }
 }
