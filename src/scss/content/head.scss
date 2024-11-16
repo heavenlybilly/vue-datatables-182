@@ -18,7 +18,7 @@
   font-weight: 600;
   vertical-align: middle;
   background-color: $dt-head-bg-color;
-  transition: all 200ms ease-in-out;
+  transition: all $transition-duration ease-in-out;
   user-select: none;
 
   &.dt-orderable:hover {

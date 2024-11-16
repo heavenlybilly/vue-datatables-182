@@ -11,7 +11,7 @@
 
   &-clickable {
     cursor: pointer;
-    transition: background-color 200ms ease-in-out;
+    transition: background-color $transition-duration ease-in-out;
 
     &:hover {
       background-color: $dt-row-hover-color;

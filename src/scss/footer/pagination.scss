@@ -1,3 +1,5 @@
+@use '../vars' as *;
+
 .dt-pagination {
   display: flex;
   align-items: center;
@@ -17,7 +19,7 @@
   background-color: #fff;
   border-radius: 100%;
   cursor: pointer;
-  transition: all 200ms ease-in-out;
+  transition: all $transition-duration ease-in-out;
   user-select: none;
 
   &:hover {
