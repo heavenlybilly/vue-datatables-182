@@ -1,71 +1,109 @@
-.dt-search-icon {
-  position: absolute;
-  top: 0;
-  left: 0;
+@use '../vars';
+
+$height: 2.25rem;
+$width-min: 6rem;
+$width-max: 15rem;
+$width-search-icon: 2.25rem;
+$width-cross-icon: 1.5rem;
+$font-size: 0.82rem;
+$transition-width-duration: 400ms;
+$bg-color: #fff;
+
+@mixin flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  margin-top: -0.0625rem;
+}
+
+.dt-search-icon {
+  @include flex-center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: $width-search-icon;
+  height: 100%;
   color: #a8a8b3;
 
-  div {
-    width: 1rem;
-    height: 1rem;
+  svg {
+    width: 1rem!important;
+    height: 1rem!important;
+    margin: 0!important;
+    padding: 0!important;
   }
 }
 
 .dt-search-label {
+  @include flex-center;
+
   position: absolute;
   top: 0;
-  left: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  left: $width-search-icon;
   height: 100%;
   color: #c8c8cf;
-  font-size: 0.82rem;
+  font-size: $font-size;
   line-height: 1;
   opacity: 1;
-  transition: opacity 0.4s ease;
+  transition: all vars.$transition-duration ease;
 }
 
 .dt-search-input {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: $width-search-icon;
+  width: calc($width-min - $width-search-icon);
   height: 100%;
-  padding: 0 1.875rem 0 2.5rem;
-  font-size: 0.82rem;
+  padding: 0;
+  font-size: $font-size;
   line-height: 1;
+  background-color: transparent;
   border: none;
   outline: none;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: all vars.$transition-duration ease;
 
   &::placeholder {
     color: #c8c8cf;
-    font-size: 0.82rem;
+    font-size: $font-size;
   }
 }
 
+.dt-cross-icon {
+  @include flex-center;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: $width-cross-icon;
+  height: 100%;
+  cursor: pointer;
+
+  svg {
+    width: 0.5rem!important;
+    height: 0.5rem!important;
+    margin: 0!important;
+    padding: 0!important;
+  }
+}
+
+// root
 .dt-search {
   position: relative;
-  width: 6rem;
-  height: 2.25rem;
+  width: $width-min;
+  height: $height;
   overflow: hidden;
+  background-color: $bg-color;
   border: 1px solid #ededf1;
   border-radius: 5px;
   cursor: text;
-  transition: width 0.4s ease;
+  transition: width $transition-width-duration ease;
 
-  &.active,
+  &.dt-search-active,
   &:hover {
-    width: 15rem;
+    width: $width-max;
 
     .dt-search-input {
+      width: calc($width-max - $width-search-icon - $width-cross-icon);
       opacity: 1;
     }
 
@@ -76,22 +114,5 @@
     .dt-search-icon {
       border-color: transparent;
     }
-  }
-}
-
-.dt-cross-icon {
-  position: absolute;
-  top: 50%;
-  right: 0.625rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.3125rem 0.125rem;
-  transform: translateY(-50%);
-  cursor: pointer;
-
-  div {
-    width: 0.5rem;
-    height: 0.5rem;
   }
 }

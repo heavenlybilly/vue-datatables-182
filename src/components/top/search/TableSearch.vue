@@ -15,8 +15,8 @@ const emit = defineEmits(['input'])
 const inputElement: Ref<HTMLInputElement | null> = ref(null)
 const hasFocus: Ref<boolean> = ref(false)
 
-const searchWrapperClass = computed(() => ({
-  active: !!props.value || hasFocus.value,
+const classObject = computed(() => ({
+  'dt-search-active': !!props.value || hasFocus.value,
 }))
 
 const displayCross = computed(() => {
@@ -47,7 +47,7 @@ const handleFocus = (value: boolean) => {
 <template>
   <div
     class="dt-search"
-    :class="searchWrapperClass"
+    :class="classObject"
     @click="handleWrapperClick"
   >
     <input
@@ -60,16 +60,16 @@ const handleFocus = (value: boolean) => {
       @focus="handleFocus(true)"
       @input="handleInput"
     />
-    <div class="dt-search-icon">
-      <div v-html="searchIcon"></div>
-    </div>
+    <div
+      class="dt-search-icon"
+      v-html="searchIcon"
+    />
     <div class="dt-search-label">Поиск</div>
     <div
       v-if="displayCross"
       class="dt-cross-icon"
       @click="handleClearSearch"
-    >
-      <div v-html="crossIcon"></div>
-    </div>
+      v-html="crossIcon"
+    />
   </div>
 </template>
