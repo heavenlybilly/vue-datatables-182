@@ -1,9 +1,11 @@
 @forward "vars";
+@use "vars";
 @use "top";
 @use "content";
 @use "footer";
 
 .dt-wrapper {
+  z-index: 1;
   box-sizing: border-box;
 }
 
