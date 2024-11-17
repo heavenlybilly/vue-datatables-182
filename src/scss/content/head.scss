@@ -25,7 +25,7 @@
 
 .dt-column {
   position: relative;
-  padding: 0.7rem 1rem;
+  padding: 1.2rem 1rem;
   font-weight: 600;
   vertical-align: middle;
   background-color: vars.$dt-head-bg-color;
@@ -43,9 +43,9 @@
 }
 
 .dt-column-numbering {
-  width: 5rem;
-  min-width: 5rem;
-  max-width: 5rem;
+  width: 3rem;
+  min-width: 3rem;
+  max-width: 3rem;
   padding-right: 0;
   padding-left: 0;
 
@@ -76,5 +76,8 @@
 }
 
 .dt-column-actions {
-  width: min-content;
+  width: 5rem;
+  min-width: 5rem;
+  max-width: 5rem;
+  text-align: center;
 }
