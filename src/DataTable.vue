@@ -39,7 +39,12 @@ export default defineComponent({
     TableHead,
   },
   props: tableProps,
-  emits: ['update:selected-rows', 'click:row'],
+  emits: {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    'update:selected-rows': (value: any) => true,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    'click:row': (row: DTRow) => true,
+  },
   setup(props, { emit }) {
     const { source, url, items, searching, pagination } = toRefs(props)
 
