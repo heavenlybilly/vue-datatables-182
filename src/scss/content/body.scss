@@ -4,17 +4,18 @@
   padding: 0.75rem 1rem;
   line-height: 1;
   vertical-align: middle;
+  background-color: $dt-bg-color;
+  transition: background-color $transition-duration ease-in-out;
 }
 
 .dt-row {
-  background-color: $dt-bg-color;
-
   &-clickable {
     cursor: pointer;
-    transition: background-color $transition-duration ease-in-out;
 
     &:hover {
-      background-color: $dt-row-hover-color;
+      .dt-cell {
+        background-color: $dt-row-hover-color;
+      }
     }
   }
 
@@ -24,17 +25,12 @@
 }
 
 .dt-cell-numbering {
-  max-width: 100px;
-
   &-inner {
     text-align: center;
   }
 }
 
 .dt-cell-selection {
-  width: 1.8rem;
-  min-width: 1.8rem;
-  max-width: 1.8rem;
   padding-right: 0;
   padding-left: 0;
 
@@ -56,6 +52,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem 1rem;
   }
 }

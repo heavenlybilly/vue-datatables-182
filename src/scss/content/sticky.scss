@@ -1,0 +1,17 @@
+@use '../vars';
+
+.dt-sticky-start, .dt-sticky-end {
+  z-index: 2;
+}
+
+td.dt-sticky-start, td.dt-sticky-end {
+  background-color: vars.$dt-row-sticky-color;
+}
+
+.dt-sticky-extreme.dt-sticky-start {
+  border-right: 1px solid vars.$dt-border-color !important;
+}
+
+.dt-sticky-extreme.dt-sticky-end {
+  border-left: 1px solid vars.$dt-border-color !important;
+}
