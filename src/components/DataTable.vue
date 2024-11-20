@@ -1,9 +1,7 @@
-<script lang="ts">
-import { tableProps, validateTableProps } from '@/props'
-import { DTOrder, DTRow } from '@/types'
-import Vue, { defineComponent, getCurrentInstance, onMounted, toRefs, watch } from 'vue'
+<script setup lang="ts">
+import Vue, { getCurrentInstance, onErrorCaptured, onMounted, toRefs, watch } from 'vue'
 import debounce from '@/helpers/debounce'
-import ErrorPlug from '@/components/ErrorPlug.vue'
+import { DTOrder, DTRow } from '@/types/types'
 import TableContent from '@/components/content/TableContent.vue'
 import TableBody from '@/components/content/body/TableBody.vue'
 import TableRow from '@/components/content/body/TableRow.vue'
@@ -12,178 +10,143 @@ import TableFooter from '@/components/footer/TableFooter.vue'
 import PageDetails from '@/components/footer/page-details/PageDetails.vue'
 import TablePagination from '@/components/footer/pagination/TablePagination.vue'
 import RowsPerPageControl from '@/components/footer/rows-per-page-control/RowsPerPageControl.vue'
+import ErrorPlug from '@/components/plugs/ErrorPlug.vue'
+import { tableProps, validateTableProps } from '@/components/props'
 import TableTop from '@/components/top/TableTop.vue'
 import TableSearch from '@/components/top/search/TableSearch.vue'
+import { useColumns } from '@/composables/columns/useColumns'
 import { useData } from '@/composables/data/useData'
-import { useColumns } from '@/composables/useColumns'
 import { useErrors } from '@/composables/useErrors'
 import { useOrder } from '@/composables/useOrder'
 import { usePagination } from '@/composables/usePagination'
 import { useRowSelection } from '@/composables/useRowSelection'
 import { useSearch } from '@/composables/useSearch'
-import '@/scss/index.scss'
 
-export default defineComponent({
-  name: 'DataTable',
-  components: {
-    ErrorPlug,
-    TableRow,
-    TableContent,
-    TableFooter,
-    TableTop,
-    TableSearch,
-    TablePagination,
-    PageDetails,
-    RowsPerPageControl,
-    TableBody,
-    TableHead,
-  },
-  props: tableProps,
-  emits: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    'update:selected-rows': (value: any) => true,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    'click:row': (row: DTRow) => true,
-  },
-  setup(props, { emit }) {
-    const { source, url, items, searching, pagination } = toRefs(props)
+const props = defineProps(tableProps)
+const emit = defineEmits(['update:selected-rows', 'row-click'])
 
-    const { error, handleError } = useErrors()
-    const { columns, initColumns } = useColumns()
-    const { page, rowsPerPage, setPage, setRowsPerPage } = usePagination()
-    const { search, setSearch } = useSearch()
-    const { order, setOrder } = useOrder()
-    const { tableData, fetchTableData } = useData(source, url, items, columns, {
-      searching,
-      search,
-      pagination,
-      rowsPerPage,
-      page,
-      order,
-    })
-    const {
-      selectedRowIndexes,
-      selectedRows,
-      isSelectedAll,
-      selectRow,
-      deselectRow,
-      selectAll,
-      clearSelection,
-    } = useRowSelection(tableData)
+const { source, url, items, searching, pagination } = toRefs(props)
 
-    const init = async () => {
-      try {
-        validateTableProps(props)
-
-        const instance = getCurrentInstance() as { proxy: Vue }
-        initColumns(instance.proxy)
-
-        setRowsPerPage(props.rowsPerPageCount)
-
-        if (props.orderBy) {
-          setOrder({
-            column: props.orderBy,
-            direction: props.orderDirection,
-          })
-        }
-      } catch (e) {
-        handleError(e)
-      }
-    }
-
-    const handleSearchInput = (value: string) => {
-      setSearch(value)
-      setPage(1)
-      clearSelection()
-    }
-
-    const handleRowsPerPageInput = (value: number) => {
-      setRowsPerPage(value)
-      setPage(1)
-      clearSelection()
-    }
-
-    const handlePageInput = (value: number) => {
-      setPage(value)
-      clearSelection()
-    }
-
-    const handleOrderUpdate = (value: DTOrder) => {
-      setOrder(value)
-      clearSelection()
-    }
-
-    const handleSelectAll = () => {
-      selectAll()
-    }
-
-    const handleDeselectAll = () => {
-      clearSelection()
-    }
-
-    const handleSelectRow = (index: number) => {
-      selectRow(index)
-    }
-
-    const handleDeselectRow = (index: number) => {
-      deselectRow(index)
-    }
-
-    const handleClickRow = (row: DTRow) => {
-      emit('click:row', row)
-    }
-
-    const reload = async () => {
-      await fetchTableData()
-    }
-
-    onMounted(init)
-
-    watch(
-      [() => search.value, () => rowsPerPage.value, () => page.value, () => order.value],
-      debounce(async () => {
-        try {
-          await fetchTableData()
-        } catch (e) {
-          handleError(e)
-        }
-      }, 200),
-    )
-
-    watch(
-      () => selectedRows.value,
-      debounce((newValue) => {
-        emit('update:selected-rows', newValue)
-      }, 200),
-    )
-
-    return {
-      error,
-      search,
-      page,
-      rowsPerPage,
-      order,
-      columns,
-      tableData,
-      selectedRowIndexes,
-      isSelectedAll,
-      handleSearchInput,
-      handleRowsPerPageInput,
-      handlePageInput,
-      handleOrderUpdate,
-      handleSelectAll,
-      handleDeselectAll,
-      handleSelectRow,
-      handleDeselectRow,
-      handleClickRow,
-      reload,
-    }
-  },
+const { error, handleError } = useErrors()
+const { columns, initColumns } = useColumns()
+const { page, rowsPerPage, setPage, setRowsPerPage } = usePagination()
+const { search, setSearch } = useSearch()
+const { order, setOrder } = useOrder()
+const { tableData, fetchTableData } = useData(source, url, items, columns, {
+  searching,
+  search,
+  pagination,
+  rowsPerPage,
+  page,
+  order,
 })
+const {
+  selectedRowIndexes,
+  selectedRows,
+  isSelectedAll,
+  selectRow,
+  deselectRow,
+  selectAll,
+  clearSelection,
+} = useRowSelection(tableData)
+
+const init = async () => {
+  try {
+    validateTableProps(props)
+
+    const instance = getCurrentInstance() as { proxy: Vue }
+    initColumns(instance.proxy)
+
+    setRowsPerPage(props.rowsPerPageCount)
+
+    if (props.orderBy) {
+      setOrder({
+        column: props.orderBy,
+        direction: props.orderDirection,
+      })
+    }
+  } catch (e) {
+    handleError(e)
+  }
+}
+
+const handleSearchInput = (value: string) => {
+  setSearch(value)
+  setPage(1)
+  clearSelection()
+}
+
+const handleRowsPerPageInput = (value: number) => {
+  setRowsPerPage(value)
+  setPage(1)
+  clearSelection()
+}
+
+const handlePageInput = (value: number) => {
+  setPage(value)
+  clearSelection()
+}
+
+const handleOrderUpdate = (value: DTOrder) => {
+  setOrder(value)
+  clearSelection()
+}
+
+const handleSelectAll = () => {
+  selectAll()
+}
+
+const handleDeselectAll = () => {
+  clearSelection()
+}
+
+const handleSelectRow = (index: number) => {
+  selectRow(index)
+}
+
+const handleDeselectRow = (index: number) => {
+  deselectRow(index)
+}
+
+const handleClickRow = (row: DTRow) => {
+  emit('row-click', row)
+}
+
+const reload = async () => {
+  await fetchTableData()
+}
+
+defineExpose({
+  reload,
+})
+
+onMounted(init)
+
+onErrorCaptured((err) => {
+  handleError(err)
+})
+
+watch(
+  [() => search.value, () => rowsPerPage.value, () => page.value, () => order.value],
+  debounce(async () => {
+    try {
+      await fetchTableData()
+    } catch (e) {
+      handleError(e)
+    }
+  }, 200),
+)
+
+watch(
+  () => selectedRows.value,
+  debounce((newValue) => {
+    emit('update:selected-rows', newValue)
+  }, 200),
+)
 </script>
 
 <template>
-  <div class="dt-wrapper">
+  <div class="dt182-wrapper">
     <table-top>
       <template #topLeftBeforeActions>
         <slot name="topLeftBeforeActions" />
@@ -205,7 +168,6 @@ export default defineComponent({
 
     <table-content :scroll-x="scrollX">
       <table-head
-        v-if="tableData"
         :actions="actions"
         :columns="columns"
         :fixed-columns-end="fixedColumnsEnd"

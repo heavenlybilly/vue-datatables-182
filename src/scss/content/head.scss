@@ -1,13 +1,13 @@
 @use '../vars';
 
-.dt-head {
+.dt182-head {
   overflow: hidden;
-  background-color: vars.$dt-head-bg-color;
-  border-bottom: 1px solid vars.$dt-border-color;
+  background-color: vars.$dt182-head-bg-color;
+  border-bottom: 1px solid vars.$dt182-border-color;
   border-radius: 5px;
 }
 
-.dt-order-column-btn {
+.dt182-order-column-btn {
   position: absolute;
   top: 0;
   right: 0;
@@ -23,29 +23,33 @@
   }
 }
 
-.dt-column {
+.dt182-column {
   position: relative;
   padding: 1.2rem 1rem;
   font-weight: 600;
   vertical-align: middle;
-  background-color: vars.$dt-head-bg-color;
+  background-color: vars.$dt182-head-bg-color;
   transition: all vars.$transition-duration ease-in-out;
   user-select: none;
 
-  &.dt-column-orderable:hover {
-    background-color: vars.$dt-head-bg-color-hover;
+  &.dt182-column-orderable:hover {
+    background-color: vars.$dt182-head-bg-color-hover;
     cursor: pointer;
   }
 
-  &-inner > span {
-    display: inline-block;
+  &-inner {
+    width: 100%;
+
+    span {
+      display: block;
+    }
   }
 }
 
-.dt-column-numbering {
-  width: 3rem;
-  min-width: 3rem;
-  max-width: 3rem;
+.dt182-column-numbering {
+  width: 50px;
+  min-width: 50px;
+  max-width: 50px;
   padding-right: 0;
   padding-left: 0;
 
@@ -54,10 +58,10 @@
   }
 }
 
-.dt-column-selection {
-  width: 1.7rem;
-  min-width: 1.7rem;
-  max-width: 1.7rem;
+.dt182-column-selection {
+  width: 42px;
+  min-width: 42px;
+  max-width: 42px;
   padding-right: 0;
   padding-left: 0;
 
@@ -67,15 +71,16 @@
     justify-content: center;
     width: 100%;
 
-    input[type="checkbox"] {
+    .dt182-selection-checkbox {
       margin: 0!important;
+      padding: 0!important;
       cursor: pointer;
       accent-color: vars.$accent-color;
     }
   }
 }
 
-.dt-column-actions {
+.dt182-column-actions {
   width: 7rem;
   min-width: 7rem;
   max-width: 7rem;

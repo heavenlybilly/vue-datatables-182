@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <td class="dt-cell t-cell-numbering">
-    <div class="dt-cell-numbering-inner">{{ props.number }}</div>
+  <td class="dt182-cell dt182-cell-numbering">
+    <div class="dt182-cell-numbering-inner">{{ props.number }}</div>
   </td>
 </template>

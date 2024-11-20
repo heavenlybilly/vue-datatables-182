@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <tbody class="dt-body">
+  <tbody class="dt182-body">
     <slot></slot>
   </tbody>
 </template>

@@ -1,6 +1,6 @@
 @use '../vars' as *;
 
-.dt-pagination {
+.dt182-pagination {
   display: flex;
   align-items: center;
 
@@ -9,7 +9,7 @@
   }
 }
 
-.dt-pagination-page {
+.dt182-pagination-page {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +37,7 @@
   }
 }
 
-.dt-pagination-page-arrow > div {
+.dt182-pagination-page-arrow > div {
   display: flex;
   align-items: center;
   justify-content: center;

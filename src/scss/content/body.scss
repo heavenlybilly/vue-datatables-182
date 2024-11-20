@@ -1,36 +1,36 @@
 @use '../vars' as *;
 
-.dt-cell {
+.dt182-cell {
   padding: 0.75rem 1rem;
   line-height: 1.3;
   vertical-align: middle;
-  background-color: $dt-bg-color;
+  background-color: $dt182-bg-color;
   transition: background-color $transition-duration ease-in-out;
 }
 
-.dt-row {
+.dt182-row {
   &-clickable {
     cursor: pointer;
 
     &:hover {
-      .dt-cell {
-        background-color: $dt-row-hover-color;
+      .dt182-cell {
+        background-color: $dt182-row-hover-color;
       }
     }
   }
 
-  &:not(:last-child) .dt-cell {
-    border-bottom: 1px solid $dt-border-color;
+  &:not(:last-child) .dt182-cell {
+    border-bottom: 1px solid $dt182-border-color;
   }
 }
 
-.dt-cell-numbering {
+.dt182-cell-numbering {
   &-inner {
     text-align: center;
   }
 }
 
-.dt-cell-selection {
+.dt182-cell-selection {
   padding-right: 0;
   padding-left: 0;
 
@@ -40,14 +40,16 @@
     justify-content: center;
     width: 100%;
 
-    input {
+    .dt182-selection-checkbox {
+      margin: 0!important;
+      padding: 0!important;
       cursor: pointer;
       accent-color: $accent-color;
     }
   }
 }
 
-.dt-cell-actions {
+.dt182-cell-actions {
   padding-right: 0;
   padding-left: 0;
 

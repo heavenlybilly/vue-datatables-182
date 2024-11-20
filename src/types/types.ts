@@ -1,15 +1,5 @@
-import DataTable from '@/DataTable.vue'
-import { tableProps } from '@/props'
-import { ExtractPropTypes } from 'vue'
 // eslint-disable-next-line import/no-unresolved
 import { NormalizedScopedSlot } from 'vue/types/vnode'
-
-export type DTTableProps = ExtractPropTypes<typeof tableProps>
-
-export type DTTable = typeof DataTable &
-  DTTableProps & {
-    reload: () => Promise<void>
-  }
 
 /**
  * Columns
@@ -36,8 +26,9 @@ type DTColumnSlots = {
   readonly filter: NormalizedScopedSlot | undefined
 }
 type DTColumnAppearance = {
-  readonly styleObject: Record<string, string | number>
   readonly classObject: Record<string, boolean>
+  readonly width: string | undefined
+  readonly textAlign: DTTextAlign | undefined
 }
 
 export type DTColumn = {
@@ -57,7 +48,7 @@ export type DTRowItem = Record<string, DTRowItemValue>
 export type DTRow = {
   readonly index: number
   readonly number: number
-  readonly item: DTRowItem
+  readonly item: Record<string, string | number | boolean | null>
 }
 
 export type DTTableData = {

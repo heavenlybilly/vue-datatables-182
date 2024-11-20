@@ -16,8 +16,18 @@ coverage
 
 # dev files
 index.html
-demo/
+playground
 .prettierrc.json
+.stylelintrc.json
+.eslintrc.cjs
+.eslintignore
+.stylelintignore
+doc
+.gitlab-ci.yml
+jest.config.js
+tsconfig.json
+rollup.config.js
+.babelrc
 
 # npm configuration files
 npm-debug.log

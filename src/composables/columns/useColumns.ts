@@ -1,39 +1,8 @@
-import { DTColumn, DTColumnProps, DTTextAlign } from '@/types'
 import Vue, { Ref, ref } from 'vue'
 // eslint-disable-next-line import/no-unresolved
 import { VNode } from 'vue/types/vnode'
-
-const resolveBooleanProp = (value: any): boolean => value !== undefined && value !== false
-
-const resolveClassObject = (node: VNode): Record<string, boolean> => {
-  const classList = node.data?.staticClass?.split(' ') ?? []
-  return classList.reduce(
-    (classObjectCarry: Record<string, boolean>, className: string) => ({
-      ...classObjectCarry,
-      [className]: true,
-    }),
-    {},
-  )
-}
-
-const resolveStyleObject = (params: { width?: string; textAlign?: DTTextAlign }) => {
-  const styleObject: {
-    width?: string
-    minWidth?: string
-    maxWidth?: string
-    textAlign: DTTextAlign
-  } = {
-    textAlign: params.textAlign ?? 'left',
-  }
-
-  if (params.width) {
-    styleObject.width = params.width
-    styleObject.minWidth = params.width
-    styleObject.maxWidth = params.width
-  }
-
-  return styleObject
-}
+import { DTColumn, DTColumnProps } from '@/types/types'
+import { resolveBooleanProp, resolveClassObject } from '@/composables/columns/resolvers'
 
 export const useColumns = () => {
   const columns: Ref<DTColumn[]> = ref([])
@@ -65,7 +34,8 @@ export const useColumns = () => {
         },
         appearance: {
           classObject: resolveClassObject(node),
-          styleObject: resolveStyleObject({ width, textAlign }),
+          width,
+          textAlign,
         },
       }
 

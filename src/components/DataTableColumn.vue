@@ -1,6 +1,6 @@
 <script lang="ts">
-import { DTRow, DTTextAlign } from '@/types'
 import { PropType, defineComponent } from 'vue'
+import { DTTextAlign } from '@/types/types'
 
 export default defineComponent({
   name: 'DataTableColumn',
@@ -11,8 +11,7 @@ export default defineComponent({
     },
     title: {
       type: String,
-      required: false,
-      default: null,
+      required: true,
     },
     orderable: {
       type: Boolean,
@@ -32,24 +31,12 @@ export default defineComponent({
       default: undefined,
     },
   },
-  data() {
-    return {
-      rowPlug: {
-        index: 1,
-        number: 1,
-        item: {},
-      } as DTRow,
-    }
-  },
 })
 </script>
 
 <template>
   <!-- eslint-disable-next-line -->
   <div v-if="false">
-    <slot
-      name="cell"
-      :row="rowPlug"
-    ></slot>
+    <slot name="cell" />
   </div>
 </template>

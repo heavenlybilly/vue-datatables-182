@@ -1,4 +1,5 @@
 node_modules/
 dist/
 .eslintrc.cjs
-vite.config.ts
+src/index.d.ts
+playground/

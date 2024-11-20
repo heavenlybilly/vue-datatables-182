@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { DTError } from '@/types'
 import { PropType } from 'vue'
+import { DTError } from '@/types/types'
 
 const props = defineProps({
   error: {
@@ -11,13 +11,13 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="dt-error">
-    <div class="dt-error-message">
+  <div class="dt182-error">
+    <div class="dt182-error-message">
       {{ props.error.message }}
     </div>
     <div
       v-if="props.error?.description"
-      class="dt-error-description"
+      class="dt182-error-description"
     >
       {{ props.error.description }}
     </div>

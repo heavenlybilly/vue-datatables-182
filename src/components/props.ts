@@ -1,6 +1,6 @@
-import { DomainError } from '@/DomainError'
-import { DTOrderDirection, DTRowItem, DTSource, DTTableProps } from '@/types'
-import { PropType } from 'vue'
+import { ExtractPropTypes, PropType } from 'vue'
+import { DTOrderDirection, DTRowItem, DTSource } from '@/types/types'
+import { DomainError } from '@/errors/DomainError'
 
 export const tableProps = {
   // data
@@ -81,7 +81,7 @@ export const tableProps = {
   },
 }
 
-export const validateTableProps = (props: DTTableProps) => {
+export const validateTableProps = (props: ExtractPropTypes<typeof tableProps>) => {
   if (!props.rowsPerPageOptions.includes(props.rowsPerPageCount)) {
     throw new DomainError(
       'Invalid props declaration',

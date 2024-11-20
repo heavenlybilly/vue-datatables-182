@@ -1,4 +1,4 @@
-import { DTColumn, DTOrder } from '@/types'
+import { DTColumn, DTOrder } from '@/types/types'
 
 const fromPageParams = (page: number, rowsPerPage: number | null) => {
   if (rowsPerPage) {

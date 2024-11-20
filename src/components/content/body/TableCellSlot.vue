@@ -1,8 +1,8 @@
 <script lang="ts">
-import { DTRow } from '@/types'
 import { PropType, defineComponent } from 'vue'
 // eslint-disable-next-line import/no-unresolved
 import { NormalizedScopedSlot } from 'vue/types/vnode'
+import { DTRow } from '@/types/types'
 
 export default defineComponent({
   name: 'DtCell',
@@ -17,10 +17,20 @@ export default defineComponent({
       required: false,
       default: null,
     },
+    styleObject: {
+      type: Object,
+      required: true,
+    },
   },
   render(createElement) {
     // @ts-ignore
-    return createElement('td', { class: 'dt-cell' }, this.template({ row: this.row }))
+    return createElement(
+      'td',
+      // @ts-ignore
+      { class: 'dt182-cell', style: this.styleObject },
+      // @ts-ignore
+      this.template({ row: this.row }),
+    )
   },
 })
 </script>

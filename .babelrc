@@ -4,8 +4,10 @@
       "@babel/preset-env",
       {
         "targets": {
-          "node": "current"
-        }
+          "firefox": "44"
+        },
+        "useBuiltIns": "usage",
+        "corejs": 3
       }
     ]
   ]

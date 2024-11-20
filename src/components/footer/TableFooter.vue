@@ -1,8 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="dt-footer">
-    <div class="dt-footer-left">
+  <div class="dt182-footer">
+    <div class="dt182-footer-left">
       <slot name="footerLeft"></slot>
     </div>
     <div>

@@ -62,7 +62,7 @@ const totalRecords = computed(() => {
 </script>
 
 <template>
-  <div class="dt-page-details">
+  <div class="dt182-page-details">
     <span>
       Записи с {{ numberStart }} до {{ numberEnd }} из {{ props.filtered }}
       {{ filteredRecords }}</span

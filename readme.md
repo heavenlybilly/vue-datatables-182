@@ -1,32 +1,39 @@
 # Vue Datatables 182
-Vue Datatables 182 is a component that provides a table with enhanced capabilities. This component supports:
+Vue Datatables 182 — это компонент для отображения таблиц с расширенными возможностями.
+Компонент поддерживает следующие возможности:
 
-- Searching
-- Remote data
-- Pagination
-- Customizing with slots
+- Поиск
+- Пагинацию
+- Получение данных с сервера
+- Настройку с помощью слотов
 
-## Get started
+## Начало работы
 
-Install:
+#### Добавление реестра
 ```bash
-npm i vue-datatables-182
+echo @libs:registry=https://gitlab.corp/api/v4/packages/npm/ >> .npmrc
 ```
 
-In main Vue file:
+#### Установка пакета
+```bash
+npm i @libs/vue-datatables-182
+```
+
+#### Использование
+В основном файле:
 ```js
 import { DataTable, DataTableColumn } from 'vue-datatables-182'
-import "vue-datatables-182/dist/style.css"
+import "vue-datatables-182/dist/index.css"
 
 Vue.component('data-table', DataTable)
 Vue.component('data-table-column', DataTableColumn)
 ```
 
-Or in another Vue component;
+Или в любом другом файле компонента:
 ```vue
 <script lang="js">
 import { DataTable, DataTableColumn } from 'vue-datatables-182'
-import "vue-datatables-182/dist/style.css"
+import "vue-datatables-182/dist/index.css"
 
 export default {
   name: 'SomeComponent',
@@ -46,7 +53,7 @@ export default {
 </script>
 
 <template>
-  <!-- client data source -->
+  <!-- данные из массива -->
   <data-table
     source="client"
     :items="items"
@@ -68,7 +75,7 @@ export default {
     />
   </data-table>
 
-  <!-- server data source -->
+  <!-- данные с сервера -->
   <data-table
     source="server"
     url="/example-table"
@@ -92,218 +99,246 @@ export default {
 </template>
 ```
 
-## UI element highlight
-![DataTable](./doc/ui-element-highlight.png)
+___
 
-## Props
+## Структура таблицы
+![DataTable](./doc/ui-highlight.jpg)
 
-### Table data
+___
 
-### `source`
-Source of data for the table. Available values: `client` and `server`.
+## DataTable
+### Props
+
+#### Данные
+
+#### `source`
+Источник данных. Допустимые значения: `client` и `server`.
 
 ```js
 source: {
   type: String,
-  default: 'server',
+  default: 'server'
 }
 ```
 
-### `url`
-URL for fetching data when using a server-side data source.
+#### `url`
+URL для загрузки данных. Использовать только с `source="server"`.
 
 ```js
 url: {
   type: String,
-  default: null,
+  default: null
 }
 ```
 
-### `items`
-Array of items for client-side data.
+#### `items`
+Массив данных для отображения. Использовать только с `source="client"`.
 
 ```js
 items: {
   type: Array,
-  default: () => [],
+  default: () => []
 }
 ```
 
-### Pagination
+#### Пагинация
 
-### `pagination`
-Enables table pagination.
+#### `pagination`
+Включает пагинацию таблицы.
 
 ```js
 pagination: {
   type: Boolean,
-  default: true,
+  default: true
 }
 ```
 
-### `rowsPerPageOptions`
-Number of rows per page.
+#### `rowsPerPageOptions`
+Элементы списка выбора количества строк на странице.
 
 ```js
 rowsPerPageOptions: {
   type: Array,
-  default: () => [5, 10, 25, 50, 100],
+  default: () => [5, 10, 25, 50, 100]
 }
 ```
 
-### `rowsPerPageCount`
-Number of rows per page. The value must be present in the rowsPerPageOptions array.
+#### `rowsPerPageCount`
+Количество строк на странице. Значение должно присутствовать в массиве `rowsPerPageOptions`.
 
 ```js
 rowsPerPageCount: {
   type: Number,
-  default: 10,
+  default: 10
 }
 ```
 
-### Search
+#### Поиск
 
-### `searching`
-Enables the search functionality.
+#### `searching`
+Включает поиск.
 
 ```js
 searching: {
   type: Boolean,
-  default: true,
+  default: true
 }
 ```
 
-### Order
+#### Сортировка
 
-### `orderBy`
-Column by which the data is ordered.
+#### `orderBy`
+Наименование столбца, по которому данные будут отсортированы по умолачанию.
 
 ```js
 orderBy: {
   type: String,
-  default: null,
+  default: null
 }
 ```
 
-### `orderDirection`
-Direction of ordering (ascending or descending). Available values: `asc` and `desc`.
+#### `orderDirection`
+Порядок сортировки по умолчанию. Допустимые значения: `asc` и `desc`.
 
 ```js
 orderDirection: {
   type: String,
-  default: 'asc',
+  default: 'asc'
 }
 ```
 
-### Fixed Columns
+#### Закрепление столбцов
 
-### `scrollX`
-Enables horizontal scrolling for the table.
+#### `scrollX`
+Включает горизонтальную прокрутку таблицы.
 
 ```js
 scrollX: {
   type: Boolean,
-  default: false,
+  default: false
 }
 ```
 
-### `fixedColumnsStart`
-Number of columns fixed at the start of the table.
+#### `fixedColumnsStart`
+Количество закрепленных столбцов с левого края.
+
+*___Примечание:___ работает только если разрешена горизонтальная прокрутка. 
+Рекомендуется указать фиксированную ширину для закрепленных столбцов.*
 
 ```js
 fixedColumnsStart: {
   type: Number,
-  default: 0,
+  default: 0
 }
 ```
 
-### `fixedColumnsEnd`
-Number of columns fixed at the end of the table.
+#### `fixedColumnsEnd`
+Количество закрепленных столбцов с правого края.
+
+*___Примечание:___ работает только если разрешена горизонтальная прокрутка. 
+Рекомендуется указать фиксированную ширину для закрепленных столбцов.*
 
 ```js
 fixedColumnsEnd: {
   type: Number,
-  default: 0,
+  default: 0
 }
 ```
 
-### Other
+#### Общие параметры
 
-### `rowSelection`
-Enables row selection functionality.
+#### `rowSelection`
+Добавляет столбец с чек-боксами для выделения строк.
 
 ```js
 rowSelection: {
   type: Boolean,
-  default: false,
+  default: false
 }
 ```
 
-### `actions`
-Enables actions column.
+#### `actions`
+Добавляет столбец с действиями.
+
+*___Примечание:___ содержимое ячеек столбца необходимо добавить с помощью слота `actions`.*
 
 ```js
 actions: {
   type: Boolean,
-  default: false,
+  default: false
 }
 ```
 
-### `numbering`
-Enables numbering for rows
+#### `numbering`
+Добавляет столбец с нумерацией строк.
 
 ```js
 numbering: {
   type: Boolean,
-  default: false,
+  default: false
 }
 ```
 
-### `rowsClickable`
-Enables clickable rows.
+#### `rowsClickable`
+Позволяет использовать событие клика строки. 
 
 ```js
 rowsClickable: {
   type: Boolean,
-  default: false,
+  default: false
 }
 ```
 
-## Events
+### Events
 
-### `click:row`
-Triggered when a row is clicked and the `rowsClickable` prop is `true`. 
-The event passed to the handler contains the clicked row data.
+#### `row-click`
+Событие срабатывает при клике строки, если пропс `rowsClickable` равен `true`. 
+Событие, переданное обработчику, содержит данные строки.
 
-#### Handler
-```js
-const handleClickRow = (row) => {
-  // to do smth.
+##### script
+```vue
+<script lang="js">
+export default {
+  name: 'SomeComponent',
+  methods: {
+    handleClickRow(row) {
+      // to do smth.
+    }
+  }
 }
+</script>
 ```
 
-#### Table
+##### template
 ```vue
 <data-table
   source="client"
   :items="items"
   rows-clickable
-  @click:row="handleClickRow"
+  @row-click="handleClickRow"
 >
 ```
 
-### `update:selected-rows`
-Triggered when the selected rows array changes. 
-The event passed to the handler contains the updated selected rows array. The `rowSelection` prop must be set to `true`.
+#### `update:selected-rows`
+Событие срабатывает при выборе/отмене выбора строки.
+Событие, переданное обработчику, содержит массив выбранных строк.
+Пропс `rowSelection` должен быть равен `true`.
 
-#### Handler
-```js
-const handleUpdateSelectedRows = (rows) => {
-  // to do smth.
+##### script
+```vue
+<script lang="js">
+export default {
+  name: 'SomeComponent',
+  methods: {
+    handleUpdateSelectedRows(rows) {
+      // to do smth.
+    }
+  }
 }
+</script>
 ```
 
-#### Table
+##### template
 ```vue
 <data-table
   source="client"
@@ -313,51 +348,132 @@ const handleUpdateSelectedRows = (rows) => {
 >
 ```
 
-## Slots
+### Slots
 
-### `topLeftBeforeActions`
-This slot is used to display content on the left side above the table, to the left of the search field.
-
+#### `topLeftBeforeActions`
+Этот слот используется для отображения содержимого слева сверху от таблицы, слева от поля поиска.
 ```vue
-<template #topLeftBeforeActions>
-  <div>Content here</div>
-</template>
+<data-table ... >
+  <template #topLeftBeforeActions>
+    <div>Content here</div>
+  </template>
+</data-table>
 ```
 
-### `topLeftAfterActions`
-This slot is used to display content on the left side above the table, to the right of the search field.
-
+#### `topLeftAfterActions`
+Этот слот используется для отображения содержимого слева сверху от таблицы, справа от поля поиска.
 ```vue
-<template #topLeftAfterActions>
-  <div>Content here</div>
-</template>
+<data-table ... >
+  <template #topLeftAfterActions>
+    <div>Content here</div>
+  </template>
+</data-table>
 ```
 
-### `topRight`
-This slot is used to display content on the right side above the table.
-
+#### `topRight`
+Этот слот используется для отображения содержимого справа сверху от таблицы.
 ```vue
-<template #topRight>
-  <div>Content here</div>
-</template>
+<data-table ... >
+  <template #topRight>
+    <div>Content here</div>
+  </template>
+</data-table>
 ```
 
-### `actions`
-This slot is used to display content in the action column cells. The slot provides the row's value.
+#### `actions`
+Этот слот используется для отображения содержимого в ячейках столбца действий. Слот предоставляет значение строки.
 
-*___Note:___ `@click.stop` is necessary to prevent the row click event.*
+*___Примечание:___ событие с директивой `@click.stop` необходимо для предотвращения события клика строки.*
 
 ```vue
-<template #actions="{ row }">
-  <div @click.stop>
-    <div>Actions for row #{{ row.number }}:</div>
-    <button id="delete" :data-id="row.item.id"></button>
-  </div>
-</template>
+<data-table-column ... >
+  <template #actions="{ row }">
+    <div @click.stop>
+      <div>Actions for row #{{ row.number }}:</div>
+      <button id="delete" :data-id="row.item.id"></button>
+    </div>
+  </template>
+</data-table-column>
 ```
 
-### `cell`
-This slot is used to display content in the custom column cells. The slot provides the row's value.
+___
+
+## DataTableColumn
+
+### Props
+
+#### `field`
+Название свойства, значение которого будет отображено в ячейках данного столбца.
+
+```js
+field: {
+  type: String,
+  required: true
+}
+```
+
+#### `title`
+Заголовок столбца.
+
+```js
+title: {
+  type: String,
+  required: true
+}
+```
+
+#### `orderable`
+Разрешить сортировку строк по данному столбцу.
+
+```js
+orderable: {
+  type: Boolean,
+  default: false
+}
+```
+
+#### `searchable`
+Разрешить поиск по данному столбцу.
+
+```js
+searchable: {
+  type: Boolean,
+  default: false
+}
+```
+
+#### `width`
+Фиксированная ширина столбца. Необходимо указывать валидные CSS-значения свойства `width`.
+Например, `width="120px"`.
+
+```js
+width: {
+  type: String, 
+  required: false,
+  default: undefined
+}
+```
+
+#### `textAlign`
+Выравнивание текста в стоолбце таблицы. Доступные значения: `left`, `right` и `center`.
+
+*___Примечание:___ если отображение содержимого ячеек столбца задается с помощью слота, 
+это свойство может не иметь ожидаемого эффекта.*
+
+```js
+textAlign: {
+  type: String,
+  default: undefined
+}
+```
+
+
+
+### Slots
+
+#### `cell`
+Этот слот используется для отображения содержимого в пользовательских ячейках столбца. 
+Слот предоставляет значение строки.
 
 ```vue
 <data-table-column
@@ -374,6 +490,3 @@ This slot is used to display content in the custom column cells. The slot provid
   </template>
 </data-table-column>
 ```
-
-[//]: # (todo: types of DataTable, exposed methods)
-[//]: # (todo: row value description)

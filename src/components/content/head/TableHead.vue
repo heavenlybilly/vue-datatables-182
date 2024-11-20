@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { DTColumn, DTOrder } from '@/types'
-import { PropType, Ref, nextTick, onMounted, ref } from 'vue'
+import { PropType, Ref, onUpdated, ref } from 'vue'
 import { stickElements } from '@/helpers/stickElements'
+import { DTColumn, DTOrder } from '@/types/types'
 import TableColumn from '@/components/content/head/TableColumn.vue'
 import TableColumnActions from '@/components/content/head/TableColumnActions.vue'
 import TableColumnNumbering from '@/components/content/head/TableColumnNumbering.vue'
@@ -45,6 +45,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:order', 'select-all', 'deselect-all'])
 
+const isElementInitialized = ref(false)
 const rowElement: Ref<HTMLElement | null> = ref(null)
 
 const handleOrderUpdate = (value: DTOrder) => {
@@ -60,21 +61,24 @@ const handleDeselectAll = () => {
 }
 
 const initFixedColumns = () => {
-  nextTick(() => {
-    if (!rowElement.value) {
-      return
-    }
+  if (!rowElement.value) {
+    return
+  }
 
-    stickElements(rowElement.value, 'th', props.fixedColumnsStart)
-    stickElements(rowElement.value, 'th', props.fixedColumnsEnd, true)
-  })
+  stickElements(rowElement.value, 'th', props.fixedColumnsStart)
+  stickElements(rowElement.value, 'th', props.fixedColumnsEnd, true)
 }
 
-onMounted(initFixedColumns)
+onUpdated(() => {
+  if (!isElementInitialized.value) {
+    initFixedColumns()
+    isElementInitialized.value = true
+  }
+})
 </script>
 
 <template>
-  <thead class="dt-head">
+  <thead class="dt182-head">
     <tr ref="rowElement">
       <table-column-numbering v-if="props.numbering" />
       <table-column-selection

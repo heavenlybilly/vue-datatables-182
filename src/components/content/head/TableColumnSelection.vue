@@ -20,10 +20,11 @@ const handleSelectAllClick = (e: Event) => {
 </script>
 
 <template>
-  <th class="dt-column dt-column-selection">
-    <div class="dt-column-selection-inner">
+  <th class="dt182-column dt182-column-selection">
+    <div class="dt182-column-selection-inner">
       <input
         :checked="props.isSelectedAll"
+        class="dt182-selection-checkbox"
         type="checkbox"
         @change="handleSelectAllClick"
       />

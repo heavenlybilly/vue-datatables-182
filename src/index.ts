@@ -1,5 +1,5 @@
-import DataTable from '@/DataTable.vue'
-import DataTableColumn from '@/DataTableColumn.vue'
+import DataTable from '@/components/DataTable.vue'
+import DataTableColumn from '@/components/DataTableColumn.vue'
+import '@/scss/index.scss'
 
-export * from '@/types'
 export { DataTable, DataTableColumn }

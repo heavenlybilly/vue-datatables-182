@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import chevronDoubleLeftIcon from '@/assets/chevron-double-left.svg?raw'
-import chevronDoubleRightIcon from '@/assets/chevron-double-right.svg?raw'
-import chevronLeftIcon from '@/assets/chevron-left.svg?raw'
-import chevronRightIcon from '@/assets/chevron-right.svg?raw'
+import chevronDoubleLeftIcon from '@/assets/chevron-double-left.svg'
+import chevronDoubleRightIcon from '@/assets/chevron-double-right.svg'
+import chevronLeftIcon from '@/assets/chevron-left.svg'
+import chevronRightIcon from '@/assets/chevron-right.svg'
 
 const props = defineProps({
   page: {
@@ -84,16 +84,16 @@ const handleGoLast = () => {
 </script>
 
 <template>
-  <div class="dt-pagination">
+  <div class="dt182-pagination">
     <div
-      class="dt-pagination-page dt-pagination-page-arrow"
+      class="dt182-pagination-page dt182-pagination-page-arrow"
       :class="{ disabled: !canGoPrev }"
       @click="handleGoFirst"
     >
       <div v-html="chevronDoubleLeftIcon"></div>
     </div>
     <div
-      class="dt-pagination-page dt-pagination-page-arrow"
+      class="dt182-pagination-page dt182-pagination-page-arrow"
       :class="{ disabled: !canGoPrev }"
       @click="handleGoPrev"
     >
@@ -102,21 +102,21 @@ const handleGoLast = () => {
     <div
       v-for="(item, index) of pages"
       :key="index"
-      class="dt-pagination-page"
+      class="dt182-pagination-page"
       :class="{ active: item === props.page }"
       @click="handleClickPage(item)"
     >
       {{ item }}
     </div>
     <div
-      class="dt-pagination-page dt-pagination-page-arrow"
+      class="dt182-pagination-page dt182-pagination-page-arrow"
       :class="{ disabled: !canGoNext }"
       @click="handleGoNext"
     >
       <div v-html="chevronRightIcon"></div>
     </div>
     <div
-      class="dt-pagination-page dt-pagination-page-arrow"
+      class="dt182-pagination-page dt182-pagination-page-arrow"
       :class="{ disabled: !canGoNext }"
       @click="handleGoLast"
     >

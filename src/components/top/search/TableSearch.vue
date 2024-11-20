@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PropType, Ref, computed, ref } from 'vue'
-import crossIcon from '@/assets/cross.svg?raw'
-import searchIcon from '@/assets/search.svg?raw'
+import crossIcon from '@/assets/cross.svg'
+import searchIcon from '@/assets/search.svg'
 
 const props = defineProps({
   value: {
@@ -16,7 +16,7 @@ const inputElement: Ref<HTMLInputElement | null> = ref(null)
 const hasFocus: Ref<boolean> = ref(false)
 
 const classObject = computed(() => ({
-  'dt-search-active': !!props.value || hasFocus.value,
+  'dt182-search-active': !!props.value || hasFocus.value,
 }))
 
 const displayCross = computed(() => {
@@ -46,13 +46,13 @@ const handleFocus = (value: boolean) => {
 
 <template>
   <div
-    class="dt-search"
+    class="dt182-search"
     :class="classObject"
     @click="handleWrapperClick"
   >
     <input
       ref="inputElement"
-      class="dt-search-input"
+      class="dt182-search-input"
       placeholder="Введите для поиска"
       type="text"
       :value="value"
@@ -61,13 +61,13 @@ const handleFocus = (value: boolean) => {
       @input="handleInput"
     />
     <div
-      class="dt-search-icon"
+      class="dt182-search-icon"
       v-html="searchIcon"
     />
-    <div class="dt-search-label">Поиск</div>
+    <div class="dt182-search-label">Поиск</div>
     <div
       v-if="displayCross"
-      class="dt-cross-icon"
+      class="dt182-cross-icon"
       @click="handleClearSearch"
       v-html="crossIcon"
     />

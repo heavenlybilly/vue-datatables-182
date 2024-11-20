@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { DTColumn, DTOrder, DTOrderDirection } from '@/types'
 import { PropType, computed } from 'vue'
-import orderDescIcon from '@/assets/order-asc.svg?raw'
-import orderDefaultIcon from '@/assets/order-default.svg?raw'
-import orderAscIcon from '@/assets/order-desc.svg?raw'
+import { DTColumn, DTOrder, DTOrderDirection, DTTextAlign } from '@/types/types'
+import orderDescIcon from '@/assets/order-asc.svg'
+import orderDefaultIcon from '@/assets/order-default.svg'
+import orderAscIcon from '@/assets/order-desc.svg'
 
 const props = defineProps({
   column: {
@@ -24,7 +24,7 @@ const columnOrderEnable = computed(() => {
 })
 
 const classObject = computed(() => ({
-  'dt-column-orderable': columnOrderEnable.value,
+  'dt182-column-orderable': columnOrderEnable.value,
   ...props.column.appearance.classObject,
 }))
 
@@ -34,6 +34,34 @@ const orderIcon = computed(() => {
   }
 
   return props.order.direction === 'asc' ? orderAscIcon : orderDescIcon
+})
+
+const columnStyleObject = computed(() => {
+  const value: {
+    width?: string
+    minWidth?: string
+    maxWidth?: string
+  } = {}
+
+  if (props.column.appearance.width) {
+    value.width = props.column.appearance.width
+    value.minWidth = props.column.appearance.width
+    value.maxWidth = props.column.appearance.width
+  }
+
+  return value
+})
+
+const columnInnerStyleObject = computed(() => {
+  let textAlign: DTTextAlign = 'left'
+
+  if (props.column.appearance.textAlign) {
+    textAlign = props.column.appearance.textAlign
+  }
+
+  return {
+    textAlign,
+  }
 })
 
 const handleOrderUpdate = () => {
@@ -64,18 +92,19 @@ const handleOrderUpdate = () => {
 
 <template>
   <th
-    class="dt-column"
+    class="dt182-column"
     :class="classObject"
+    :style="columnStyleObject"
     @click="handleOrderUpdate"
   >
     <div
-      class="dt-column-inner"
-      :style="props.column.appearance.styleObject"
+      class="dt182-column-inner"
+      :style="columnInnerStyleObject"
     >
       <span>{{ props.column.params.title }}</span>
       <div
         v-if="columnOrderEnable"
-        class="dt-order-column-btn"
+        class="dt182-order-column-btn"
         v-html="orderIcon"
       />
     </div>

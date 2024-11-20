@@ -25,7 +25,7 @@ const handleInput = (e: Event) => {
   <div class="flex items-center">
     <span>Показать</span>
     <select
-      class="dt-rows-per-page"
+      class="dt182-rows-per-page"
       :value="props.value"
       @input="handleInput"
     >

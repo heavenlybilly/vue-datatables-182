@@ -13,7 +13,7 @@ export const stickElements = (
   const selectedElements = reverse ? children.slice(-count).reverse() : children.slice(0, count)
 
   const positionProp = reverse ? 'right' : 'left'
-  const className = reverse ? 'dt-sticky-end' : 'dt-sticky-start'
+  const className = reverse ? 'dt182-sticky-end' : 'dt182-sticky-start'
 
   selectedElements.reduce((accumulatedWidth, child, index) => {
     const element = child
@@ -24,7 +24,7 @@ export const stickElements = (
     element.style.position = 'sticky'
 
     if ((reverse && index === 0) || (!reverse && index === count - 1)) {
-      element.classList.add('dt-sticky-extreme')
+      element.classList.add('dt182-sticky-extreme')
     }
 
     return accumulatedWidth + elementWidth

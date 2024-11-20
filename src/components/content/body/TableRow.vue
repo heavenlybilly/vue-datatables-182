@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { DTColumn, DTRow } from '@/types'
-import { PropType, Ref, computed, nextTick, onMounted, ref } from 'vue'
+import { PropType, Ref, computed, onMounted, ref } from 'vue'
 import { stickElements } from '@/helpers/stickElements'
+import { DTColumn, DTRow } from '@/types/types'
 import TableCell from '@/components/content/body/TableCell.vue'
 import TableCellActions from '@/components/content/body/TableCellActions.vue'
 import TableCellNumbering from '@/components/content/body/TableCellNumbering.vue'
@@ -55,7 +55,7 @@ const isChecked = computed(() => {
 })
 
 const classObject = computed(() => ({
-  'dt-row-clickable': props.rowsClickable,
+  'dt182-row-clickable': props.rowsClickable,
 }))
 
 const handleSelectRow = (index: number) => {
@@ -73,24 +73,24 @@ const handleClickRow = () => {
 }
 
 const initFixedColumns = () => {
-  nextTick(() => {
-    if (!rowElement.value) {
-      return
-    }
+  if (!rowElement.value) {
+    return
+  }
 
-    stickElements(rowElement.value, 'td', props.fixedColumnsStart)
-    stickElements(rowElement.value, 'td', props.fixedColumnsEnd, true)
-  })
+  stickElements(rowElement.value, 'td', props.fixedColumnsStart)
+  stickElements(rowElement.value, 'td', props.fixedColumnsEnd, true)
 }
 
-onMounted(initFixedColumns)
+onMounted(() => {
+  initFixedColumns()
+})
 </script>
 
 <template>
   <tr
     :key="props.row.index"
     ref="rowElement"
-    class="dt-row"
+    class="dt182-row"
     :class="classObject"
     @click="handleClickRow"
   >

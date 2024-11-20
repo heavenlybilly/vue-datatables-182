@@ -15,10 +15,10 @@ const tableContentClassObject = computed(() => ({
 
 <template>
   <div
-    class="dt-content"
+    class="dt182-content"
     :class="tableContentClassObject"
   >
-    <table class="dt-element-table">
+    <table class="dt182-element-table">
       <slot></slot>
     </table>
   </div>

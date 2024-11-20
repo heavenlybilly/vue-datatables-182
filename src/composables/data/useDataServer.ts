@@ -1,7 +1,7 @@
-import { DomainError } from '@/DomainError'
-import { DTColumn, DTOrder, DTRowItem, DTTableData } from '@/types'
 import { Ref } from 'vue'
+import { DTColumn, DTOrder, DTRowItem, DTTableData } from '@/types/types'
 import makeQueryParams from '@/composables/data/helpers/makeQueryParams'
+import { DomainError } from '@/errors/DomainError'
 
 export const useDataServer = () => {
   const fetchRemoteItems = async (

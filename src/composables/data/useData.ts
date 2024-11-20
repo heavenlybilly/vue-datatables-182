@@ -1,8 +1,8 @@
-import { DomainError } from '@/DomainError'
-import { DTColumn, DTOrder, DTRowItem, DTSource, DTTableData } from '@/types'
 import { Ref, ref } from 'vue'
+import { DTColumn, DTOrder, DTRowItem, DTSource, DTTableData } from '@/types/types'
 import { useDataClient } from '@/composables/data/useDataClient'
 import { useDataServer } from '@/composables/data/useDataServer'
+import { DomainError } from '@/errors/DomainError'
 
 export const useData = (
   source: Ref<DTSource>,
