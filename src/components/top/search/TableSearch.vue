@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PropType, Ref, computed, ref } from 'vue'
-import crossIcon from '@/assets/cross.svg?raw'
-import searchIcon from '@/assets/search.svg?raw'
+import crossIcon from '@/assets/cross.svg'
+import searchIcon from '@/assets/search.svg'
 
 const props = defineProps({
   value: {

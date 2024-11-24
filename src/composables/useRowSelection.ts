@@ -1,5 +1,5 @@
-import { DTTableData } from '@/types'
 import { Ref, computed, ref } from 'vue'
+import { DTTableData } from '@/types/types'
 
 export const useRowSelection = (tableData: Ref<DTTableData | null>) => {
   const selectedRowIndexes: Ref<number[]> = ref([])

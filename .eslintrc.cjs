@@ -32,7 +32,7 @@ module.exports = {
     project: 'tsconfig.json',
   },
   rules: {
-    'import/no-unresolved': ['error', { ignore: ['\\.svg\\?raw$'] }],
+    'import/no-unresolved': ['error', { ignore: ['\\.svg\\$'] }],
     'import/prefer-default-export': 'off',
     'import/extensions': [
       'error',

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import chevronDoubleLeftIcon from '@/assets/chevron-double-left.svg?raw'
-import chevronDoubleRightIcon from '@/assets/chevron-double-right.svg?raw'
-import chevronLeftIcon from '@/assets/chevron-left.svg?raw'
-import chevronRightIcon from '@/assets/chevron-right.svg?raw'
+import chevronDoubleLeftIcon from '@/assets/chevron-double-left.svg'
+import chevronDoubleRightIcon from '@/assets/chevron-double-right.svg'
+import chevronLeftIcon from '@/assets/chevron-left.svg'
+import chevronRightIcon from '@/assets/chevron-right.svg'
 
 const props = defineProps({
   page: {

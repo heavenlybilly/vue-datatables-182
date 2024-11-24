@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { DTColumn, DTRow } from '@/types'
 import { PropType, computed } from 'vue'
 import decodeString from '@/helpers/decodeString'
+import { DTColumn, DTRow } from '@/types/types'
 import TableCellSlot from '@/components/content/body/TableCellSlot.vue'
 
 const props = defineProps({

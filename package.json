@@ -1,6 +1,6 @@
 {
   "name": "vue-datatables-182",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Datatables component for Vue 2.7",
   "license": "MIT",
   "homepage": "https://github.com/heavenlybilly/vue-select-41",
@@ -9,8 +9,7 @@
   "type": "module",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "build": "rollup -c",
     "lint": "npx eslint ./src --ext .ts,.vue --ignore-path .eslintignore",
     "lint:fix": "npx eslint ./src --ext .ts,.vue --ignore-path .eslintignore --fix",
     "stylelint": "npx stylelint \"**/*.scss\"",
@@ -22,11 +21,15 @@
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
-    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-alias": "^5.1.1",
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-terser": "^0.4.4",
     "@rushstack/eslint-patch": "^1.10.4",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/jest": "^29.5.12",
-    "@types/node": "^22.1.0",
+    "@types/node": "^22.9.3",
+    "@types/vue": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^8.14.0",
     "@typescript-eslint/parser": "^8.14.0",
     "@vitejs/plugin-vue2": "^2.3.1",
@@ -46,6 +49,11 @@
     "jest-environment-jsdom": "^29.7.0",
     "node-sass": "^9.0.0",
     "prettier": "^3.3.3",
+    "rollup": "^4.27.4",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-string": "^3.0.0",
+    "rollup-plugin-typescript2": "^0.36.0",
     "sass": "^1.80.6",
     "stylelint": "^16.10.0",
     "stylelint-config-rational-order": "^0.1.2",
@@ -54,10 +62,6 @@
     "stylelint-scss": "^6.9.0",
     "ts-jest": "^29.2.4",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5",
-    "vite-plugin-checker": "^0.8.0",
-    "vite-plugin-dts": "^4.0.0-beta.2",
-    "vite-plugin-svgr": "^4.3.0",
     "vue-jest": "^3.0.7",
     "vue-tsc": "^2.0.29"
   },
@@ -70,7 +74,8 @@
     "component",
     "vue-component",
     "vue2",
-    "vue-datatables"
+    "vue-datatables",
+    "vue-datatables-182"
   ],
   "repository": {
     "type": "git",
@@ -82,5 +87,8 @@
   "author": {
     "name": "Sergei Spitsin",
     "email": "heavenlybilly@gmail.com"
+  },
+  "dependencies": {
+    "vue-test": "file:../vue-test"
   }
 }

@@ -271,7 +271,7 @@ rowsClickable: {
 
 ## Events
 
-### `click:row`
+### `row-click`
 Triggered when a row is clicked and the `rowsClickable` prop is `true`. 
 The event passed to the handler contains the clicked row data.
 
@@ -288,7 +288,7 @@ const handleClickRow = (row) => {
   source="client"
   :items="items"
   rows-clickable
-  @click:row="handleClickRow"
+  @row-click="handleClickRow"
 >
 ```
 

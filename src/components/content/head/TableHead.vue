@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { DTColumn, DTOrder } from '@/types'
 import { PropType, Ref, nextTick, onMounted, ref } from 'vue'
 import { stickElements } from '@/helpers/stickElements'
+import { DTColumn, DTOrder } from '@/types/types'
 import TableColumn from '@/components/content/head/TableColumn.vue'
 import TableColumnActions from '@/components/content/head/TableColumnActions.vue'
 import TableColumnNumbering from '@/components/content/head/TableColumnNumbering.vue'
