@@ -1,6 +1,6 @@
-import { DomainError } from '@/DomainError'
-import { DTError } from '@/types'
 import { Ref, ref } from 'vue'
+import { DTError } from '@/types/types'
+import { DomainError } from '@/errors/DomainError'
 
 export const useErrors = () => {
   const error: Ref<DTError | null> = ref(null)

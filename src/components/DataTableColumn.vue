@@ -1,6 +1,6 @@
 <script lang="ts">
-import { DTRow, DTTextAlign } from '@/types'
 import { PropType, defineComponent } from 'vue'
+import { DTRow, DTTextAlign } from '@/types/types'
 
 export default defineComponent({
   name: 'DataTableColumn',
@@ -11,8 +11,7 @@ export default defineComponent({
     },
     title: {
       type: String,
-      required: false,
-      default: null,
+      required: true,
     },
     orderable: {
       type: Boolean,

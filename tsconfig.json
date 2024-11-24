@@ -4,29 +4,30 @@
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
+    "baseUrl": ".",
     "jsx": "preserve",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
+    "sourceMap": false,
+    "declaration": false,
+    "lib": ["esnext", "dom"],
+    "types": [
+      "node",
+      "jest"
+    ],
     "paths": {
       "@/*": [
         "src/*"
       ]
-    },
-    "declaration": true,
-    "declarationDir": "dist",
-    "outDir": "dist",
-    "types": [
-      "node",
-      "vite/client",
-      "jest"
-    ]
+    }
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "src/index.d.ts",
+    "src/shims-vue.d.ts",
+    "src/svg.d.ts",
   ]
 }

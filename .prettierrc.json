@@ -9,6 +9,8 @@
   "importOrder": [
     "<THIRD_PARTY_MODULES>",
     "^@/helpers",
+    "^@/core",
+    "^@/types",
     "^@/components",
     "^@/composables",
     "^@/errors",

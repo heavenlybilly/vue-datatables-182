@@ -1,4 +1,4 @@
-import { DTRowItem } from '@/types'
+import { DTRowItem } from '@/types/types'
 
 export default function filterItemsBySearch(
   items: DTRowItem[],

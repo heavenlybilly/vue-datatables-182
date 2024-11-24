@@ -1,5 +1,5 @@
-import { DTColumn, DTOrder, DTRowItem, DTTableData } from '@/types'
 import { Ref } from 'vue'
+import { DTColumn, DTOrder, DTRowItem, DTTableData } from '@/types/types'
 import filterItemsBySearch from '@/composables/data/helpers/filterItemsBySearch'
 import getItemsByPage from '@/composables/data/helpers/getItemsByPage'
 import orderItems from '@/composables/data/helpers/orderItems'

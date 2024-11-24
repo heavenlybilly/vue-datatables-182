@@ -1,8 +1,7 @@
 <script lang="ts">
-import { tableProps, validateTableProps } from '@/props'
-import { DTOrder, DTRow } from '@/types'
 import Vue, { defineComponent, getCurrentInstance, onMounted, toRefs, watch } from 'vue'
 import debounce from '@/helpers/debounce'
+import { DTOrder, DTRow } from '@/types/types'
 import ErrorPlug from '@/components/ErrorPlug.vue'
 import TableContent from '@/components/content/TableContent.vue'
 import TableBody from '@/components/content/body/TableBody.vue'
@@ -12,6 +11,7 @@ import TableFooter from '@/components/footer/TableFooter.vue'
 import PageDetails from '@/components/footer/page-details/PageDetails.vue'
 import TablePagination from '@/components/footer/pagination/TablePagination.vue'
 import RowsPerPageControl from '@/components/footer/rows-per-page-control/RowsPerPageControl.vue'
+import { tableProps, validateTableProps } from '@/components/props'
 import TableTop from '@/components/top/TableTop.vue'
 import TableSearch from '@/components/top/search/TableSearch.vue'
 import { useData } from '@/composables/data/useData'
@@ -21,7 +21,6 @@ import { useOrder } from '@/composables/useOrder'
 import { usePagination } from '@/composables/usePagination'
 import { useRowSelection } from '@/composables/useRowSelection'
 import { useSearch } from '@/composables/useSearch'
-import '@/scss/index.scss'
 
 export default defineComponent({
   name: 'DataTable',
@@ -39,12 +38,7 @@ export default defineComponent({
     TableHead,
   },
   props: tableProps,
-  emits: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    'update:selected-rows': (value: any) => true,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    'click:row': (row: DTRow) => true,
-  },
+  emits: ['update:selected-rows', 'row-click'],
   setup(props, { emit }) {
     const { source, url, items, searching, pagination } = toRefs(props)
 
@@ -130,7 +124,7 @@ export default defineComponent({
     }
 
     const handleClickRow = (row: DTRow) => {
-      emit('click:row', row)
+      emit('row-click', row)
     }
 
     const reload = async () => {
