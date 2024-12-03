@@ -1,5 +1,5 @@
 import { Ref, ref } from 'vue'
-import { DTColumn, DTOrder, DTRowItem, DTSource, DTTableData } from '@/types/types'
+import { DTColumn, DTMethod, DTOrder, DTRowItem, DTSource, DTTableData } from '@/types/types'
 import { useDataClient } from '@/composables/data/useDataClient'
 import { useDataServer } from '@/composables/data/useDataServer'
 import { DomainError } from '@/errors/DomainError'
@@ -9,6 +9,7 @@ export const useData = (
   url: Ref<string | null>,
   items: Ref<DTRowItem[]>,
   columns: Ref<DTColumn[]>,
+  method: Ref<DTMethod>,
   params: {
     searching: Ref<boolean>
     search: Ref<string>
@@ -29,7 +30,7 @@ export const useData = (
         tableData.value = processItems(items, columns, params)
         break
       case 'server':
-        tableData.value = await fetchRemoteItems(url, columns, params)
+        tableData.value = await fetchRemoteItems(url, columns, method, params)
         break
       default:
         throw new DomainError('Unknown prop source value')

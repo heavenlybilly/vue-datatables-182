@@ -25,14 +25,14 @@ import { useSearch } from '@/composables/useSearch'
 const props = defineProps(tableProps)
 const emit = defineEmits(['update:selected-rows', 'row-click'])
 
-const { source, url, items, searching, pagination } = toRefs(props)
+const { source, url, items, searching, pagination, method } = toRefs(props)
 
-const { error, handleError } = useErrors()
+const { error, handleError, clearError } = useErrors()
 const { columns, initColumns } = useColumns()
 const { page, rowsPerPage, setPage, setRowsPerPage } = usePagination()
 const { search, setSearch } = useSearch()
 const { order, setOrder } = useOrder()
-const { tableData, fetchTableData } = useData(source, url, items, columns, {
+const { tableData, fetchTableData } = useData(source, url, items, columns, method, {
   searching,
   search,
   pagination,
@@ -130,6 +130,7 @@ watch(
   [() => search.value, () => rowsPerPage.value, () => page.value, () => order.value],
   debounce(async () => {
     try {
+      clearError()
       await fetchTableData()
     } catch (e) {
       handleError(e)

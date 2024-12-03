@@ -27,12 +27,12 @@ export default [
       {
         file: 'dist/vue-datatables-182.umd.js',
         format: 'cjs',
-        sourcemap: true,
+        sourcemap: false,
       },
       {
         file: 'dist/vue-datatables-182.es.js',
         format: 'es',
-        sourcemap: true,
+        sourcemap: false,
       },
     ],
     plugins: [

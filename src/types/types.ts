@@ -42,6 +42,7 @@ export type DTColumn = {
  * Table data
  */
 export type DTSource = 'server' | 'client'
+export type DTMethod = 'GET' | 'POST'
 
 export type DTRowItemValue = string | number | boolean | null
 export type DTRowItem = Record<string, DTRowItemValue>
@@ -55,6 +56,20 @@ export type DTTableData = {
   readonly total: number
   readonly filtered: number
   readonly rows: DTRow[]
+}
+
+export type DTServerResponse = {
+  readonly draw: number
+  readonly recordsTotal: number
+  readonly recordsFiltered: number
+  readonly data: DTRowItem[]
+  readonly queries?: {
+    readonly query: string
+    readonly time: number
+    readonly bindings: unknown[]
+  }[]
+  readonly error?: string
+  // todo: input
 }
 
 /**

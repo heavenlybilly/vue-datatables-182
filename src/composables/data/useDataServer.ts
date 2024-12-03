@@ -1,5 +1,13 @@
 import { Ref } from 'vue'
-import { DTColumn, DTOrder, DTRowItem, DTTableData } from '@/types/types'
+import makeRequest from '@/helpers/makeRequest'
+import {
+  DTColumn,
+  DTMethod,
+  DTOrder,
+  DTRowItem,
+  DTServerResponse,
+  DTTableData,
+} from '@/types/types'
 import makeQueryParams from '@/composables/data/helpers/makeQueryParams'
 import { DomainError } from '@/errors/DomainError'
 
@@ -7,6 +15,7 @@ export const useDataServer = () => {
   const fetchRemoteItems = async (
     url: Ref<string | null>,
     columns: Ref<DTColumn[]>,
+    method: Ref<DTMethod>,
     params: {
       searching: Ref<boolean>
       search: Ref<string>
@@ -28,19 +37,19 @@ export const useDataServer = () => {
       order: params.order.value,
     })
 
-    const response = await fetch(`${url.value}?${queryParams}`)
-    if (!response.ok) {
-      let description: string | null
-
-      try {
-        description = JSON.stringify(await response.json())
-      } catch (error) {
-        description = null
-      }
-
-      throw new DomainError('Error occurred during fetching remote data', description)
+    let urlStr = `${url.value}?${queryParams}`
+    if (method.value === 'POST') {
+      urlStr = `${url.value}`
     }
-    const data = await response.json()
+
+    let data: DTServerResponse
+
+    try {
+      // todo: добавить работу с POST
+      data = (await makeRequest(urlStr, method.value, {})) as DTServerResponse
+    } catch (e) {
+      throw new DomainError('Error occurred during fetching remote data', 'description')
+    }
 
     if (data?.error) {
       throw new DomainError('Error occurred during fetching remote data', data.error)

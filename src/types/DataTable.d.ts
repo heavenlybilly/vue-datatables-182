@@ -1,12 +1,13 @@
 import type { VNode } from 'vue'
 import { DefineComponent, EmitFn } from '@/types/core'
-import { DTOrderDirection, DTRow, DTRowItem, DTSource } from '@/types/types'
+import { DTMethod, DTOrderDirection, DTRow, DTRowItem, DTSource } from '@/types/types'
 
 export interface DataTableProps {
   // data
   source?: DTSource
   url?: string | null
   items?: DTRowItem[]
+  method?: DTMethod
 
   // pagination
   pagination?: boolean

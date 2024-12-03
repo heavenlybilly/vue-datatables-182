@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { DataTable, DataTableColumn } from '@libs/vue-datatables-182'
-// import { DataTable, DataTableColumn} from '../../src/index'
+// import { DataTable, DataTableColumn } from '@libs/vue-datatables-182'
+import { DataTable, DataTableColumn} from '../../src/index'
 import { items } from './mocks'
 
 const prettifyPopulation = (value: number) => {
@@ -17,6 +17,9 @@ const prettifyPopulation = (value: number) => {
 
   return number + abbreviations[index]
 }
+
+// @ts-ignore
+const url = import.meta.env.VITE_URL
 </script>
 
 <template>
@@ -28,6 +31,7 @@ const prettifyPopulation = (value: number) => {
       row-selection
       scroll-x
       :fixed-columns-start="3"
+      :rows-per-page-count="5"
     >
       <data-table-column
         field="order"
@@ -62,6 +66,35 @@ const prettifyPopulation = (value: number) => {
         orderable
         width="120px"
       ></data-table-column>
+    </data-table>
+
+    <br>
+
+    <data-table
+      source="server"
+      :url="url"
+      :rows-per-page-count="5"
+    >
+      <data-table-column
+        field="name"
+        title="Наименование"
+        searchable
+        width="500px"
+      />
+      <data-table-column
+        field="state"
+        title="Статус"
+        text-align="center"
+        searchable
+        width="250px"
+      />
+      <data-table-column
+        field="updated_at"
+        title="Дата обновления"
+        text-align="center"
+        orderable
+        width="120px"
+      />
     </data-table>
   </div>
 </template>

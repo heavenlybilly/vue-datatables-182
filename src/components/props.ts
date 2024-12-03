@@ -1,5 +1,5 @@
 import { ExtractPropTypes, PropType } from 'vue'
-import { DTOrderDirection, DTRowItem, DTSource } from '@/types/types'
+import { DTMethod, DTOrderDirection, DTRowItem, DTSource } from '@/types/types'
 import { DomainError } from '@/errors/DomainError'
 
 export const tableProps = {
@@ -15,6 +15,10 @@ export const tableProps = {
   items: {
     type: Array as PropType<DTRowItem[]>,
     default: () => [],
+  },
+  method: {
+    type: String as PropType<DTMethod>,
+    default: 'GET',
   },
   // pagination
   pagination: {
@@ -93,6 +97,14 @@ export const validateTableProps = (props: ExtractPropTypes<typeof tableProps>) =
     throw new DomainError(
       'Invalid props declaration',
       'The props fixedColumnsStart and fixedColumnsEnd may only be set when the scrollX prop is true',
+    )
+  }
+
+  const availableMethods: DTMethod[] = ['GET', 'POST']
+  if (!availableMethods.includes(props.method)) {
+    throw new DomainError(
+      'Некорректное значение пропса method',
+      'Доступные значения "GET" и "POST"',
     )
   }
 }
