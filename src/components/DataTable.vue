@@ -25,7 +25,7 @@ import { useSearch } from '@/composables/useSearch'
 const props = defineProps(tableProps)
 const emit = defineEmits(['update:selected-rows', 'row-click'])
 
-const { source, url, items, searching, pagination, method } = toRefs(props)
+const { source, url, items, searching, pagination, method, filters } = toRefs(props)
 
 const { error, handleError, clearError } = useErrors()
 const { columns, initColumns } = useColumns()
@@ -39,6 +39,7 @@ const { tableData, fetchTableData } = useData(source, url, items, columns, metho
   rowsPerPage,
   page,
   order,
+  filters,
 })
 const {
   selectedRowIndexes,

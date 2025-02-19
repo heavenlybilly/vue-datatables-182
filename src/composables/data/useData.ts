@@ -1,5 +1,13 @@
 import { Ref, ref } from 'vue'
-import { DTColumn, DTMethod, DTOrder, DTRowItem, DTSource, DTTableData } from '@/types/types'
+import {
+  DTColumn,
+  DTFilter,
+  DTMethod,
+  DTOrder,
+  DTRowItem,
+  DTSource,
+  DTTableData,
+} from '@/types/types'
 import { useDataClient } from '@/composables/data/useDataClient'
 import { useDataServer } from '@/composables/data/useDataServer'
 import { DomainError } from '@/errors/DomainError'
@@ -17,6 +25,7 @@ export const useData = (
     rowsPerPage: Ref<number>
     page: Ref<number>
     order: Ref<DTOrder | null>
+    filters: Ref<DTFilter | null>
   },
 ) => {
   const tableData: Ref<DTTableData | null> = ref(null)

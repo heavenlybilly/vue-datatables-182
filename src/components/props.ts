@@ -1,5 +1,5 @@
 import { ExtractPropTypes, PropType } from 'vue'
-import { DTMethod, DTOrderDirection, DTRowItem, DTSource } from '@/types/types'
+import { DTFilter, DTMethod, DTOrderDirection, DTRowItem, DTSource } from '@/types/types'
 import { DomainError } from '@/errors/DomainError'
 
 export const tableProps = {
@@ -10,6 +10,10 @@ export const tableProps = {
   },
   url: {
     type: String as PropType<string | null>,
+    default: null,
+  },
+  filters: {
+    type: Object as PropType<DTFilter | null>,
     default: null,
   },
   items: {

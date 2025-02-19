@@ -41,7 +41,10 @@ const columnStyleObject = computed(() => {
     width?: string
     minWidth?: string
     maxWidth?: string
-  } = {}
+    textAlign: DTTextAlign
+  } = {
+    textAlign: 'left',
+  }
 
   if (props.column.appearance.width) {
     value.width = props.column.appearance.width
@@ -49,19 +52,11 @@ const columnStyleObject = computed(() => {
     value.maxWidth = props.column.appearance.width
   }
 
-  return value
-})
-
-const columnInnerStyleObject = computed(() => {
-  let textAlign: DTTextAlign = 'left'
-
   if (props.column.appearance.textAlign) {
-    textAlign = props.column.appearance.textAlign
+    value.textAlign = props.column.appearance.textAlign
   }
 
-  return {
-    textAlign,
-  }
+  return value
 })
 
 const handleOrderUpdate = () => {
@@ -97,11 +92,8 @@ const handleOrderUpdate = () => {
     :style="columnStyleObject"
     @click="handleOrderUpdate"
   >
-    <div
-      class="dt182-column-inner"
-      :style="columnInnerStyleObject"
-    >
-      <span>{{ props.column.params.title }}</span>
+    <div class="dt182-column-content">
+      <span class="dt182-column-title">{{ props.column.params.title }}</span>
       <div
         v-if="columnOrderEnable"
         class="dt182-order-column-btn"

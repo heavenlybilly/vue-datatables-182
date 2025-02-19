@@ -2,6 +2,7 @@ import { Ref } from 'vue'
 import makeRequest from '@/helpers/makeRequest'
 import {
   DTColumn,
+  DTFilter,
   DTMethod,
   DTOrder,
   DTRowItem,
@@ -23,6 +24,7 @@ export const useDataServer = () => {
       rowsPerPage: Ref<number>
       page: Ref<number>
       order: Ref<DTOrder | null>
+      filters: Ref<DTFilter | null>
     },
   ): Promise<DTTableData> => {
     if (!url.value) {
@@ -35,6 +37,7 @@ export const useDataServer = () => {
       columns: columns.value,
       search: params.search.value,
       order: params.order.value,
+      filters: params.filters.value,
     })
 
     let urlStr = `${url.value}?${queryParams}`

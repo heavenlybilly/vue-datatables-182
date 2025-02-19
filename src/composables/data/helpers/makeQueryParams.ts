@@ -1,4 +1,4 @@
-import { DTColumn, DTOrder } from '@/types/types'
+import { DTColumn, DTFilter, DTOrder } from '@/types/types'
 
 const fromPageParams = (page: number, rowsPerPage: number | null) => {
   if (rowsPerPage) {
@@ -36,24 +36,6 @@ const fromOrder = (order: DTOrder | null, columns: DTColumn[]) => {
   return `order[0][column]=${column.index}&order[0][dir]=${order.direction}`
 }
 
-// const fromFilter = (data: TDtFilterData) => {
-//   let query = ''
-//
-//   for (const key in data) {
-//     const value = data[key]
-//
-//     if (typeof value === 'string') {
-//       query += `${key}[]=${encodeURIComponent(value)}&`
-//     } else if (Array.isArray(value)) {
-//       for (const item of value) {
-//         query += `${key}[]=${encodeURIComponent(item)}&`
-//       }
-//     }
-//   }
-//
-//   return query
-// }
-
 const fromColumns = (columns: DTColumn[]) => {
   return columns.reduce((carry, column) => {
     let fragment = ''
@@ -77,18 +59,54 @@ const fromColumns = (columns: DTColumn[]) => {
   }, '')
 }
 
+const objectToQueryParams = (obj: Record<string, any> | null, parentKey: string = ''): string => {
+  if (obj === null) {
+    return ''
+  }
+
+  const queryParams: string[] = []
+
+  Object.keys(obj).forEach((key) => {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const value = obj[key]
+      const fullKey = parentKey ? `${parentKey}[${key}]` : key
+
+      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        queryParams.push(objectToQueryParams(value, fullKey))
+      } else if (Array.isArray(value)) {
+        value.forEach((item, index) => {
+          const arrayKey = `${fullKey}[${index}]`
+          if (typeof item === 'object' && item !== null) {
+            queryParams.push(objectToQueryParams(item, arrayKey))
+          } else {
+            queryParams.push(`${encodeURIComponent(arrayKey)}=${encodeURIComponent(item)}`)
+          }
+        })
+      } else {
+        queryParams.push(`${encodeURIComponent(fullKey)}=${encodeURIComponent(value)}`)
+      }
+    }
+  })
+
+  return queryParams.join('&')
+}
+
 export default (params: {
   page: number
   rowsPerPage: number | null
   columns: DTColumn[]
   search: string
   order: DTOrder | null
+  filters: DTFilter | null
 }) => {
   const queryPage = fromPageParams(params.page, params.rowsPerPage)
   const queryColumns = fromColumns(params.columns)
   const querySearch = fromSearch(params.search)
   const queryOrder = fromOrder(params.order, params.columns)
-  const queryFilter = ''
+  let queryFilter = ''
+  if (params.filters) {
+    queryFilter = objectToQueryParams(params.filters, 'filters')
+  }
 
   return `${queryColumns}&${queryOrder}&${queryPage}&${querySearch}&${queryFilter}`
 }

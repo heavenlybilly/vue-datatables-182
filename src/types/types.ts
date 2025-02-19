@@ -89,3 +89,7 @@ export type DTError = {
   message: string
   description?: string | null
 }
+
+export type DTFilter = {
+  [key: string]: any
+}

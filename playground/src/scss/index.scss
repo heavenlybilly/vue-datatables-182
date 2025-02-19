@@ -1,6 +1,6 @@
-@import "reset.css";
-//@import "@libs/vue-datatables-182/dist/index.css";
-@import "../../../src/scss/index.scss";
+@use "reset.css";
+//@use "@libs/vue-datatables-182/dist/index.css";
+@use "../../../src/scss/index.scss";
 
 html {
   font-size: 16px;

@@ -1,9 +1,15 @@
 import vue from '@vitejs/plugin-vue2'
+import svgLoader from 'vite-svg-loader'
 import path from 'node:path'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    svgLoader({
+      defaultImport: 'raw',
+    })
+  ],
   resolve: {
     alias: [
       {
