@@ -1,0 +1,65 @@
+@use '../vars';
+
+.dt182-cell {
+  padding: 0.75rem 1rem;
+  line-height: 1.3;
+  vertical-align: middle;
+  background-color: vars.$dt182-cell-bg-color;
+  transition: background-color vars.$transition-duration ease-in-out;
+}
+
+.dt182-row {
+  &-clickable {
+    cursor: pointer;
+
+    &:hover {
+      .dt182-cell {
+        background-color: vars.$dt182-hovered-row-cell-bg-color;
+      }
+
+      .dt182-cell.dt182-sticky-start,  td.dt182-sticky-end {
+        background-color: vars.$dt182-hovered-row-sticky-cell-bg-color;
+      }
+    }
+  }
+
+  &:not(:last-child) .dt182-cell {
+    border-bottom: 1px solid vars.$dt182-cell-border-color;
+  }
+}
+
+.dt182-cell-numbering {
+  &-inner {
+    text-align: center;
+  }
+}
+
+.dt182-cell-selection {
+  padding-right: 0;
+  padding-left: 0;
+
+  &-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+
+    .dt182-selection-checkbox {
+      margin: 0!important;
+      padding: 0!important;
+      cursor: pointer;
+      accent-color: vars.$select-row-accent-color;
+    }
+  }
+}
+
+.dt182-cell-actions {
+  padding-right: 0;
+  padding-left: 0;
+
+  &-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

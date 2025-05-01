@@ -1,197 +1,153 @@
 <script setup lang="ts">
-// import { DataTable, DataTableColumn } from '@libs/vue-datatables-182'
-import { DataTable, DataTableColumn} from '../../src/index'
-import { items } from './mocks'
+import { computed, ref } from 'vue'
+import VCheckbox from './components/VCheckbox.vue'
+import { usePersistentState } from './views/playground/usePersistentState'
 
-const prettifyPopulation = (value: number) => {
-  const abbreviations = ['', 'K', 'M', 'B', 'T']
-  let index = 0
-  let number = value
+const isHighlight = ref(false)
 
-  while (number >= 1000 && index < abbreviations.length - 1) {
-    number /= 1000
-    index++
-  }
+usePersistentState('playground-app-highlight', { isHighlight })
 
-  number = Math.round(number * 100) / 100
-
-  return number + abbreviations[index]
-}
-
-// @ts-ignore
-const url = import.meta.env.VITE_URL
+const classObject = computed(() => ({
+  'playground-highlight': isHighlight.value,
+}))
 </script>
 
 <template>
-  <div class="wrapper">
-    <data-table
-      source="client"
-      :items="items"
-      :rows-per-page-count="5"
-    >
-      <data-table-column
-        field="order"
-        title="Порядок сортировки"
-        text-align="center"
-        orderable
-        width="150px"
-      />
-      <data-table-column
-        field="name"
-        title="Наименование"
-        searchable
-      />
-      <data-table-column
-        field="population"
-        title="Население"
-        text-align="center"
-        searchable
-        width="250px"
-      >
-        <template #cell="{ row }">
-          <div>
-            {{ prettifyPopulation(row.item.population) }}
-          </div>
-        </template>
-      </data-table-column>
-      <data-table-column
-        field="updated_at"
-        title="Дата обновления"
-        text-align="center"
-        orderable
-        width="140px"
-      />
-    </data-table>
+  <div class="playground-wrapper" :class="classObject">
+    <div class="playground-header">
+      <div class="playground-header-inner">
+        <router-link :to="{ name: 'playground' }" class="playground-link">Playground</router-link>
+      </div>
+      <div>
+        <v-checkbox v-model="isHighlight" label="highlight" />
+      </div>
+    </div>
 
-    <hr>
-
-    <data-table
-      source="client"
-      :items="items"
-      numbering
-      row-selection
-      scroll-x
-      :fixed-columns-start="3"
-      :rows-per-page-count="5"
-    >
-      <data-table-column
-        field="order"
-        title="Порядок сортировки"
-        text-align="center"
-        orderable
-        width="220px"
-      />
-      <data-table-column
-        field="name"
-        title="Наименование"
-        searchable
-      />
-      <data-table-column
-        field="population"
-        title="Население"
-        text-align="center"
-        searchable
-        width="250px"
-      >
-        <template #cell="{ row }">
-          <div>
-            {{ prettifyPopulation(row.item.population) }}
-          </div>
-        </template>
-      </data-table-column>
-      <data-table-column
-        field="updated_at"
-        title="Дата обновления"
-        text-align="center"
-        orderable
-        width="120px"
-      />
-    </data-table>
-
-    <hr>
-
-    <data-table
-      source="client"
-      :items="items"
-      numbering
-      row-selection
-      scroll-x
-      :fixed-columns-start="3"
-      :rows-per-page-count="5"
-    >
-      <data-table-column
-        field="order"
-        title="Порядок сортировки"
-        text-align="center"
-        orderable
-        width="200px"
-      />
-      <data-table-column
-        field="name"
-        title="Наименование"
-        searchable
-        width="800px"
-      />
-      <data-table-column
-        field="population"
-        title="Население"
-        text-align="center"
-        searchable
-        width="450px"
-      >
-        <template #cell="{ row }">
-          <div>
-            {{ prettifyPopulation(row.item.population) }}
-          </div>
-        </template>
-      </data-table-column>
-      <data-table-column
-        field="updated_at"
-        title="Дата обновления"
-        text-align="center"
-        orderable
-        width="120px"
-      />
-    </data-table>
-
-<!--    <data-table-->
-<!--      source="server"-->
-<!--      :url="url"-->
-<!--      :rows-per-page-count="5"-->
-<!--    >-->
-<!--      <data-table-column-->
-<!--        field="name"-->
-<!--        title="Наименование"-->
-<!--        searchable-->
-<!--        width="500px"-->
-<!--      />-->
-<!--      <data-table-column-->
-<!--        field="state"-->
-<!--        title="Статус"-->
-<!--        text-align="center"-->
-<!--        searchable-->
-<!--        width="250px"-->
-<!--      />-->
-<!--      <data-table-column-->
-<!--        field="updated_at"-->
-<!--        title="Дата обновления"-->
-<!--        text-align="center"-->
-<!--        orderable-->
-<!--        width="120px"-->
-<!--      />-->
-<!--    </data-table>-->
+    <div class="playground-content">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <style lang="scss">
-.wrapper {
-  padding: 2rem;
+*, *:before, *:after {
+  box-sizing: border-box;
 }
 
-hr {
-  border: none;
-  height: 1px;
-  background-color: #cdcdcd;
-  margin: 35px 0 30px 0;
+html, body {
+  height: 100vh;
+}
+
+.playground-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 30px;
+  background-color: #f6f6f6;
+
+  &.playground-highlight {
+    background-color: #fff !important;
+
+    .playground-example-block {
+      background-color: #f6f6f6 !important;
+    }
+
+    .playground-control-group {
+      background-color: #f6f6f6 !important;
+    }
+  }
+}
+
+.playground-header {
+  margin-bottom: 35px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+
+  &--inner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+  }
+}
+
+.playground-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.playground-link {
+  color: #2b2b2b;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration:  none;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.playground-badge-list {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.playground-badge {
+  padding: 2px 4px;
+  font-size: 10px;
+  border-radius: 5px;
+  line-height: 1;
+
+  &-primary {
+    background-color: #dedef4;
+    color: #4848ca;
+  }
+
+  &-danger {
+    background-color: #f4dede;
+    color: #ca4848;
+  }
+
+  &-success {
+    background-color: #e4f4de;
+    color: #73ca48;
+  }
+
+  &-info {
+    background-color: #deebf4;
+    color: #4880ca;
+  }
+
+  &-warning {
+    background-color: #f4efde;
+    color: #ca9d48;
+  }
+}
+
+.btn {
+  border-radius: 5px;
+  border: 1px solid transparent;
+  outline: none;
+  padding: 6px 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &-primary {
+    background-color: #dedef4;
+    color: #4848ca;
+
+    &:hover {
+      border-color: #4848ca;
+    }
+  }
 }
 </style>

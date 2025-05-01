@@ -18,7 +18,7 @@ const tableContentClassObject = computed(() => ({
     class="dt182-content"
     :class="tableContentClassObject"
   >
-    <table class="dt182-element-table">
+    <table class="dt182-table">
       <slot></slot>
     </table>
   </div>

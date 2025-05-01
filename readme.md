@@ -55,7 +55,7 @@ export default {
 <template>
   <!-- данные из массива -->
   <data-table
-    source="client"
+    source="local"
     :items="items"
     numbering
     row-selection
@@ -77,7 +77,7 @@ export default {
 
   <!-- данные с сервера -->
   <data-table
-    source="server"
+    source="remote"
     url="/example-table"
     numbering
     row-selection
@@ -112,17 +112,17 @@ ___
 #### Данные
 
 #### `source`
-Источник данных. Допустимые значения: `client` и `server`.
+Источник данных. Допустимые значения: `local` и `remote`.
 
 ```js
 source: {
   type: String,
-  default: 'server'
+  default: 'remote'
 }
 ```
 
 #### `url`
-URL для загрузки данных. Использовать только с `source="server"`.
+URL для загрузки данных. Использовать только с `source="remote"`.
 
 ```js
 url: {
@@ -132,7 +132,7 @@ url: {
 ```
 
 #### `items`
-Массив данных для отображения. Использовать только с `source="client"`.
+Массив данных для отображения. Использовать только с `source="local"`.
 
 ```js
 items: {
@@ -312,7 +312,7 @@ export default {
 ##### template
 ```vue
 <data-table
-  source="client"
+  source="local"
   :items="items"
   rows-clickable
   @row-click="handleClickRow"
@@ -341,7 +341,7 @@ export default {
 ##### template
 ```vue
 <data-table
-  source="client"
+  source="local"
   :items="items"
   row-selection
   @update:selected-rows="handleUpdateSelectedRows"
@@ -387,7 +387,7 @@ export default {
 
 ```vue
 <data-table-column ... >
-  <template #actions="{ row }">
+  <template #actions="row">
     <div @click.stop>
       <div>Actions for row #{{ row.number }}:</div>
       <button id="delete" :data-id="row.item.id"></button>
@@ -460,7 +460,7 @@ width: {
 ```
 
 #### `textAlign`
-Выравнивание текста в стоолбце таблицы. Доступные значения: `left`, `right` и `center`.
+Выравнивание текста в столбце таблицы. Доступные значения: `left`, `right` и `center`.
 
 *___Примечание:___ если отображение содержимого ячеек столбца задается с помощью слота, 
 это свойство может не иметь ожидаемого эффекта.*
@@ -487,7 +487,7 @@ textAlign: {
   searchable
   title="Name"
 >
-  <template #cell="{ row }">
+  <template #cell="row">
     <div>
       <div>This is row #{{ row.number }}</div>
       <div>Title: {{ row.item.title }}</div>

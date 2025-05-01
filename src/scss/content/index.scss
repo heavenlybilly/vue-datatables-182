@@ -1,17 +1,15 @@
-@use "body";
-@use "head";
-@use "sticky";
+@use '../vars';
 
 .dt182-content {
-  border: 1px solid #ededf1;
-  border-radius: 5px;
+  border: 1px solid vars.$dt182-table-border-color;
+  border-radius: vars.$dt182-table-border-radius;
 
   &.scroll-x {
     overflow-x: scroll;
   }
 }
 
-.dt182-element-table {
+.dt182-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;

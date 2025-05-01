@@ -1,0 +1,14 @@
+@use '../vars';
+
+.dt182-per-page-control {
+  width: 5rem;
+  height: 2rem;
+  margin: 0 0.32rem;
+  padding-top: 0.28rem;
+  padding-bottom: 0.28rem;
+  padding-left: 0.8rem;
+  background-color: vars.$dt182-per-page-control-bg-color;
+  border: 1px solid vars.$dt182-per-page-control-border-color;
+  border-radius: 5px;
+  outline: none;
+}

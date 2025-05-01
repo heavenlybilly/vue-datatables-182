@@ -1,6 +1,6 @@
 import type { VNode } from 'vue'
-import { DefineComponent } from '@/types/core'
-import { DTRow, DTTextAlign } from '@/types/types'
+import { DTTextAlign } from '@/types/types'
+import { DefineComponent } from '@/types/utils'
 
 export interface DataTableColumnProps {
   field: string
@@ -12,7 +12,7 @@ export interface DataTableColumnProps {
 }
 
 export interface DataTableColumnSlots {
-  cell(scope: { row: DTRow }): VNode
+  cell(scope: { index: number; item: DTRowItem; number: number }): VNode
 }
 
 export declare const DataTableColumn: DefineComponent<DataTableColumnProps, DataTableColumnSlots>

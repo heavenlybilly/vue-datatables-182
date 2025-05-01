@@ -1,6 +1,6 @@
 import type { VNode } from 'vue'
-import { DefineComponent, EmitFn } from '@/types/core'
-import { DTMethod, DTOrderDirection, DTRow, DTRowItem, DTSource } from '@/types/types'
+import { DTMethod, DTOrderDirection, DTRowItem, DTSource, DTTableData } from '@/types/types'
+import { DefineComponent, EmitFn } from '@/types/utils'
 
 export interface DataTableProps {
   // data
@@ -48,7 +48,7 @@ export interface DataTableSlots {
 
   topRight(): VNode[]
 
-  actions(scope: { row: DTRow }): VNode
+  actions(scope: { index: number; item: DTRowItem; number: number }): VNode
 }
 
 export interface DataTableEmitsOptions {
@@ -71,6 +71,17 @@ export interface DataTableEmitsOptions {
     number: number
     item: Record<string, string | number | boolean | null>
   }): void
+
+  /**
+   * Emitted when data loading starts
+   */
+  'loading-start'(): void
+
+  /**
+   * Emitted when data loading end
+   * todo: fix any
+   */
+  'loading-end'(value: DTTableData<any>): void
 }
 
 export declare type DataTableEmits = EmitFn<DataTableEmitsOptions>

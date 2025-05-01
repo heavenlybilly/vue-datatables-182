@@ -1,0 +1,15 @@
+.dt182-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.8rem;
+}
+
+.dt182-bottom-left {
+  display: flex;
+  align-items: center;
+
+  & > *:not(:first-child) {
+    margin-left: 0.5rem;
+  }
+}

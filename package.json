@@ -68,7 +68,7 @@
     "vue-tsc": "^2.0.29"
   },
   "peerDependencies": {
-    "vue": "2.7"
+    "vue": "^2.7.16"
   },
   "keywords": [
     "vue",
