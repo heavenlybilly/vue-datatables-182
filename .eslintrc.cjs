@@ -46,6 +46,10 @@ module.exports = {
     ],
 
     // TypeScript
+    '@typescript-eslint/no-unused-vars': ['error', {
+      argsIgnorePattern: '^_',
+      varsIgnorePattern: '^_'
+    }],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-use-before-define': [
@@ -67,6 +71,7 @@ module.exports = {
     'vue/v-on-event-hyphenation': 'error',
     'vue/attributes-order': ['error', { alphabetical: true }],
     'vue/no-v-html': 'off',
+    'vue/html-button-has-type': 'off',
     'vuejs-accessibility/click-events-have-key-events': 'off',
     'vuejs-accessibility/form-control-has-label': 'off',
     'vuejs-accessibility/heading-has-content': 'off',
@@ -86,11 +91,20 @@ module.exports = {
     'vuejs-accessibility/tabindex-no-positive': 'off',
     'vuejs-accessibility/anchor-has-content': 'off',
   },
+  overrides: [
+    {
+      files: ['playground/**/*'],
+      rules: {
+        'no-console': 'off' // отключаем правило
+      }
+    }
+  ],
   settings: {
     'import/resolver': {
       'eslint-import-resolver-custom-alias': {
         alias: {
           '@': './src',
+          '~': './playground',
         },
         extensions: ['.ts', '.vue'],
       },

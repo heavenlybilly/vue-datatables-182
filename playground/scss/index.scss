@@ -1,0 +1,26 @@
+@use "reset.css";
+@use "@/scss/index";
+@use '@fortawesome/fontawesome-free/css/all.min.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100vh;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-weight: 500;
+  font-size: 0.84rem;
+  font-family: Rubic, sans-serif;
+  font-style: normal;
+  font-optical-sizing: auto;
+}

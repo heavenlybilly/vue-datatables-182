@@ -16,6 +16,7 @@
     "^@/components",
     "^@/assets",
     "^@/scss",
+    "^@/playground",
     "^[./]"
   ],
   "importOrderSortSpecifiers": true

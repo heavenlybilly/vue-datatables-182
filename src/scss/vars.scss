@@ -1,56 +1,56 @@
-$select-row-accent-color: #4c4c4c; // акцентный цвет чекбокса выбора строк
+$select-row-accent-color: #4c4c4c !default; // акцентный цвет чекбокса выбора строк
 
 // body
-$dt182-cell-bg-color: #fff; // цвет фона ячейки таблицы
-$dt182-sticky-cell-bg-color: #f9fcfd; // цвет фона ячейки закрепленного столбца
-$dt182-hovered-row-cell-bg-color: #f5f8fB; // цвет фона ячейки строки при наведении
-$dt182-hovered-row-sticky-cell-bg-color: #e9eef3; // цвет фона ячейки строки при наведении закрепленного столбца
-$dt182-cell-border-color: #e1e4e4; // цвет границ ячеек
+$dt182-cell-bg-color: #fff !default; // цвет фона ячейки таблицы
+$dt182-sticky-cell-bg-color: #f9fcfd !default; // цвет фона ячейки закрепленного столбца
+$dt182-hovered-row-cell-bg-color: #f5f8fB !default; // цвет фона ячейки строки при наведении
+$dt182-hovered-row-sticky-cell-bg-color: #e9eef3 !default; // цвет фона ячейки строки при наведении закрепленного столбца
+$dt182-cell-border-color: #e1e4e4 !default; // цвет границ ячеек
 
 // head
-$dt182-head-border-bottom-color: #e1e4e4; // цвет нижней границы заголовка таблицы
-$dt182-head-bg-color: #ecf0f7; // цвет фона заголовка таблицы
-$dt182-head-hovered-cell-bg-color: #dde1ec; // цвет при наведении фона ячейки заголовка таблицы
+$dt182-head-border-bottom-color: #e1e4e4 !default; // цвет нижней границы заголовка таблицы
+$dt182-head-bg-color: #ecf0f7 !default; // цвет фона заголовка таблицы
+$dt182-head-hovered-cell-bg-color: #dde1ec !default; // цвет при наведении фона ячейки заголовка таблицы
 
 // table
-$dt182-table-border-color: #ededf1; // граница таблицы
-$dt182-table-border-radius: 5px; // border-radius таблицы
+$dt182-table-border-color: #ededf1 !default; // граница таблицы
+$dt182-table-border-radius: 5px !default; // border-radius таблицы
 
 // search
-$dt182-search-bg-color: #fff; // цвет фона поля поиска
-$dt182-search-border-color: #ededf1; // цвет границы поля поиска
-$dt182-search-search-icon-color: #a8a8b3; // цвет иконки поиска
-$dt182-search-cross-icon-color: #9999a1; // цвет иконки "очистить"
-$dt182-search-placeholder-color: #c8c8cf; // цвет плейсхолдера
-$dt182-search-hovered-placeholder-color: #c8c8cf; // цвет плейсхолдера при наведении
-$dt182-search-height: 2.25rem; // высота поля поиска
-$dt182-search-width-min: 6rem; // ширина поля поиска в обычном состоянии
-$dt182-search-width-max: 15rem; // ширина поля поиска при наведении или со значением
-$dt182-search-width-search-icon: 2.25rem; // ширина области для иконки поиска
-$dt182-search-width-cross-icon: 1.5rem; // ширина области для иконки очистить
-$dt182-search-font-size: 0.82rem; // размер шрифта
+$dt182-search-bg-color: #fff !default; // цвет фона поля поиска
+$dt182-search-border-color: #ededf1 !default; // цвет границы поля поиска
+$dt182-search-search-icon-color: #a8a8b3 !default; // цвет иконки поиска
+$dt182-search-cross-icon-color: #9999a1 !default; // цвет иконки "очистить"
+$dt182-search-placeholder-color: #c8c8cf !default; // цвет плейсхолдера
+$dt182-search-hovered-placeholder-color: #c8c8cf !default; // цвет плейсхолдера при наведении
+$dt182-search-height: 2.25rem !default; // высота поля поиска
+$dt182-search-width-min: 6rem !default; // ширина поля поиска в обычном состоянии
+$dt182-search-width-max: 15rem !default; // ширина поля поиска при наведении или со значением
+$dt182-search-width-search-icon: 2.25rem !default; // ширина области для иконки поиска
+$dt182-search-width-cross-icon: 1.5rem !default; // ширина области для иконки очистить
+$dt182-search-font-size: 0.82rem !default; // размер шрифта
 $dt182-search-transition-duration: 400ms;
 $dt182-search-transition-timing-function: ease;
 
 // per page control
-$dt182-per-page-control-bg-color: #fff;
-$dt182-per-page-control-border-color: #ced4da;
+$dt182-per-page-control-bg-color: #fff !default;
+$dt182-per-page-control-border-color: #ced4da !default;
 
 // page details
-$dt182-page-details-color: #989898;
+$dt182-page-details-color: #989898 !default;
 
 // pagination
-$dt182-pagination-btn-bg-color: #fff; // цвет фона кнопки
-$dt182-pagination-disabled-btn-bg-color: #fff; // цвет фона disabled кнопки (например, на первой странице кнопка назад будет disabled)
-$dt182-pagination-disabled-btn-color: #c6c6c6; // цвет текста disabled кнопки
-$dt182-pagination-active-btn-bg-color: #ededf1; // цвет фона кнопки текущей страницы
-$dt182-pagination-hover-btn-bg-color: #ededf1; // цвет фона кнопки при наведении
+$dt182-pagination-btn-bg-color: #fff !default; // цвет фона кнопки
+$dt182-pagination-disabled-btn-bg-color: #fff !default; // цвет фона disabled кнопки (например, на первой странице кнопка назад будет disabled)
+$dt182-pagination-disabled-btn-color: #c6c6c6 !default; // цвет текста disabled кнопки
+$dt182-pagination-active-btn-bg-color: #ededf1 !default; // цвет фона кнопки текущей страницы
+$dt182-pagination-hover-btn-bg-color: #ededf1 !default; // цвет фона кнопки при наведении
 
 // error plug
-$dt182-error-plug-bg-color: #fffbfb;
-$dt182-error-plug-border-color: #fbd8d8;
-$dt182-error-plug-message-color: #af3a3a;
-$dt182-error-plug-description-color: #6d6d6d;
+$dt182-error-plug-bg-color: #fffbfb !default;
+$dt182-error-plug-border-color: #fbd8d8 !default;
+$dt182-error-plug-message-color: #af3a3a !default;
+$dt182-error-plug-description-color: #6d6d6d !default;
 
 // transition effects
-$transition-duration: 200ms;
+$transition-duration: 200ms !default;
