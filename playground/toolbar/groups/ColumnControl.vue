@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { FieldDef } from '~/types'
+import { DTTextAlign } from '@/types/types'
 import VCheckbox from '../../components/VCheckbox.vue'
 import VInput from '../../components/VInput.vue'
 import VSelect from '../../components/VSelect.vue'
@@ -54,7 +55,7 @@ const handleInput = (prop: string, value: string | number | null) => {
 
       <v-select
         label="text-align"
-        :options="['center', 'left', 'right']"
+        :options="[DTTextAlign.CENTER, DTTextAlign.LEFT, DTTextAlign.RIGHT]"
         :value="props.value.textAlign"
         @input="(v) => handleInput('textAlign', v)"
       />

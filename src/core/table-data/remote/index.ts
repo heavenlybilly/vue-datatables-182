@@ -40,7 +40,7 @@ export const fetchRemoteItems = async (
   })
 
   let urlStr = remoteConf.url
-  if (remoteConf.method === 'GET') {
+  if (remoteConf.method === DTMethod.GET) {
     urlStr = `${remoteConf.url}?${queryParams}`
   }
 

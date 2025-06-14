@@ -8,7 +8,7 @@ export default function makeRequest(url: string, method: DTMethod, data: Record<
     const xhr = new XMLHttpRequest()
     xhr.open(method, url, true)
 
-    if (method.toUpperCase() === 'POST') {
+    if (method.toUpperCase() === DTMethod.POST) {
       const csrfToken = getCsrfToken()
       if (csrfToken) {
         xhr.setRequestHeader('X-CSRF-Token', csrfToken)

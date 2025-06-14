@@ -33,7 +33,7 @@ const orderIcon = computed(() => {
     return orderDefaultIcon
   }
 
-  return props.order.direction === 'asc' ? orderAscIcon : orderDescIcon
+  return props.order.direction === DTOrderDirection.ASC ? orderAscIcon : orderDescIcon
 })
 
 const columnStyleObject = computed(() => {
@@ -43,7 +43,7 @@ const columnStyleObject = computed(() => {
     maxWidth?: string
     textAlign: DTTextAlign
   } = {
-    textAlign: 'left',
+    textAlign: DTTextAlign.LEFT,
   }
 
   if (props.column.params.width) {
@@ -69,11 +69,11 @@ const handleOrderUpdate = () => {
   if (
     !props.order ||
     props.order.column !== props.column.params.field ||
-    props.order.direction === 'desc'
+    props.order.direction === DTOrderDirection.DESC
   ) {
-    direction = 'asc'
+    direction = DTOrderDirection.ASC
   } else {
-    direction = 'desc'
+    direction = DTOrderDirection.DESC
   }
 
   const newOrderValue: DTOrder = {

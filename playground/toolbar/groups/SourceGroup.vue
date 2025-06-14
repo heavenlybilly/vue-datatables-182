@@ -14,14 +14,14 @@ const handleSwitch = (value: DTSource) => {
 <template>
   <div class="playground-source-switcher">
     <span
-      :class="{ 'playground-active': source === 'local' }"
-      @click="handleSwitch('local')"
+      :class="{ 'playground-active': source === DTSource.LOCAL }"
+      @click="handleSwitch(DTSource.LOCAL)"
     >
       Local
     </span>
     <span
-      :class="{ 'playground-active': source === 'remote' }"
-      @click="handleSwitch('remote')"
+      :class="{ 'playground-active': source === DTSource.REMOTE }"
+      @click="handleSwitch(DTSource.REMOTE)"
     >
       Remote
     </span>

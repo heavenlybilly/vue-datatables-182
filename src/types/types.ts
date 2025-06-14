@@ -4,7 +4,12 @@ import { NormalizedScopedSlot } from 'vue/types/vnode'
 /**
  * Columns
  */
-export type DTTextAlign = 'center' | 'left' | 'right'
+export const DTTextAlign = {
+  CENTER: 'center',
+  LEFT: 'left',
+  RIGHT: 'right',
+} as const
+export type DTTextAlign = (typeof DTTextAlign)[keyof typeof DTTextAlign]
 
 type DTColumnParams = {
   readonly field: string
@@ -29,8 +34,17 @@ export type DTColumn = {
 /**
  * Table data
  */
-export type DTSource = 'remote' | 'local'
-export type DTMethod = 'GET' | 'POST'
+export const DTSource = {
+  LOCAL: 'local',
+  REMOTE: 'remote',
+} as const
+export type DTSource = (typeof DTSource)[keyof typeof DTSource]
+
+export const DTMethod = {
+  GET: 'GET',
+  POST: 'POST',
+} as const
+export type DTMethod = (typeof DTMethod)[keyof typeof DTMethod]
 
 // todo: кажется, тут есть две группы: того, что приходит с бэка и уже обработанных данных
 export type DTRowItemValue = string | number | boolean | null
@@ -64,7 +78,12 @@ export type DTServerResponse = {
 /**
  * Order
  */
-export type DTOrderDirection = 'asc' | 'desc'
+export const DTOrderDirection = {
+  ASC: 'asc',
+  DESC: 'desc',
+} as const
+export type DTOrderDirection = (typeof DTOrderDirection)[keyof typeof DTOrderDirection]
+
 export type DTOrderColumn = {
   readonly column: string
   readonly direction: DTOrderDirection

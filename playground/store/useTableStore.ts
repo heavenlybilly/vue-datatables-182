@@ -7,7 +7,7 @@ import { Logger } from '~/utils/logger'
 import { DTSource } from '@/types/types'
 
 export const useTableStore = defineStore('table', () => {
-  const source = ref<DTSource>('local')
+  const source = ref<DTSource>(DTSource.LOCAL)
   const fields = ref<FieldDef[]>([])
   const isTableVisible = ref(false)
 

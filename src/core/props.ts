@@ -51,7 +51,7 @@ export const props = {
   },
   orderDirection: {
     type: String as PropType<DTOrderDirection>,
-    default: 'asc',
+    default: DTOrderDirection.ASC,
   },
   // row-selection
   rowSelection: {
@@ -106,7 +106,7 @@ export const validateTableProps = (p: ExtractPropTypes<typeof props>) => {
     )
   }
 
-  const availableMethods: DTMethod[] = ['GET', 'POST']
+  const availableMethods: DTMethod[] = [DTMethod.GET, DTMethod.POST]
   if (p.method !== null && !availableMethods.includes(p.method)) {
     throw new VueDatatables182Error(
       ErrorCategory.PROPS_VALIDATION,
@@ -114,7 +114,7 @@ export const validateTableProps = (p: ExtractPropTypes<typeof props>) => {
     )
   }
 
-  if (p.source === 'remote' && !p.url) {
+  if (p.source === DTSource.REMOTE && !p.url) {
     throw new VueDatatables182Error(
       ErrorCategory.PROPS_VALIDATION,
       `If ‘remote’ is used as the source, the ‘url’ prop must be set`,

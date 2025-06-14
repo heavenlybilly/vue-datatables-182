@@ -4,12 +4,13 @@ import { PiniaVuePlugin, createPinia } from 'pinia'
 import Vue from 'vue'
 import App from '~/App.vue'
 import '~/scss/index.scss'
+import { DTMethod } from '@/types/types'
 
 const pinia = createPinia()
 
 Vue.use(PiniaVuePlugin)
 Vue.use(VueDatatables182, {
-  defaultMethod: 'GET',
+  defaultMethod: DTMethod.GET,
 })
 
 new Vue({

@@ -23,7 +23,7 @@ const orderByOptions = computed((): string[] => {
 })
 
 const orderDirectionOptions = computed((): DTOrderDirection[] => {
-  return ['asc', 'desc']
+  return [DTOrderDirection.ASC, DTOrderDirection.DESC]
 })
 </script>
 

@@ -15,6 +15,7 @@ import SourceGroup from '~/toolbar/groups/SourceGroup.vue'
 import UrlGroup from '~/toolbar/groups/UrlGroup.vue'
 import { ToolbarState } from '~/types'
 import { Logger } from '~/utils/logger'
+import { DTSource } from '@/types/types'
 
 const toolbarState = ref<ToolbarState>('collapsed')
 
@@ -65,14 +66,14 @@ const handleReRender = (): void => {
       </div>
 
       <div
-        v-show="source === 'local'"
+        v-show="source === DTSource.LOCAL"
         class="playground-toolbar-group"
       >
         <items-group />
       </div>
 
       <div
-        v-show="source === 'remote'"
+        v-show="source === DTSource.REMOTE"
         class="playground-toolbar-group"
       >
         <url-group />

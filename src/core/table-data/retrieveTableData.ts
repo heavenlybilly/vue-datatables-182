@@ -28,7 +28,7 @@ export const retrieveTableData = async (options: {
   }
 }) => {
   switch (options.source) {
-    case 'remote': {
+    case DTSource.REMOTE: {
       if (options?.remoteConf === undefined) {
         throw new VueDatatables182Error(
           ErrorCategory.INTERNAL_ERROR,
@@ -51,7 +51,7 @@ export const retrieveTableData = async (options: {
 
       return fetchRemoteItems(remoteConf, options.conf, options.params)
     }
-    case 'local': {
+    case DTSource.LOCAL: {
       if (options?.localConf === undefined) {
         throw new VueDatatables182Error(
           ErrorCategory.INTERNAL_ERROR,

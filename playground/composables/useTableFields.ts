@@ -4,6 +4,7 @@ import { useTableRendering } from '~/composables/useTableRendering'
 import { useTableStore } from '~/store/useTableStore'
 import { FieldDef, TableItem } from '~/types'
 import { Logger } from '~/utils/logger'
+import { DTSource } from '@/types/types'
 
 export const useTableFields = () => {
   const tableStore = useTableStore()
@@ -74,9 +75,9 @@ export const useTableFields = () => {
     Logger.start('init fields')
     let newFields: FieldDef[] = []
 
-    if (tableStore.source === 'local') {
+    if (tableStore.source === DTSource.LOCAL) {
       newFields = extractFromLocal(tableStore.tableParams.items)
-    } else if (tableStore.source === 'remote') {
+    } else if (tableStore.source === DTSource.REMOTE) {
       newFields = await extractFromRemote(tableStore.tableParams.url ?? '')
     }
 
