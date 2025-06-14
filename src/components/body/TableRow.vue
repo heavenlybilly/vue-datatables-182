@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PropType, Ref, computed, onMounted, ref } from 'vue'
-import { DTColumn, DTRow } from '@/types/types'
+import { DTColumn, DTRow } from '@/types'
 import { stickElements } from '@/utils/stick-elements'
 import TableCell from '@/components/body/TableCell.vue'
 import TableCellActions from '@/components/body/TableCellActions.vue'

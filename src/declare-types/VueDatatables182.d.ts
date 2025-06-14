@@ -1,5 +1,5 @@
 import { PluginFunction } from 'vue'
-import { DTPluginOptions } from '@/types/types'
+import { DTPluginOptions } from '@/types'
 
 type VueDatatables182 = { install: PluginFunction<DTPluginOptions> }
 

@@ -1,4 +1,4 @@
-import { DTOrderDirection, DTRowItem } from '@/types/types'
+import { DTOrderDirection, DTRowItem } from '@/types'
 
 export default (items: DTRowItem[], orderBy: string, orderDirection: DTOrderDirection) => {
   return items.sort((a, b) => {

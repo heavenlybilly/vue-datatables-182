@@ -4,7 +4,7 @@ import { useTableRendering } from '~/composables/useTableRendering'
 import { useTableStore } from '~/store/useTableStore'
 import { FieldDef, TableItem } from '~/types'
 import { Logger } from '~/utils/logger'
-import { DTSource } from '@/types/types'
+import { DTSource } from '@/types'
 
 export const useTableFields = () => {
   const tableStore = useTableStore()

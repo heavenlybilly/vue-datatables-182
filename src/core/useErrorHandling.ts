@@ -1,5 +1,5 @@
 import { Ref, onErrorCaptured, ref } from 'vue'
-import { DTError } from '@/types/types'
+import { DTError } from '@/types'
 import { VueDatatables182Error } from '@/errors/VueDatatables182Error'
 
 export const useErrorHandling = () => {

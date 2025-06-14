@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PropType, Ref, onUpdated, ref } from 'vue'
-import { DTColumn, DTOrder } from '@/types/types'
+import { DTColumn, DTOrder } from '@/types'
 import { stickElements } from '@/utils/stick-elements'
 import TableColumn from '@/components/head/TableColumn.vue'
 import TableColumnActions from '@/components/head/TableColumnActions.vue'

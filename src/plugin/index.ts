@@ -1,6 +1,6 @@
 import { DataTable, DataTableColumn } from '@/index'
 import type { PluginFunction } from 'vue'
-import { DTMethod, DTPluginOptions } from '@/types/types'
+import { DTMethod, DTPluginOptions } from '@/types'
 import { setCsrfToken } from '@/plugin/csrf-token'
 import { setDefaultMethod } from '@/plugin/default-method'
 

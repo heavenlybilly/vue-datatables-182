@@ -1,4 +1,4 @@
-import { DTMethod } from '@/types/types'
+import { DTMethod } from '@/types'
 import { VueDatatables182Error } from '@/errors/VueDatatables182Error'
 import { ErrorCategory } from '@/errors/error-categories'
 import { getCsrfToken } from '@/plugin/csrf-token'

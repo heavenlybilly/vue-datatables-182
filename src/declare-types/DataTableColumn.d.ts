@@ -1,6 +1,6 @@
 import type { VNode } from 'vue'
-import { DTTextAlign } from '@/types/types'
-import { DefineComponent } from '@/types/utils'
+import { DTRowItem, DTTextAlign } from '@/types'
+import { DefineComponent } from './utils'
 
 export interface DataTableColumnProps {
   field: string

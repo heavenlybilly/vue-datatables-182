@@ -95,7 +95,7 @@ module.exports = {
     {
       files: ['playground/**/*'],
       rules: {
-        'no-console': 'off' // отключаем правило
+        'no-console': 'off',
       }
     }
   ],
@@ -106,7 +106,7 @@ module.exports = {
           '@': './src',
           '~': './playground',
         },
-        extensions: ['.ts', '.vue'],
+        extensions: ['.ts', '.d.ts', '.vue'],
       },
     },
   },

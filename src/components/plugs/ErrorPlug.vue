@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PropType } from 'vue'
-import { DTError } from '@/types/types'
+import { DTError } from '@/types'
 
 const props = defineProps({
   error: {

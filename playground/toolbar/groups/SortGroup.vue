@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import VSelect from '~/components/VSelect.vue'
 import { useTableParams } from '~/composables/useTableParams'
-import { DTOrderDirection } from '@/types/types'
+import { DTOrderDirection } from '@/types'
 
 const { tableParams, setTableParams } = useTableParams()
 

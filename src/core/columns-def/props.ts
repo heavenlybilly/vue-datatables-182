@@ -1,5 +1,5 @@
 import { PropType } from 'vue'
-import { DTTextAlign } from '@/types/types'
+import { DTTextAlign } from '@/types'
 
 export const props = {
   field: {

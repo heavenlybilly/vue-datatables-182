@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTableSource } from '~/composables/useTableSource'
-import { DTSource } from '@/types/types'
+import { DTSource } from '@/types'
 
 const { source, setSource } = useTableSource()
 

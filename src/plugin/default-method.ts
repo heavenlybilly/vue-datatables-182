@@ -1,4 +1,4 @@
-import { DTMethod } from '@/types/types'
+import { DTMethod } from '@/types'
 
 let defaultMethod: DTMethod | undefined
 

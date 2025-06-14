@@ -2,7 +2,7 @@ import { computed } from 'vue'
 import { useTableFields } from '~/composables/useTableFields'
 import { useTableStore } from '~/store/useTableStore'
 import { Logger } from '~/utils/logger'
-import { DTSource } from '@/types/types'
+import { DTSource } from '@/types'
 
 export const useTableSource = () => {
   const tableStore = useTableStore()

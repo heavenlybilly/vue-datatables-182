@@ -1,7 +1,7 @@
 import Vue, { getCurrentInstance, ref } from 'vue'
 // eslint-disable-next-line import/no-unresolved
 import { VNode } from 'vue/types/vnode'
-import { DTColumn } from '@/types/types'
+import { DTColumn } from '@/types'
 import { VueDatatables182Error } from '@/errors/VueDatatables182Error'
 import { resolveClassObject } from '@/core/columns-def/class-resolver'
 import { extractProps } from '@/core/columns-def/props-extractor'

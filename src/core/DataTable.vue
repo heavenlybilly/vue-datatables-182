@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import { DTOrder, DTRow, DTTableData } from '@/types/types'
+import { DTOrder, DTRow, DTTableData } from '@/types'
 import debounce from '@/utils/debounce'
 import { useColumns } from '@/core/columns-def/useColumns'
 import { props as tableProps, validateTableProps } from '@/core/props'

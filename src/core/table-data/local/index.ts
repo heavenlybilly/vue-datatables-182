@@ -1,4 +1,4 @@
-import { DTColumn, DTFilter, DTOrder, DTRowItem, DTTableData } from '@/types/types'
+import { DTColumn, DTFilter, DTOrder, DTRowItem, DTTableData } from '@/types'
 import filterItemsBySearch from '@/core/table-data/local/filter-items-by-search'
 import getItemsByPage from '@/core/table-data/local/get-items-by-page'
 import orderItems from '@/core/table-data/local/order-items'

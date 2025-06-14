@@ -15,7 +15,7 @@ import SourceGroup from '~/toolbar/groups/SourceGroup.vue'
 import UrlGroup from '~/toolbar/groups/UrlGroup.vue'
 import { ToolbarState } from '~/types'
 import { Logger } from '~/utils/logger'
-import { DTSource } from '@/types/types'
+import { DTSource } from '@/types'
 
 const toolbarState = ref<ToolbarState>('collapsed')
 

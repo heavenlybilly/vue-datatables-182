@@ -1,6 +1,6 @@
 import type { VNode } from 'vue'
-import { DTMethod, DTOrderDirection, DTRowItem, DTSource, DTTableData } from '@/types/types'
-import { DefineComponent, EmitFn } from '@/types/utils'
+import { DTMethod, DTOrderDirection, DTRowItem, DTSource, DTTableData } from '@/types'
+import { DefineComponent, EmitFn } from './utils'
 
 export interface DataTableProps {
   // data

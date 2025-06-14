@@ -4,7 +4,7 @@ import { PiniaVuePlugin, createPinia } from 'pinia'
 import Vue from 'vue'
 import App from '~/App.vue'
 import '~/scss/index.scss'
-import { DTMethod } from '@/types/types'
+import { DTMethod } from '@/types'
 
 const pinia = createPinia()
 

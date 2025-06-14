@@ -6,7 +6,7 @@ import {
   DTRowItem,
   DTServerResponse,
   DTTableData,
-} from '@/types/types'
+} from '@/types'
 import { VueDatatables182Error } from '@/errors/VueDatatables182Error'
 import { ErrorCategory } from '@/errors/error-categories'
 import makeQueryParams from '@/core/table-data/remote/make-query-params'

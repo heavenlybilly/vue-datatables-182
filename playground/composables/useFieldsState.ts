@@ -1,5 +1,5 @@
 import { FieldDef } from '~/types'
-import { DTSource } from '@/types/types'
+import { DTSource } from '@/types'
 
 export const useFieldsState = () => {
   const retrieveFieldsState = (source: DTSource): FieldDef[] => {

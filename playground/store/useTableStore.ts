@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import { usePersistentState } from '~/composables/usePersistentState'
 import { FieldDef, ToolbarTableParams } from '~/types'
 import { Logger } from '~/utils/logger'
-import { DTSource } from '@/types/types'
+import { DTSource } from '@/types'
 
 export const useTableStore = defineStore('table', () => {
   const source = ref<DTSource>(DTSource.LOCAL)

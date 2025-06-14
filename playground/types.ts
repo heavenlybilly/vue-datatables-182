@@ -1,4 +1,4 @@
-import { DTOrderDirection, DTTextAlign } from '@/types/types'
+import { DTOrderDirection, DTTextAlign } from '@/types'
 
 export const ToolbarState = {
   COLLAPSED: 'collapsed',

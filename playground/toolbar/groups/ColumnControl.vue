@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { FieldDef } from '~/types'
-import { DTTextAlign } from '@/types/types'
+import { DTTextAlign } from '@/types'
 import VCheckbox from '../../components/VCheckbox.vue'
 import VInput from '../../components/VInput.vue'
 import VSelect from '../../components/VSelect.vue'

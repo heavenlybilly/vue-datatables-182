@@ -1,4 +1,4 @@
-import { DTOrderDirection, DTRowItem } from '@/types/types'
+import { DTOrderDirection, DTRowItem } from '@/types'
 import orderItems from '../order-items'
 
 type TCase = {

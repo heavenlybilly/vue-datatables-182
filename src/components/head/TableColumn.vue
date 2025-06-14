@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
-import { DTColumn, DTOrder, DTOrderDirection, DTTextAlign } from '@/types/types'
+import { DTColumn, DTOrder, DTOrderDirection, DTTextAlign } from '@/types'
 import orderDescIcon from '@/assets/order-asc.svg'
 import orderDefaultIcon from '@/assets/order-default.svg'
 import orderAscIcon from '@/assets/order-desc.svg'

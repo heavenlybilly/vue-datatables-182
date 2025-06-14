@@ -70,7 +70,7 @@ export default [
     external: ['vue'],
   },
   {
-    input: 'src/index.d.ts',
+    input: 'src/declare-types/index.d.ts',
     output: [
       {
         file: 'dist/index.d.ts',

@@ -1,4 +1,4 @@
-import { DTColumn, DTFilter, DTMethod, DTOrder, DTRowItem, DTSource } from '@/types/types'
+import { DTColumn, DTFilter, DTMethod, DTOrder, DTRowItem, DTSource } from '@/types'
 import { VueDatatables182Error } from '@/errors/VueDatatables182Error'
 import { ErrorCategory } from '@/errors/error-categories'
 import { getDefaultMethod } from '@/plugin/default-method'

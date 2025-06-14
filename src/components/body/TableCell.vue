@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
-import { DTColumn, DTRow, DTTextAlign } from '@/types/types'
+import { DTColumn, DTRow, DTTextAlign } from '@/types'
 import decodeString from '@/utils/decode-string'
 import TableCellSlot from '@/components/body/TableCellSlot.vue'
 
