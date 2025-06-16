@@ -1,6 +1,6 @@
 {
   "name": "@libs/vue-datatables-182",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "Datatables component for Vue 2.7",
   "license": "MIT",
   "homepage": "https://gitlab.corp/libs/vue-datatables-182",
