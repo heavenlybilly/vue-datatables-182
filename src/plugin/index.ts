@@ -6,7 +6,7 @@ import { setDefaultMethod } from '@/plugin/default-method'
 
 const VueDatatables182: { install: PluginFunction<DTPluginOptions> } = {
   install(Vue, options = { registerGlobally: true, defaultMethod: DTMethod.GET }) {
-    if (options.registerGlobally || options?.registerGlobally === undefined) {
+    if (options?.registerGlobally) {
       Vue.component('DataTable', DataTable)
       Vue.component('DataTableColumn', DataTableColumn)
     }
@@ -15,9 +15,7 @@ const VueDatatables182: { install: PluginFunction<DTPluginOptions> } = {
       setCsrfToken(options.csrfToken)
     }
 
-    if (options?.defaultMethod) {
-      setDefaultMethod(options.defaultMethod ?? DTMethod.GET)
-    }
+    setDefaultMethod(options?.defaultMethod ?? DTMethod.GET)
   },
 }
 
