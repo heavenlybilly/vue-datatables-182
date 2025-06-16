@@ -7,7 +7,7 @@ export const props = {
   // data
   source: {
     type: String as PropType<DTSource>,
-    default: 'server',
+    default: DTSource.REMOTE,
   },
   url: {
     type: String as PropType<string | null>,
