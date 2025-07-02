@@ -8,6 +8,7 @@ import { useRowsSelection } from '@/core/rows-selection/useRowsSelection'
 import { retrieveTableData } from '@/core/table-data/retrieveTableData'
 import { useErrorHandling } from '@/core/useErrorHandling'
 import TableBody from '@/components/body/TableBody.vue'
+import TableBodyLoader from '@/components/body/TableBodyLoader.vue'
 import TableRow from '@/components/body/TableRow.vue'
 import TableBottom from '@/components/bottom/TableBottom.vue'
 import TableContent from '@/components/content/TableContent.vue'
@@ -16,6 +17,7 @@ import PageDetails from '@/components/page-details/PageDetails.vue'
 import PaginationControl from '@/components/pagination/PaginationControl.vue'
 import PerPageControl from '@/components/per-page-control/PerPageControl.vue'
 import ErrorPlug from '@/components/plugs/ErrorPlug.vue'
+import NoDataPlug from '@/components/plugs/NoDataPlug.vue'
 import TableSearch from '@/components/search/TableSearch.vue'
 import TableTop from '@/components/top/TableTop.vue'
 
@@ -221,11 +223,16 @@ watch(
           </template>
         </table-row>
       </table-body>
+      <table-body-loader
+        v-else-if="error === null"
+        :columns="columns"
+      />
     </table-content>
     <error-plug
       v-if="error"
       :error="error"
     />
+    <no-data-plug v-else-if="tableData && tableData.filtered === 0" />
 
     <table-bottom>
       <template #bottomLeft>

@@ -6,6 +6,8 @@ import { useTableRendering } from '~/composables/useTableRendering'
 import { useTableSource } from '~/composables/useTableSource'
 import { books } from '~/mocks'
 import { Logger } from '~/utils/logger'
+import DataTable from '@/core/DataTable.vue'
+import DataTableColumn from '@/core/columns-def/DataTableColumn.vue'
 import DynamicTemplateRenderer from './DynamicTemplateRenderer.vue'
 
 const { isTableVisible } = useTableRendering()
@@ -59,6 +61,7 @@ onMounted(async () => {
         :fixed-columns-end="tableParams.fixedColumnsEnd"
         :fixed-columns-start="tableParams.fixedColumnsStart"
         :items="tableParams.items"
+        :method="tableParams.method"
         :numbering="tableParams.numbering"
         :order-by="tableParams.orderBy ?? undefined"
         :order-direction="tableParams.orderDirection ?? undefined"

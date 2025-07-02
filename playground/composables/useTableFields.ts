@@ -47,7 +47,7 @@ export const useTableFields = () => {
 
   const extractFromRemote = async (url: string): Promise<FieldDef[]> => {
     try {
-      const response = await fetch(url)
+      const response = await fetch(url, { method: tableStore.tableParams.method })
       const json = await response.json()
 
       const firstItem = json.data?.[0] as TableItem | undefined

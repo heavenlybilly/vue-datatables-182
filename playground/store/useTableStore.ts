@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import { usePersistentState } from '~/composables/usePersistentState'
 import { FieldDef, ToolbarTableParams } from '~/types'
 import { Logger } from '~/utils/logger'
-import { DTSource } from '@/types'
+import { DTMethod, DTSource } from '@/types'
 
 export const useTableStore = defineStore('table', () => {
   const source = ref<DTSource>(DTSource.LOCAL)
@@ -13,6 +13,7 @@ export const useTableStore = defineStore('table', () => {
 
   const tableParams = ref<ToolbarTableParams>({
     url: null,
+    method: DTMethod.GET,
     items: [],
     paginationEnabled: true,
     rowPerPageOptionsRaw: '5, 10, 25, 50, 100',

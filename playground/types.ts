@@ -1,4 +1,4 @@
-import { DTOrderDirection, DTTextAlign } from '@/types'
+import { DTMethod, DTOrderDirection, DTTextAlign } from '@/types'
 
 export const ToolbarState = {
   COLLAPSED: 'collapsed',
@@ -22,6 +22,7 @@ export type FieldDef = {
 
 export type ToolbarTableParams = {
   url: string | null
+  method: DTMethod
   items: TableItem[]
   paginationEnabled: boolean
   rowPerPageOptionsRaw: string

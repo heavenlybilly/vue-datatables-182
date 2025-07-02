@@ -9,8 +9,9 @@ import {
 } from '@/types'
 import { VueDatatables182Error } from '@/errors/VueDatatables182Error'
 import { ErrorCategory } from '@/errors/error-categories'
-import makeQueryParams from '@/core/table-data/remote/make-query-params'
-import makeRequest from '@/core/table-data/remote/make-request'
+import makeQuery from './make-query'
+import makeRequest from './make-request'
+import objectToQueryParams from './object-to-query-params'
 
 export const fetchRemoteItems = async (
   remoteConf: {
@@ -30,7 +31,7 @@ export const fetchRemoteItems = async (
     filters: DTFilter | null
   },
 ): Promise<DTTableData> => {
-  const queryParams = makeQueryParams({
+  const query = makeQuery({
     page: params.page,
     rowsPerPage: conf.pagination ? params.rowsPerPage : null,
     columns: conf.columns,
@@ -38,14 +39,16 @@ export const fetchRemoteItems = async (
     order: params.order,
     filters: params.filters,
   })
+  const queryParams = objectToQueryParams(query)
 
   let urlStr = remoteConf.url
   if (remoteConf.method === DTMethod.GET) {
     urlStr = `${remoteConf.url}?${queryParams}`
   }
+  const queryBody = remoteConf.method === DTMethod.POST ? query : {}
 
   // todo: add post params
-  const data = (await makeRequest(urlStr, remoteConf.method, {})) as DTServerResponse
+  const data = (await makeRequest(urlStr, remoteConf.method, queryBody)) as DTServerResponse
 
   if (data?.error) {
     throw new VueDatatables182Error(ErrorCategory.FETCHING_DATA, data.error)

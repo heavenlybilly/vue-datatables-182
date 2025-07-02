@@ -17,7 +17,8 @@
         background-color: vars.$dt182-hovered-row-cell-bg-color;
       }
 
-      .dt182-cell.dt182-sticky-start,  td.dt182-sticky-end {
+      .dt182-cell.dt182-sticky-start,
+      td.dt182-sticky-end {
         background-color: vars.$dt182-hovered-row-sticky-cell-bg-color;
       }
     }
@@ -45,8 +46,8 @@
     width: 100%;
 
     .dt182-selection-checkbox {
-      margin: 0!important;
-      padding: 0!important;
+      margin: 0 !important;
+      padding: 0 !important;
       cursor: pointer;
       accent-color: vars.$select-row-accent-color;
     }
@@ -61,5 +62,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+.dt182-body {
+  &-skeleton {
+    height: 30px;
+    margin: 10px;
+    background-color: #ecf0f7;
+    border-radius: 5px;
+    animation-name: skeleton;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes skeleton {
+    0% {
+      opacity: 0.7;
+    }
+
+    50% {
+      opacity: 0.3;
+    }
+
+    100% {
+      opacity: 0.7;
+    }
   }
 }

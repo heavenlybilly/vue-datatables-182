@@ -1,12 +1,21 @@
 <script setup lang="ts">
+import VCheckbox from '~/components/VCheckbox.vue'
 import VInput from '~/components/VInput.vue'
 import { useTableParams } from '~/composables/useTableParams'
+import { DTMethod } from '@/types'
 
 const { tableParams, setTableParams } = useTableParams()
 
 const handleUrlInput = (value: string | null) => {
   setTableParams({
     url: value,
+  })
+}
+
+const handleMethodInput = (value: any) => {
+  console.log({ value })
+  setTableParams({
+    method: value ? DTMethod.POST : DTMethod.GET,
   })
 }
 </script>
@@ -17,6 +26,12 @@ const handleUrlInput = (value: string | null) => {
       label="Url"
       :value="tableParams.url"
       @input="handleUrlInput"
+    />
+
+    <v-checkbox
+      label="POST"
+      :value="tableParams.method === 'POST'"
+      @input="handleMethodInput"
     />
   </div>
 </template>

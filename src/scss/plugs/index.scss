@@ -25,3 +25,22 @@
     font-size: 0.75rem;
   }
 }
+
+.dt182-no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  padding: 1rem;
+  font-weight: 400;
+  background-color: vars.$dt182-no-data-plug-bg-color;
+  border: 1px solid vars.$dt182-no-data-plug-border-color;
+  border-radius: 5px;
+
+  &-message {
+    display: flex;
+    color: vars.$dt182-no-data-plug-message-color;
+    font-weight: 600;
+  }
+}
