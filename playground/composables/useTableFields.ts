@@ -82,7 +82,6 @@ export const useTableFields = () => {
     }
 
     const existedFields = retrieveFieldsState(tableStore.source)
-    console.log(existedFields)
 
     const resultFields: FieldDef[] = newFields.map((field) => {
       const existedField = existedFields.find((item) => item.fieldName === field.fieldName)

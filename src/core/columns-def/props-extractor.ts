@@ -23,11 +23,12 @@ const extractPropValue = <T>(propName: keyof typeof props, propsData: object): T
 
     const defaultValue = 'default' in propDef ? propDef.default : undefined
 
-    if (propDef.type instanceof Boolean) {
-      return (defaultValue ?? false) as T
-    }
-
     return defaultValue as T
+  }
+
+  // @ts-ignore
+  if (propDef.type === Boolean && propsData[propName] === '') {
+    return true as T
   }
 
   // @ts-ignore
@@ -35,6 +36,8 @@ const extractPropValue = <T>(propName: keyof typeof props, propsData: object): T
 }
 
 export const extractProps = (propsData: object) => {
+  // console.log('props-extractor.ts [extractProps] (propsData)', propsData)
+
   return {
     field: extractPropValue<string>('field', propsData),
     title: extractPropValue<string>('title', propsData),

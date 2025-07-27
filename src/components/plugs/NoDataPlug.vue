@@ -2,7 +2,7 @@
 
 <template>
   <div class="dt182-no-data">
-    <div class="dt182-no-data-message">Нет данных</div>
+    <div class="dt182-no-data-message">Ничего не найдено</div>
   </div>
 </template>
 
