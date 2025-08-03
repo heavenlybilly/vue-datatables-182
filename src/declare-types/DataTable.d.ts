@@ -55,22 +55,12 @@ export interface DataTableEmitsOptions {
   /**
    * Emitted when the selected rows array changes.
    */
-  'update:selected-rows'(
-    value: {
-      index: number
-      number: number
-      item: Record<string, string | number | boolean | null>
-    }[],
-  ): void
+  'update:selected-rows'(value: DTRow<any>[]): void
 
   /**
    * Emitted when the row is clicked.
    */
-  'row-click'(value: {
-    index: number
-    number: number
-    item: Record<string, string | number | boolean | null>
-  }): void
+  'row-click'(value: DTRow<any>): void
 
   /**
    * Emitted when data loading starts
@@ -79,7 +69,6 @@ export interface DataTableEmitsOptions {
 
   /**
    * Emitted when data loading end
-   * todo: fix any
    */
   'loading-end'(value: DTTableData<any>): void
 }

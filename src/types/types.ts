@@ -28,8 +28,7 @@ export type DTColumn = {
 /**
  * Table data
  */
-// todo: кажется, тут есть две группы: того, что приходит с бэка и уже обработанных данных
-export type DTRowItemValue = string | number | boolean | null
+export type DTRowItemValue = any
 export type DTRowItem = Record<string, DTRowItemValue>
 export type DTRow<T = DTRowItem> = {
   readonly index: number
