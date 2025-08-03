@@ -7,11 +7,18 @@ Vue Datatables 182 — это компонент для отображения �
 - Получение данных с сервера
 - Настройку с помощью слотов
 
+## Содержание
+- [Начало работы](#начало-работы)
+- [Структура компонентов](#структура-компонентов)
+- [Описание компонентов](#описание-компонентов)
+- [Руководство по обновлению](#руководство-по-обновлению)
+
 ## Начало работы
 
 #### Добавление реестра
 ```bash
 echo @libs:registry=https://gitlab.corp/api/v4/packages/npm/ >> .npmrc
+echo strict-ssl=false >> .npmrc
 ```
 
 #### Установка пакета
@@ -20,20 +27,23 @@ npm i @libs/vue-datatables-182
 ```
 
 #### Использование
-В основном файле:
+Регистрация плагина:
 ```js
-import { DataTable, DataTableColumn } from 'vue-datatables-182'
+import Vue from 'vue'
+import { DTPluginOptions, VueDatatables182 } from '@libs/vue-datatables-182'
 import "vue-datatables-182/dist/index.css"
 
-Vue.component('data-table', DataTable)
-Vue.component('data-table-column', DataTableColumn)
+Vue.use<DTPluginOptions>(VueDatatables182, {
+  defaultMethod: 'GET',
+  registerGlobally: false,
+  csrfToken: window.token,
+})
 ```
 
-Или в любом другом файле компонента:
+Использование компонента:
 ```vue
 <script lang="js">
 import { DataTable, DataTableColumn } from 'vue-datatables-182'
-import "vue-datatables-182/dist/index.css"
 
 export default {
   name: 'SomeComponent',
@@ -101,7 +111,7 @@ export default {
 
 ___
 
-## Структура компонента
+## Структура компонентов
 
 Пунктирные прямоугольники обозначают области, соответствующие слотам. Слоты компонента `DataTable` выделены зелёным цветом, слоты компонента `DataTableColumn` — оранжевым.
 
@@ -113,3 +123,7 @@ ___
 
 - [DataTable](./docs/data-table.md)
 - [DataTableColumn](./docs/data-table-column.md)
+
+## Руководство по обновлению
+
+[Здесь](./docs/migration-guide.md) описан порядок обновления компонента.
