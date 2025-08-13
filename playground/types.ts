@@ -27,6 +27,7 @@ export type ToolbarTableParams = {
   paginationEnabled: boolean
   rowPerPageOptionsRaw: string
   rowsPerPage: number
+  showRangeInfo: boolean
   orderBy: string | null
   orderDirection: DTOrderDirection
   searching: boolean

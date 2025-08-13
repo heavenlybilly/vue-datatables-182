@@ -72,6 +72,7 @@ onMounted(async () => {
         :rows-per-page-options="displayedRowsPerPageOptions"
         :scroll-x="tableParams.scrollX"
         :searching="tableParams.searching"
+        :show-range-info="tableParams.showRangeInfo"
         :source="source"
         :url="tableParams.url ?? undefined"
         @loading-end="handleLoadingEnd"

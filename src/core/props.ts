@@ -39,6 +39,10 @@ export const props = {
     type: Array as PropType<number[]>,
     default: () => [5, 10, 25, 50, 100],
   },
+  showRangeInfo: {
+    type: Boolean,
+    default: true,
+  },
   // search
   searching: {
     type: Boolean,

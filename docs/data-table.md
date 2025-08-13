@@ -65,6 +65,16 @@ rowsPerPageCount: {
 }
 ```
 
+### `showRangeInfo`
+Показывать количество записей на странице.
+
+```js
+showRangeInfo: {
+  type: Boolean,
+  default: true
+}
+```
+
 ### Поиск
 
 ### `searching`

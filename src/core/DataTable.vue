@@ -243,7 +243,7 @@ watch(
           @input="handleRowsPerPageInput"
         />
         <page-details
-          v-if="tableData"
+          v-if="tableData && props.showRangeInfo"
           :count-items="tableData.rows.length"
           :filtered="tableData.filtered"
           :page="page"

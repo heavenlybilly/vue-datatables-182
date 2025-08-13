@@ -23,6 +23,12 @@ const handlePerPageInput = (value: string | number | null) => {
     rowsPerPage: value ? +value : undefined,
   })
 }
+
+const handleShowRangeInfoSwitch = (value: boolean) => {
+  setTableParams({
+    showRangeInfo: value,
+  })
+}
 </script>
 
 <template>
@@ -32,6 +38,14 @@ const handlePerPageInput = (value: string | number | null) => {
         label="pagination"
         :value="tableParams.paginationEnabled"
         @input="handlePaginationEnabledSwitch"
+      />
+    </div>
+
+    <div style="display: inline-flex; gap: 15px">
+      <v-checkbox
+        label="show Range Info"
+        :value="tableParams.showRangeInfo"
+        @input="handleShowRangeInfoSwitch"
       />
     </div>
 

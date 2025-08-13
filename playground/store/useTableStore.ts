@@ -18,6 +18,7 @@ export const useTableStore = defineStore('table', () => {
     paginationEnabled: true,
     rowPerPageOptionsRaw: '5, 10, 25, 50, 100',
     rowsPerPage: 10,
+    showRangeInfo: true,
     orderBy: null,
     orderDirection: 'desc',
     searching: true,
