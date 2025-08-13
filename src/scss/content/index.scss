@@ -1,11 +1,22 @@
 @use '../vars';
 
 .dt182-content {
+  position: relative;
   border: 1px solid vars.$dt182-table-border-color;
   border-radius: vars.$dt182-table-border-radius;
 
   &.scroll-x {
     overflow-x: scroll;
+  }
+
+  &-loader {
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    background-color: #fff8;
+    border-radius: vars.$dt182-table-border-color;
   }
 }
 

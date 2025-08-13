@@ -29,6 +29,7 @@ const page = ref<number>(1)
 const rowsPerPage = ref<number>(0)
 const order = ref<DTOrder | null>(null)
 const tableData = ref<DTTableData | null>(null)
+const isLoading = ref<boolean>(false)
 
 const { error, handleError, clearError } = useErrorHandling()
 const { columns, initColumns } = useColumns()
@@ -144,12 +145,14 @@ onMounted(init)
 watch(
   [() => search.value, () => rowsPerPage.value, () => page.value, () => order.value],
   debounce(async () => {
+    isLoading.value = true
     try {
       clearError()
       await fetchTableData()
     } catch (e) {
       handleError(e)
     }
+    isLoading.value = false
   }, 200),
 )
 
@@ -182,7 +185,10 @@ watch(
       </template>
     </table-top>
 
-    <table-content :scroll-x="scrollX">
+    <table-content
+      :is-loading="isLoading"
+      :scroll-x="scrollX"
+    >
       <table-head
         :actions="actions"
         :columns="columns"
