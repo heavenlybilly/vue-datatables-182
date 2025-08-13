@@ -93,6 +93,10 @@ export const props = {
     type: Boolean,
     default: false,
   },
+  selectOnRowClick: {
+    type: Boolean,
+    default: false,
+  },
 }
 
 export const validateTableProps = (p: ExtractPropTypes<typeof props>) => {

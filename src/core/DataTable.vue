@@ -208,6 +208,7 @@ watch(
           :row="row"
           :row-selection="rowSelection"
           :rows-clickable="rowsClickable"
+          :select-on-row-click="props.selectOnRowClick"
           :selected-row-indexes="selectedRowIndexes"
           @click="handleClickRow"
           @deselect-row="handleDeselectRow"

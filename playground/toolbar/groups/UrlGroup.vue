@@ -13,7 +13,6 @@ const handleUrlInput = (value: string | null) => {
 }
 
 const handleMethodInput = (value: any) => {
-  console.log({ value })
   setTableParams({
     method: value ? DTMethod.POST : DTMethod.GET,
   })

@@ -44,6 +44,10 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  selectOnRowClick: {
+    type: Boolean,
+    required: true,
+  },
 })
 
 const emit = defineEmits(['select-row', 'deselect-row', 'click'])
@@ -58,17 +62,22 @@ const classObject = computed(() => ({
   'dt182-row-clickable': props.rowsClickable,
 }))
 
-const handleSelectRow = (index: number) => {
-  emit('select-row', index)
+const switchSelection = () => {
+  emit(isChecked.value ? 'deselect-row' : 'select-row', props.row.index)
+  console.log(!isChecked.value, props.row.index)
 }
 
-const handleDeselectRow = (index: number) => {
-  emit('deselect-row', index)
+const handleSelectionCheckboxClick = () => {
+  switchSelection()
 }
 
 const handleClickRow = () => {
   if (props.rowsClickable) {
     emit('click', props.row)
+  }
+
+  if (props.selectOnRowClick) {
+    switchSelection()
   }
 }
 
@@ -101,9 +110,7 @@ onMounted(() => {
     <table-cell-selection
       v-if="props.rowSelection"
       :checked="isChecked"
-      :index="props.row.index"
-      @deselect-row="handleDeselectRow"
-      @select-row="handleSelectRow"
+      @click="handleSelectionCheckboxClick"
     />
     <table-cell
       v-for="column of props.columns"

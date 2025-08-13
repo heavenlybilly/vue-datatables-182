@@ -1,3 +1,4 @@
+@use "sass:color";
 @use '../vars';
 
 .dt182-head {
@@ -75,10 +76,39 @@
     width: 100%;
 
     .dt182-selection-checkbox {
-      margin: 0!important;
-      padding: 0!important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 13px;
+      min-width: 13px;
+      max-width: 13px;
+      height: 13px;
+      min-height: 13px;
+      max-height: 13px;
+      font-size: 12px;
+      background-color: vars.$dt182-cell-bg-color;
+      border: 1px solid vars.$select-row-checkbox-border-color;
+      border-radius: 2px;
       cursor: pointer;
-      accent-color: vars.$select-row-accent-color;
+      transition: vars.$select-row-checkbox-transition-duration;
+
+      &:hover {
+        border-color: color.adjust(vars.$select-row-checkbox-border-color, $lightness: -20%);
+      }
+
+      &.checked {
+        background-color: vars.$select-row-checkbox-accent-color;
+        border-color: vars.$select-row-checkbox-accent-color;
+
+        span {
+          margin-left: 2px;
+          color: vars.$dt182-cell-bg-color;
+        }
+
+        &:hover {
+          background-color: color.adjust(vars.$select-row-checkbox-accent-color, $lightness: -20%);
+        }
+      }
     }
   }
 }

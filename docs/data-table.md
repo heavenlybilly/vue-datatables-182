@@ -149,16 +149,6 @@ fixedColumnsEnd: {
 
 ### Общие параметры
 
-### `rowSelection`
-Добавляет столбец с чек-боксами для выделения строк.
-
-```js
-rowSelection: {
-  type: Boolean,
-  default: false
-}
-```
-
 ### `actions`
 Добавляет столбец с действиями.
 
@@ -181,11 +171,33 @@ numbering: {
 }
 ```
 
+### `rowSelection`
+Добавляет столбец с чек-боксами для выделения строк.
+
+```js
+rowSelection: {
+  type: Boolean,
+  default: false
+}
+```
+
 ### `rowsClickable`
 Позволяет использовать событие `@click` для строки таблицы.
 
 ```js
 rowsClickable: {
+  type: Boolean,
+  default: false
+}
+```
+
+### `selectOnRowClick`
+Позволяет выделять строки нажатием ЛКМ на них.
+
+*___Примечание:___ необходимо указать `rowSelection` и `rowsClickable` со значением `true`.*
+
+```js
+selectOnRowClick: {
   type: Boolean,
   default: false
 }

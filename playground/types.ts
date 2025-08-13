@@ -31,10 +31,11 @@ export type ToolbarTableParams = {
   orderBy: string | null
   orderDirection: DTOrderDirection
   searching: boolean
-  rowSelection: boolean
   actions: boolean
   numbering: boolean
+  rowSelection: boolean
   rowsClickable: boolean
+  selectOnRowClick: boolean
   scrollX: boolean
   fixedColumnsStart: number
   fixedColumnsEnd: number

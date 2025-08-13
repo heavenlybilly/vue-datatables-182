@@ -33,6 +33,12 @@ const handleRowsClickableSwitch = (value: boolean) => {
     rowsClickable: value,
   })
 }
+
+const handleSelectOnRowClickSwitch = (value: boolean) => {
+  setTableParams({
+    selectOnRowClick: value,
+  })
+}
 </script>
 
 <template>
@@ -63,9 +69,15 @@ const handleRowsClickableSwitch = (value: boolean) => {
       />
 
       <v-checkbox
-        label="rowsClickable"
+        label="rows Clickable"
         :value="tableParams.rowsClickable"
         @input="handleRowsClickableSwitch"
+      />
+
+      <v-checkbox
+        label="select On Row Click"
+        :value="tableParams.selectOnRowClick"
+        @input="handleSelectOnRowClickSwitch"
       />
     </div>
   </div>

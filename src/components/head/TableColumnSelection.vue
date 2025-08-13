@@ -8,13 +8,11 @@ const props = defineProps({
 
 const emit = defineEmits(['select-all', 'deselect-all'])
 
-const handleSelectAllClick = (e: Event) => {
-  if (e.target instanceof HTMLInputElement) {
-    if (e.target.checked) {
-      emit('select-all')
-    } else {
-      emit('deselect-all')
-    }
+const handleSelectAllClick = () => {
+  if (props.isSelectedAll) {
+    emit('deselect-all')
+  } else {
+    emit('select-all')
   }
 }
 </script>
@@ -22,12 +20,13 @@ const handleSelectAllClick = (e: Event) => {
 <template>
   <th class="dt182-column-selection">
     <div class="dt182-column-selection-inner">
-      <input
-        :checked="props.isSelectedAll"
+      <div
         class="dt182-selection-checkbox"
-        type="checkbox"
-        @change="handleSelectAllClick"
-      />
+        :class="{ checked: props.isSelectedAll }"
+        @click.stop="handleSelectAllClick"
+      >
+        <span v-if="props.isSelectedAll">&#10004;</span>
+      </div>
     </div>
   </th>
 </template>

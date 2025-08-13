@@ -1,4 +1,6 @@
-$select-row-accent-color: #4c4c4c !default; // акцентный цвет чекбокса выбора строк
+$select-row-checkbox-border-color: #757575 !default; // цвет границы чекбокса выбора строк
+$select-row-checkbox-accent-color: #4c4c4c !default; // акцентный цвет чекбокса выбора строк
+$select-row-checkbox-transition-duration: 150ms !default;
 
 // body
 $dt182-cell-bg-color: #fff !default; // цвет фона ячейки таблицы
