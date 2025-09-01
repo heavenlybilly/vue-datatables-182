@@ -28,6 +28,18 @@
   &:not(:last-child) .dt182-cell {
     border-bottom: 1px solid vars.$dt182-cell-border-color;
   }
+
+  &.dt182-with-vertical-borders {
+    .dt182-cell:not(:first-child) {
+      border-color: vars.$dt182-cell-border-color;
+      border-style: solid;
+      border-left-width: 1px;
+    }
+
+    .dt182-sticky-start + .dt182-cell:not(.dt182-sticky-start) {
+      border-left-width: 0;
+    }
+  }
 }
 
 .dt182-cell-numbering {

@@ -48,6 +48,10 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  verticalBorders: {
+    type: Boolean,
+    required: true,
+  },
 })
 
 const emit = defineEmits(['select-row', 'deselect-row', 'click'])
@@ -60,11 +64,11 @@ const isChecked = computed(() => {
 
 const classObject = computed(() => ({
   'dt182-row-clickable': props.rowsClickable,
+  'dt182-with-vertical-borders': props.verticalBorders,
 }))
 
 const switchSelection = () => {
   emit(isChecked.value ? 'deselect-row' : 'select-row', props.row.index)
-  console.log(!isChecked.value, props.row.index)
 }
 
 const handleSelectionCheckboxClick = () => {

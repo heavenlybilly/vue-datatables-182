@@ -30,6 +30,7 @@ export const useTableStore = defineStore('table', () => {
     scrollX: false,
     fixedColumnsStart: 0,
     fixedColumnsEnd: 0,
+    verticalBorders: false,
   })
 
   usePersistentState('playground-source', source)

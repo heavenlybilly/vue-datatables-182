@@ -10,7 +10,7 @@ const props = defineProps<{
   <tbody class="dt182-body">
     <tr>
       <td
-        v-for="(columns, index) in props.columns"
+        v-for="(_, index) in props.columns"
         :key="index"
       >
         <div class="dt182-body-skeleton" />

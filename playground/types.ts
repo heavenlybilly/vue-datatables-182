@@ -39,4 +39,5 @@ export type ToolbarTableParams = {
   scrollX: boolean
   fixedColumnsStart: number
   fixedColumnsEnd: number
+  verticalBorders: boolean
 }

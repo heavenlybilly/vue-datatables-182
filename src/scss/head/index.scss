@@ -1,13 +1,6 @@
 @use "sass:color";
 @use '../vars';
 
-.dt182-head {
-  overflow: hidden;
-  background-color: vars.$dt182-head-bg-color;
-  border-bottom: 1px solid vars.$dt182-head-border-bottom-color;
-  border-radius: 5px;
-}
-
 .dt182-order-column-btn {
   display: inline-flex;
   align-items: center;
@@ -123,4 +116,23 @@
   text-align: center;
   vertical-align: middle;
   background-color: vars.$dt182-head-bg-color;
+}
+
+.dt182-head {
+  overflow: hidden;
+  background-color: vars.$dt182-head-bg-color;
+  border-bottom: 1px solid vars.$dt182-head-border-bottom-color;
+  border-radius: 5px;
+
+  &.dt182-with-vertical-borders {
+    .dt182-column:not(:first-child) {
+      border-color: vars.$dt182-head-cell-border-color;
+      border-style: solid;
+      border-left-width: 1px;
+    }
+
+    .dt182-sticky-start + .dt182-column:not(.dt182-sticky-start) {
+      border-left-width: 0;
+    }
+  }
 }

@@ -203,6 +203,16 @@ selectOnRowClick: {
 }
 ```
 
+### `verticalBorders`
+Добавляет отображение вертикальных границ ячеек таблицы. 
+
+```js
+verticalBorders: {
+  type: Boolean,
+  default: false
+}
+```
+
 ## Events
 
 ### `row-click`

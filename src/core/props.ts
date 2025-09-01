@@ -97,6 +97,11 @@ export const props = {
     type: Boolean,
     default: false,
   },
+  // appearance
+  verticalBorders: {
+    type: Boolean,
+    default: false,
+  },
 }
 
 export const validateTableProps = (p: ExtractPropTypes<typeof props>) => {

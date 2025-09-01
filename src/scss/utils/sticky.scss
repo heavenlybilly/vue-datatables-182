@@ -9,9 +9,9 @@ td.dt182-sticky-start, td.dt182-sticky-end {
 }
 
 .dt182-sticky-extreme.dt182-sticky-start {
-  border-right: 1px solid vars.$dt182-cell-border-color !important;
+  border-right: 1px solid vars.$dt182-sticky-extreme-border-color !important;
 }
 
 .dt182-sticky-extreme.dt182-sticky-end {
-  border-left: 1px solid vars.$dt182-cell-border-color !important;
+  border-left: 1px solid vars.$dt182-sticky-extreme-border-color !important;
 }

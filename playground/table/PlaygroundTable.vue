@@ -76,6 +76,7 @@ onMounted(async () => {
         :show-range-info="tableParams.showRangeInfo"
         :source="source"
         :url="tableParams.url ?? undefined"
+        :vertical-borders="tableParams.verticalBorders"
         @loading-end="handleLoadingEnd"
         @loading-start="handleLoadingStart"
         @row-click="handleRowClick"

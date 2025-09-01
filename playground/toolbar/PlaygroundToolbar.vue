@@ -5,6 +5,7 @@ import { useTableRendering } from '~/composables/useTableRendering'
 import { useTableSource } from '~/composables/useTableSource'
 import ExpandBtn from '~/toolbar/ExpandBtn.vue'
 import ReRenderBtn from '~/toolbar/ReRenderBtn.vue'
+import AppearanceGroup from '~/toolbar/groups/AppearanceGroup.vue'
 import FieldsGroup from '~/toolbar/groups/FieldsGroup.vue'
 import FixedColumnsGroup from '~/toolbar/groups/FixedColumnsGroup.vue'
 import ItemsGroup from '~/toolbar/groups/ItemsGroup.vue'
@@ -97,6 +98,10 @@ const handleReRender = (): void => {
 
       <div class="playground-toolbar-group">
         <sort-group />
+      </div>
+
+      <div class="playground-toolbar-group">
+        <appearance-group />
       </div>
     </div>
   </div>

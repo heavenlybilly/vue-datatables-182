@@ -39,6 +39,9 @@ export interface DataTableProps {
 
   // rows clickable
   rowsClickable?: boolean
+
+  // appearance
+  verticalBorders?: boolean
 }
 
 export interface DataTableSlots {

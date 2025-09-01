@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PropType, Ref, onUpdated, ref } from 'vue'
+import { PropType, Ref, computed, onUpdated, ref } from 'vue'
 import { DTColumn, DTOrder } from '@/types'
 import { stickElements } from '@/utils/stick-elements'
 import TableColumn from '@/components/head/TableColumn.vue'
@@ -41,12 +41,20 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  verticalBorders: {
+    type: Boolean,
+    required: true,
+  },
 })
 
 const emit = defineEmits(['update:order', 'select-all', 'deselect-all'])
 
 const isElementInitialized = ref(false)
 const rowElement: Ref<HTMLElement | null> = ref(null)
+
+const classObject = computed(() => ({
+  'dt182-with-vertical-borders': props.verticalBorders,
+}))
 
 const handleOrderUpdate = (value: DTOrder) => {
   emit('update:order', value)
@@ -78,7 +86,10 @@ onUpdated(() => {
 </script>
 
 <template>
-  <thead class="dt182-head">
+  <thead
+    class="dt182-head"
+    :class="classObject"
+  >
     <tr ref="rowElement">
       <table-column-numbering v-if="props.numbering" />
       <table-column-selection
