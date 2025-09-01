@@ -1,0 +1,41 @@
+version: '3'
+
+tasks:
+  default:
+    silent: true
+    desc: "Show list of all available Taskfile commands"
+    cmds:
+      - task --list --color
+
+  build:
+    desc: "Build Docker images from scratch with no cache to ensure clean state"
+    cmds:
+      - docker compose build --no-cache
+
+  down:
+    desc: "Stop and remove all containers, networks, volumes, and images"
+    cmds:
+      - docker compose down
+
+  up:
+    desc: "Start all containers in detached mode (background)"
+    cmds:
+      - docker compose up -d
+
+  stop:
+    desc: "Stop running containers without removing them"
+    cmds:
+      - docker compose stop
+
+  logs:
+    desc: "Follow logs from the app container with tail output"
+    cmds:
+      - docker compose logs -f --tail app
+
+  bash:
+    desc: "Open interactive shell session inside the running app container"
+    deps:
+      - task: up
+        silent: true
+    cmds:
+      - docker compose exec -it app sh
