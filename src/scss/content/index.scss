@@ -3,6 +3,7 @@
 .dt182-content {
   position: relative;
   flex: 1 1 auto;
+  flex-grow: 0;
   min-height: 0;
   overflow-y: auto;
   border: 1px solid vars.$dt182-table-border-color;
