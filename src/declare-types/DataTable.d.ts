@@ -37,7 +37,6 @@ export interface DataTableProps {
   scrollX?: boolean
   fixedColumnsStart?: number
   fixedColumnsEnd?: number
-  scrollY?: boolean
   stickyHeader?: boolean
   verticalBorders?: boolean
 }
