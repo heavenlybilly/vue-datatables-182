@@ -31,9 +31,7 @@ const classObject = computed(() => ({
 
     <div class="playground-content">
       <div class="playground-table-wrapper">
-        <div class="playground-table-scroll-area">
-          <playground-table />
-        </div>
+        <playground-table />
       </div>
 
       <playground-toolbar />
@@ -94,16 +92,8 @@ const classObject = computed(() => ({
   border-radius: 10px;
   background-color: #fff;
   overflow: hidden;
-  height: 100%;
-  min-height: 100%;
-  max-height: 100%;
   flex: 1;
-}
-
-.playground-table-scroll-area {
-  display: flex;
-  overflow-y: auto;
-  height: 100%;
-  width: 100%;
+  height: calc(100vh - 128px);
+  max-height: calc(100vh - 128px);
 }
 </style>

@@ -54,6 +54,7 @@ onMounted(async () => {
   <transition name="fade">
     <div
       v-if="isTableVisible"
+      class="playground-table-scroll-area"
       style="background-color: #fff; width: 100%"
     >
       <data-table
@@ -75,6 +76,7 @@ onMounted(async () => {
         :select-on-row-click="tableParams.selectOnRowClick"
         :show-range-info="tableParams.showRangeInfo"
         :source="source"
+        :sticky-header="tableParams.stickyHeader"
         :url="tableParams.url ?? undefined"
         :vertical-borders="tableParams.verticalBorders"
         @loading-end="handleLoadingEnd"
@@ -133,5 +135,12 @@ onMounted(async () => {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+.playground-table-scroll-area {
+  height: 100%;
+  overflow-y: hidden;
+  padding-bottom: 30px;
+  border-radius: 5px;
 }
 </style>

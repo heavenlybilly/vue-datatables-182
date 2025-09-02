@@ -7,7 +7,6 @@ import ExpandBtn from '~/toolbar/ExpandBtn.vue'
 import ReRenderBtn from '~/toolbar/ReRenderBtn.vue'
 import AppearanceGroup from '~/toolbar/groups/AppearanceGroup.vue'
 import FieldsGroup from '~/toolbar/groups/FieldsGroup.vue'
-import FixedColumnsGroup from '~/toolbar/groups/FixedColumnsGroup.vue'
 import ItemsGroup from '~/toolbar/groups/ItemsGroup.vue'
 import OtherParamsGroup from '~/toolbar/groups/OtherParamsGroup.vue'
 import PaginationGroup from '~/toolbar/groups/PaginationGroup.vue'
@@ -90,10 +89,6 @@ const handleReRender = (): void => {
 
       <div class="playground-toolbar-group">
         <pagination-group />
-      </div>
-
-      <div class="playground-toolbar-group">
-        <fixed-columns-group />
       </div>
 
       <div class="playground-toolbar-group">

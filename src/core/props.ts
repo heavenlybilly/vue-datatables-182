@@ -72,22 +72,6 @@ export const props = {
     type: Boolean,
     default: false,
   },
-  // scrollX
-  scrollX: {
-    type: Boolean,
-    default: false,
-  },
-  // fixed columns
-  fixedColumnsStart: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
-  fixedColumnsEnd: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
   // rows clickable
   rowsClickable: {
     type: Boolean,
@@ -98,6 +82,24 @@ export const props = {
     default: false,
   },
   // appearance
+  scrollX: {
+    type: Boolean,
+    default: false,
+  },
+  fixedColumnsStart: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  fixedColumnsEnd: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  stickyHeader: {
+    type: Boolean,
+    default: false,
+  },
   verticalBorders: {
     type: Boolean,
     default: false,

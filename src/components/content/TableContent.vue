@@ -13,7 +13,7 @@ const props = defineProps({
 })
 
 const tableContentClassObject = computed(() => ({
-  'scroll-x': props.scrollX,
+  'dt182-scroll-x': props.scrollX,
 }))
 </script>
 

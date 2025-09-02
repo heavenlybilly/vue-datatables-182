@@ -30,17 +30,15 @@ export interface DataTableProps {
   // numbering
   numbering?: boolean
 
-  // scrollX
-  scrollX?: boolean
-
-  // fixed columns
-  fixedColumnsStart?: number
-  fixedColumnsEnd?: number
-
   // rows clickable
   rowsClickable?: boolean
 
   // appearance
+  scrollX?: boolean
+  fixedColumnsStart?: number
+  fixedColumnsEnd?: number
+  scrollY?: boolean
+  stickyHeader?: boolean
   verticalBorders?: boolean
 }
 

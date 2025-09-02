@@ -45,6 +45,10 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  stickyHeader: {
+    type: Boolean,
+    required: true,
+  },
 })
 
 const emit = defineEmits(['update:order', 'select-all', 'deselect-all'])
@@ -54,6 +58,7 @@ const rowElement: Ref<HTMLElement | null> = ref(null)
 
 const classObject = computed(() => ({
   'dt182-with-vertical-borders': props.verticalBorders,
+  'dt182-head-sticky': props.stickyHeader,
 }))
 
 const handleOrderUpdate = (value: DTOrder) => {

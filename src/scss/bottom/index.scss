@@ -1,8 +1,8 @@
 .dt182-bottom {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
-  margin-top: 0.8rem;
 }
 
 .dt182-bottom-left {

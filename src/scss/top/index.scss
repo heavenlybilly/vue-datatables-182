@@ -1,8 +1,8 @@
 .dt182-top {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.8rem;
 }
 
 .dt182-top-left {

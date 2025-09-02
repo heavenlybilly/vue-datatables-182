@@ -2,10 +2,13 @@
 
 .dt182-content {
   position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
   border: 1px solid vars.$dt182-table-border-color;
   border-radius: vars.$dt182-table-border-radius;
 
-  &.scroll-x {
+  &.dt182-scroll-x {
     overflow-x: scroll;
   }
 

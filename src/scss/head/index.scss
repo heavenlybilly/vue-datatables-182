@@ -19,6 +19,8 @@
   padding: 1.2rem 1rem;
   overflow: hidden;
   font-weight: 600;
+  font-size: 12px;
+  line-height: 1.3;
   vertical-align: middle;
   background-color: vars.$dt182-head-bg-color;
   transition: all vars.$transition-duration ease-in-out;
@@ -126,13 +128,16 @@
 
   &.dt182-with-vertical-borders {
     .dt182-column:not(:first-child) {
-      border-color: vars.$dt182-head-cell-border-color;
-      border-style: solid;
-      border-left-width: 1px;
+      border-left: 1px solid vars.$dt182-head-cell-border-color;
     }
 
     .dt182-sticky-start + .dt182-column:not(.dt182-sticky-start) {
       border-left-width: 0;
     }
+  }
+
+  &.dt182-head-sticky {
+    position: sticky;
+    top: 0;
   }
 }

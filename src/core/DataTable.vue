@@ -187,7 +187,7 @@ watch(
 
     <table-content
       :is-loading="isLoading"
-      :scroll-x="scrollX"
+      :scroll-x="props.scrollX"
     >
       <table-head
         :actions="actions"
@@ -198,6 +198,7 @@ watch(
         :numbering="numbering"
         :order="order"
         :row-selection="rowSelection"
+        :sticky-header="props.stickyHeader"
         :vertical-borders="props.verticalBorders"
         @deselect-all="handleDeselectAll"
         @select-all="handleSelectAll"
