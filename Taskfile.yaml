@@ -10,32 +10,30 @@ tasks:
   build:
     desc: "Build Docker images from scratch with no cache to ensure clean state"
     cmds:
-      - docker compose build --no-cache
+      - docker build --no-cache -t playground-vdt182 .
 
   down:
     desc: "Stop and remove all containers, networks, volumes, and images"
     cmds:
-      - docker compose down
+      - docker stop playground-vdt182-app
+      - docker rm playground-vdt182-app
 
   up:
     desc: "Start all containers in detached mode (background)"
     cmds:
-      - docker compose up -d
+      - docker run -d --name playground-vdt182-app -p 5173:5173 -v ${PWD}:/app playground-vdt182
 
   stop:
     desc: "Stop running containers without removing them"
     cmds:
-      - docker compose stop
+      - docker stop playground-vdt182-app
 
   logs:
     desc: "Follow logs from the app container with tail output"
     cmds:
-      - docker compose logs -f --tail app
+      - docker logs -f --tail 100 playground-vdt182-app
 
   bash:
     desc: "Open interactive shell session inside the running app container"
-    deps:
-      - task: up
-        silent: true
     cmds:
-      - docker compose exec -it app sh
+      - docker exec -it playground-vdt182-app sh

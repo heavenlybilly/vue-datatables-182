@@ -18,6 +18,7 @@ Vue Datatables 182 — это компонент для отображения �
 Необходимо выполнить команды
 ```sh
 task build
+task up
 task bash
 
 # в контейнере
