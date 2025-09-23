@@ -59,6 +59,7 @@ onMounted(async () => {
     >
       <data-table
         :actions="tableParams.actions"
+        :disallow-select-all="tableParams.disallowSelectAll"
         :fixed-columns-end="tableParams.fixedColumnsEnd"
         :fixed-columns-start="tableParams.fixedColumnsStart"
         :items="tableParams.items"

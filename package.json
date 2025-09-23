@@ -1,9 +1,9 @@
 {
-  "name": "@libs/vue-datatables-182",
+  "name": "vue-datatables-182",
   "version": "1.2.3",
   "description": "Datatables component for Vue 2.7",
   "license": "MIT",
-  "homepage": "https://gitlab.corp/libs/vue-datatables-182",
+  "homepage": "https://github.com/heavenlybilly/vue-datatables-182",
   "main": "dist/vue-datatables-182.umd.js",
   "module": "dist/vue-datatables-182.es.js",
   "type": "module",
@@ -85,10 +85,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://gitlab.corp/libs/vue-datatables-182"
+    "url": "https://github.com/heavenlybilly/vue-datatables-182"
   },
   "bugs": {
-    "url": "https://gitlab.corp/libs/vue-datatables-182/-/issues"
+    "url": "https://github.com/heavenlybilly/vue-datatables-182/issues"
   },
   "author": {
     "name": "Sergei Spitsin",

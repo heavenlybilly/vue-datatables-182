@@ -25,6 +25,7 @@ export const useTableStore = defineStore('table', () => {
     actions: false,
     numbering: false,
     rowSelection: false,
+    disallowSelectAll: false,
     rowsClickable: false,
     selectOnRowClick: false,
     scrollX: false,

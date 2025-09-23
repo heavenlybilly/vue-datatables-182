@@ -192,6 +192,7 @@ watch(
       <table-head
         :actions="actions"
         :columns="columns"
+        :disallow-select-all="props.disallowSelectAll"
         :fixed-columns-end="fixedColumnsEnd"
         :fixed-columns-start="fixedColumnsStart"
         :is-selected-all="isSelectedAll"

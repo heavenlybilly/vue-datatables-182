@@ -34,6 +34,7 @@ export type ToolbarTableParams = {
   actions: boolean
   numbering: boolean
   rowSelection: boolean
+  disallowSelectAll: boolean
   rowsClickable: boolean
   selectOnRowClick: boolean
   scrollX: boolean

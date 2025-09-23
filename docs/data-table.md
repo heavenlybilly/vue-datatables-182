@@ -143,6 +143,16 @@ rowSelection: {
 }
 ```
 
+### `disallowSelectAll`
+Запрещает выделение сразу всех строк в таблице.
+
+```js
+disallowSelectAll: {
+  type: Boolean,
+  default: false,
+},
+```
+
 ### `rowsClickable`
 Позволяет использовать событие `@click` для строки таблицы.
 

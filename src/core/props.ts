@@ -62,6 +62,10 @@ export const props = {
     type: Boolean,
     default: false,
   },
+  disallowSelectAll: {
+    type: Boolean,
+    default: false,
+  },
   // actions
   actions: {
     type: Boolean,

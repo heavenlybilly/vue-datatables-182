@@ -23,6 +23,7 @@ export interface DataTableProps {
 
   // row-selection
   rowSelection?: boolean
+  disallowSelectAll?: boolean
 
   // actions
   actions?: boolean

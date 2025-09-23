@@ -16,6 +16,12 @@ const handleRowSelectionSwitch = (value: boolean) => {
   })
 }
 
+const handleDisallowSelectAllSwitch = (value: boolean) => {
+  setTableParams({
+    disallowSelectAll: value,
+  })
+}
+
 const handleActionsSwitch = (value: boolean) => {
   setTableParams({
     actions: value,
@@ -54,6 +60,12 @@ const handleSelectOnRowClickSwitch = (value: boolean) => {
         label="row Selection"
         :value="tableParams.rowSelection"
         @input="handleRowSelectionSwitch"
+      />
+
+      <v-checkbox
+        label="disallow select all"
+        :value="tableParams.disallowSelectAll"
+        @input="handleDisallowSelectAllSwitch"
       />
 
       <v-checkbox

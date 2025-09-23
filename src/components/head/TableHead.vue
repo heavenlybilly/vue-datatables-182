@@ -25,6 +25,10 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  disallowSelectAll: {
+    type: Boolean,
+    required: true,
+  },
   actions: {
     type: Boolean,
     required: true,
@@ -99,6 +103,7 @@ onUpdated(() => {
       <table-column-numbering v-if="props.numbering" />
       <table-column-selection
         v-if="props.rowSelection"
+        :disallow-select-all="props.disallowSelectAll"
         :is-selected-all="props.isSelectedAll"
         @deselect-all="handleDeselectAll"
         @select-all="handleSelectAll"

@@ -27,13 +27,6 @@ npm run playground
 ```
 
 ## Установка
-
-#### Добавление реестра
-```bash
-echo @libs:registry=https://gitlab.corp/api/v4/packages/npm/ >> .npmrc
-echo strict-ssl=false >> .npmrc
-```
-
 #### Установка пакета
 ```bash
 npm i @libs/vue-datatables-182
