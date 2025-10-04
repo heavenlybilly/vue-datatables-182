@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useLoadingContext } from '@/context'
+
 const props = defineProps({
   isSelectedAll: {
     type: Boolean,
@@ -11,6 +13,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['select-all', 'deselect-all'])
+
+const loadingContext = useLoadingContext()
 
 const handleSelectAllClick = () => {
   if (props.isSelectedAll) {
@@ -25,7 +29,7 @@ const handleSelectAllClick = () => {
   <th class="dt182-column-selection">
     <div class="dt182-column-selection-inner">
       <div
-        v-if="!props.disallowSelectAll"
+        v-if="!props.disallowSelectAll && !loadingContext.loading.value"
         class="dt182-selection-checkbox"
         :class="{ checked: props.isSelectedAll }"
         @click.stop="handleSelectAllClick"

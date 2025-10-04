@@ -25,9 +25,9 @@ export default defineComponent({
   render(createElement) {
     // @ts-ignore
     return createElement(
-      'td',
+      'div',
       // @ts-ignore
-      { class: 'dt182-cell', style: this.styleObject },
+      { class: 'dt182-cell-inner', style: this.styleObject },
       // @ts-ignore
       this.template({ ...this.row }),
     )

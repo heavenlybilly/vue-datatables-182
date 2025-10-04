@@ -6,10 +6,6 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
-  isLoading: {
-    type: Boolean,
-    required: true,
-  },
 })
 
 const tableContentClassObject = computed(() => ({
@@ -25,10 +21,6 @@ const tableContentClassObject = computed(() => ({
     <table class="dt182-table">
       <slot></slot>
     </table>
-    <div
-      v-if="isLoading"
-      class="dt182-content-loader"
-    />
   </div>
 </template>
 

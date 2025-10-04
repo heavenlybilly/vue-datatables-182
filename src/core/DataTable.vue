@@ -7,6 +7,7 @@ import { props as tableProps, validateTableProps } from '@/core/props'
 import { useRowsSelection } from '@/core/rows-selection/useRowsSelection'
 import { retrieveTableData } from '@/core/table-data/retrieveTableData'
 import { useErrorHandling } from '@/core/useErrorHandling'
+import { provideLoadingContext } from '@/context'
 import TableBody from '@/components/body/TableBody.vue'
 import TableBodyLoader from '@/components/body/TableBodyLoader.vue'
 import TableRow from '@/components/body/TableRow.vue'
@@ -23,12 +24,13 @@ import TableTop from '@/components/top/TableTop.vue'
 const props = defineProps(tableProps)
 const emit = defineEmits(['update:selected-rows', 'row-click', 'loading-start', 'loading-end'])
 
+const loadingContext = provideLoadingContext()
+
 const search = ref<string>('')
 const page = ref<number>(1)
 const rowsPerPage = ref<number>(0)
 const order = ref<DTOrder | null>(null)
 const tableData = ref<DTTableData | null>(null)
-const isLoading = ref<boolean>(false)
 
 const { handleError } = useErrorHandling()
 const { columns, initColumns } = useColumns()
@@ -149,13 +151,13 @@ onMounted(init)
 watch(
   [() => search.value, () => rowsPerPage.value, () => page.value, () => order.value],
   debounce(async () => {
-    isLoading.value = true
+    loadingContext.setLoading(true)
     try {
       await fetchTableData()
     } catch (e) {
       handleError(e)
     }
-    isLoading.value = false
+    loadingContext.setLoading(false)
   }, 200),
 )
 
@@ -188,10 +190,7 @@ watch(
       </template>
     </table-top>
 
-    <table-content
-      :is-loading="isLoading"
-      :scroll-x="props.scrollX"
-    >
+    <table-content :scroll-x="props.scrollX">
       <table-head
         :actions="actions"
         :columns="columns"

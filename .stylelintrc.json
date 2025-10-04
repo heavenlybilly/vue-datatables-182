@@ -3,5 +3,8 @@
     "stylelint-config-standard-scss",
     "stylelint-config-rational-order"
   ],
-  "plugins": ["stylelint-order", "stylelint-scss"]
+  "plugins": ["stylelint-order", "stylelint-scss"],
+  "rules": {
+    "no-descending-specificity": null
+  }
 }

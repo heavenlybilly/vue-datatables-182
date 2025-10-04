@@ -1,6 +1,6 @@
-import { Logger } from '@/logger'
 import { ExtractPropTypes, PropType } from 'vue'
 import { DTFilter, DTMethod, DTOrderDirection, DTRowItem, DTSource } from '@/types'
+import { Logger } from '@/logger'
 import { VueDatatables182Error } from '@/errors/VueDatatables182Error'
 import { ErrorCategory } from '@/errors/error-categories'
 

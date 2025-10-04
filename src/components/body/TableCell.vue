@@ -2,6 +2,7 @@
 import { PropType, computed } from 'vue'
 import { DTColumn, DTRow, DTTextAlign } from '@/types'
 import decodeString from '@/utils/decode-string'
+import { useLoadingContext } from '@/context'
 import TableCellSlot from '@/components/body/TableCellSlot.vue'
 
 const props = defineProps({
@@ -14,6 +15,8 @@ const props = defineProps({
     required: true,
   },
 })
+
+const loadingContext = useLoadingContext()
 
 const value = computed(() => {
   const raw = props.row.item[props.column.params.field] ?? ''
@@ -45,23 +48,33 @@ const cellStyleObject = computed(() => {
 
   return styleObject
 })
+
+const cellClassObject = computed(() => ({
+  'dt182-cell--loading': loadingContext.loading.value,
+}))
 </script>
 
 <template>
-  <table-cell-slot
-    v-if="props.column.slots.cell"
-    :row="props.row"
-    :style-object="cellStyleObject"
-    :template="props.column.slots.cell"
-  />
   <td
-    v-else
-    :key="props.column.index"
     class="dt182-cell"
-    :class="props.column.params.classObject"
-    :style="cellStyleObject"
+    :class="cellClassObject"
   >
-    {{ value }}
+    <table-cell-slot
+      v-if="props.column.slots.cell"
+      :row="props.row"
+      :style-object="cellStyleObject"
+      :template="props.column.slots.cell"
+    />
+    <div
+      v-else
+      :key="props.column.index"
+      class="dt182-cell-inner"
+      :class="props.column.params.classObject"
+      :style="cellStyleObject"
+    >
+      {{ value }}
+    </div>
+    <div class="dt182-cell-loader"></div>
   </td>
 </template>
 
