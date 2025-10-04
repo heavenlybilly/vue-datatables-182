@@ -1,3 +1,6 @@
+// @ts-ignore
+const logsEnabled = import.meta.env.VITE_ENABLE_LOGS === 'true'
+
 export class Logger {
   static log(conf: {
     text?: string
@@ -17,6 +20,10 @@ export class Logger {
     color: 'white' | 'black'
     payload?: any
   }) {
+    if (!logsEnabled) {
+      return
+    }
+
     const type = `%c[${conf.type}]${conf.text ? ':' : ''}`
     const style = `background: ${conf.background}; color: ${conf.color}; padding: 2px 5px; border-radius: 3px;`
 
