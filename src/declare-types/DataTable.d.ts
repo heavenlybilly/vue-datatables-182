@@ -6,6 +6,7 @@ export interface DataTableProps {
   // data
   source?: DTSource
   url?: string | null
+  filters?: Record<string, any>
   items?: DTRowItem[]
   method?: DTMethod
 
@@ -13,6 +14,7 @@ export interface DataTableProps {
   pagination?: boolean
   rowsPerPageCount?: number
   rowsPerPageOptions?: number[]
+  showRangeInfo?: boolean
 
   // search
   searching?: boolean
@@ -33,6 +35,7 @@ export interface DataTableProps {
 
   // rows clickable
   rowsClickable?: boolean
+  selectOnRowClick?: boolean
 
   // appearance
   scrollX?: boolean
