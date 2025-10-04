@@ -9,6 +9,7 @@
   "importOrder": [
     "<THIRD_PARTY_MODULES>",
     "^@/types",
+    "^@/logger",
     "^@/errors",
     "^@/utils",
     "^@/plugin",

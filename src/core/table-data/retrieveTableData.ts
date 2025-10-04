@@ -65,7 +65,7 @@ export const retrieveTableData = async (options: {
       const _: never = options.source
       throw new VueDatatables182Error(
         ErrorCategory.PROPS_VALIDATION,
-        `Unknown prop 'source' value '${_}'`,
+        `unknown prop 'source' value '${_}'`,
       )
     }
   }

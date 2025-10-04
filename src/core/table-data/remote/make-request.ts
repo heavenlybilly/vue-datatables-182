@@ -29,7 +29,7 @@ export default function makeRequest(url: string, method: DTMethod, data: Record<
       reject(
         new VueDatatables182Error(
           ErrorCategory.NETWORK_ERROR,
-          'Network error occurred while sending the request.',
+          'network error occurred while sending the request.',
         ),
       )
     }
@@ -38,7 +38,7 @@ export default function makeRequest(url: string, method: DTMethod, data: Record<
       reject(
         new VueDatatables182Error(
           ErrorCategory.NETWORK_ERROR,
-          'Request timed out. No response from the server.',
+          'request timed out. No response from the server.',
         ),
       )
     }

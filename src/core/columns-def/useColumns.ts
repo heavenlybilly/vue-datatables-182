@@ -13,7 +13,7 @@ export const useColumns = () => {
     const instance = getCurrentInstance() as { proxy: Vue }
 
     if (!instance || !instance.proxy) {
-      throw new VueDatatables182Error('Error on getting component instance')
+      throw new VueDatatables182Error('error on getting component instance')
     }
 
     const { proxy } = instance
@@ -45,7 +45,7 @@ export const useColumns = () => {
     }, [])
 
     if (!columns.value.length) {
-      throw new VueDatatables182Error('Columns not found')
+      throw new VueDatatables182Error('columns not found')
     }
   }
 

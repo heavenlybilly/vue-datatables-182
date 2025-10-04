@@ -16,7 +16,6 @@ import TableHead from '@/components/head/TableHead.vue'
 import PageDetails from '@/components/page-details/PageDetails.vue'
 import PaginationControl from '@/components/pagination/PaginationControl.vue'
 import PerPageControl from '@/components/per-page-control/PerPageControl.vue'
-import ErrorPlug from '@/components/plugs/ErrorPlug.vue'
 import NoDataPlug from '@/components/plugs/NoDataPlug.vue'
 import TableSearch from '@/components/search/TableSearch.vue'
 import TableTop from '@/components/top/TableTop.vue'
@@ -31,7 +30,7 @@ const order = ref<DTOrder | null>(null)
 const tableData = ref<DTTableData | null>(null)
 const isLoading = ref<boolean>(false)
 
-const { error, handleError, clearError } = useErrorHandling()
+const { handleError } = useErrorHandling()
 const { columns, initColumns } = useColumns()
 const {
   selectedRowIndexes,
@@ -147,7 +146,6 @@ watch(
   debounce(async () => {
     isLoading.value = true
     try {
-      clearError()
       await fetchTableData()
     } catch (e) {
       handleError(e)
@@ -235,15 +233,11 @@ watch(
         </table-row>
       </table-body>
       <table-body-loader
-        v-else-if="error === null"
+        v-else
         :columns="columns"
       />
     </table-content>
-    <error-plug
-      v-if="error"
-      :error="error"
-    />
-    <no-data-plug v-else-if="tableData && tableData.filtered === 0" />
+    <no-data-plug v-if="tableData && tableData.filtered === 0" />
 
     <table-bottom>
       <template #bottomLeft>

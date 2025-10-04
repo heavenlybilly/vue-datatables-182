@@ -1,3 +1,4 @@
+import { Logger } from '@/logger'
 import { ExtractPropTypes, PropType } from 'vue'
 import { DTFilter, DTMethod, DTOrderDirection, DTRowItem, DTSource } from '@/types'
 import { VueDatatables182Error } from '@/errors/VueDatatables182Error'
@@ -112,16 +113,12 @@ export const props = {
 
 export const validateTableProps = (p: ExtractPropTypes<typeof props>) => {
   if (!p.rowsPerPageOptions.includes(p.rowsPerPageCount)) {
-    throw new VueDatatables182Error(
-      ErrorCategory.PROPS_VALIDATION,
-      `Prop 'rowsPerPageCount' is not present in prop 'rowsPerPageOptions'`,
-    )
+    Logger.error(`prop 'rowsPerPageCount' is not present in prop 'rowsPerPageOptions'`)
   }
 
   if (!p.scrollX && (p.fixedColumnsStart || p.fixedColumnsEnd)) {
-    throw new VueDatatables182Error(
-      ErrorCategory.PROPS_VALIDATION,
-      `The props 'fixedColumnsStart' and 'fixedColumnsEnd' may only be set when the 'scrollX' prop is true`,
+    Logger.warn(
+      `the props 'fixedColumnsStart' and 'fixedColumnsEnd' may only be set when the 'scrollX' prop is true`,
     )
   }
 
@@ -129,14 +126,14 @@ export const validateTableProps = (p: ExtractPropTypes<typeof props>) => {
   if (p.method !== null && !availableMethods.includes(p.method)) {
     throw new VueDatatables182Error(
       ErrorCategory.PROPS_VALIDATION,
-      `Prop 'method' must be either “GET” or “POST”`,
+      `prop 'method' must be either “GET” or “POST”`,
     )
   }
 
   if (p.source === DTSource.REMOTE && !p.url) {
     throw new VueDatatables182Error(
       ErrorCategory.PROPS_VALIDATION,
-      `If ‘remote’ is used as the source, the ‘url’ prop must be set`,
+      `if ‘remote’ is used as the source, the ‘url’ prop must be set`,
     )
   }
 }

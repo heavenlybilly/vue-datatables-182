@@ -9,7 +9,7 @@ const extractPropValue = <T>(propName: keyof typeof props, propsData: object): T
   if (propDef === undefined) {
     throw new VueDatatables182Error(
       ErrorCategory.WRONG_COLUMN_PROP_NAME,
-      `Prop with the name ‘${propName}’ was not found in the column props definition`,
+      `prop with the name ‘${propName}’ was not found in the column props definition`,
     )
   }
 
@@ -17,7 +17,7 @@ const extractPropValue = <T>(propName: keyof typeof props, propsData: object): T
     if (propDef.required) {
       throw new VueDatatables182Error(
         ErrorCategory.REQUIRED_COLUMN_PROP,
-        `Prop '${propName}' is required for the column definition, but no value was provided`,
+        `prop '${propName}' is required for the column definition, but no value was provided`,
       )
     }
 

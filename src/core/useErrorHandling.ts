@@ -1,35 +1,21 @@
-import { Ref, onErrorCaptured, ref } from 'vue'
+import { onErrorCaptured } from 'vue'
 import { DTError } from '@/types'
+import { Logger } from '@/logger'
 import { VueDatatables182Error } from '@/errors/VueDatatables182Error'
 
 export const useErrorHandling = () => {
-  const error: Ref<DTError | null> = ref(null)
-
   const handleError = (value: Error | DTError | string | any) => {
     if (value instanceof VueDatatables182Error) {
-      error.value = {
-        message: value.message,
-        description: value.description,
-      }
+      Logger.error(value.message, value.description)
     } else if (value instanceof Error) {
-      error.value = {
-        message: value.message,
-      }
+      Logger.error(value.message)
     } else if (typeof value === 'string') {
-      error.value = {
-        message: value,
-      }
+      Logger.error(value)
     } else {
-      error.value = {
-        message: 'Unknown error',
-      }
+      Logger.error('Unknown error')
     }
 
     throw value
-  }
-
-  const clearError = () => {
-    error.value = null
   }
 
   onErrorCaptured((err) => {
@@ -37,8 +23,6 @@ export const useErrorHandling = () => {
   })
 
   return {
-    error,
     handleError,
-    clearError,
   }
 }
