@@ -135,8 +135,13 @@ const reload = async () => {
   await fetchTableData()
 }
 
+const deselectAllRows = () => {
+  clearSelection()
+}
+
 defineExpose({
   reload,
+  deselectAllRows,
 })
 
 onMounted(init)

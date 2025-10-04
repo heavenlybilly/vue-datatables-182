@@ -84,6 +84,11 @@ export interface DataTableMethods {
    * Reload table data.
    */
   reload(): Promise<void>
+
+  /**
+   * Deselect all rows in table
+   */
+  deselectAllRows(): void
 }
 
 export declare const DataTable: DefineComponent<
