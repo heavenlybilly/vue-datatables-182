@@ -1,10 +1,10 @@
 # DataTable
 ## Props
 
-### Данные
+### Data
 
 ### `source`
-Источник данных. Допустимые значения: `local` и `remote`.
+Data source. Allowed values: `local` and `remote`.
 
 ```js
 source: {
@@ -14,7 +14,7 @@ source: {
 ```
 
 ### `url`
-URL для загрузки данных. Использовать только с `source="remote"`.
+URL for loading data. Use only with `source="remote"`.
 
 ```js
 url: {
@@ -24,7 +24,7 @@ url: {
 ```
 
 ### `items`
-Массив данных для отображения. Использовать только с `source="local"`.
+Array of data to display. Use only with `source="local"`.
 
 ```js
 items: {
@@ -33,10 +33,10 @@ items: {
 }
 ```
 
-### Пагинация
+### Pagination
 
 ### `pagination`
-Включает пагинацию таблицы.
+Enables table pagination.
 
 ```js
 pagination: {
@@ -46,7 +46,7 @@ pagination: {
 ```
 
 ### `rowsPerPageOptions`
-Элементы списка для выбора количества отображаемых на странице строк.
+List of options for selecting rows per page.
 
 ```js
 rowsPerPageOptions: {
@@ -56,7 +56,7 @@ rowsPerPageOptions: {
 ```
 
 ### `rowsPerPageCount`
-Количество строк на странице. Значение должно присутствовать в массиве `rowsPerPageOptions`.
+Number of rows per page. The value must exist in `rowsPerPageOptions`.
 
 ```js
 rowsPerPageCount: {
@@ -66,7 +66,7 @@ rowsPerPageCount: {
 ```
 
 ### `showRangeInfo`
-Показывать количество записей на странице.
+Show record count on page.
 
 ```js
 showRangeInfo: {
@@ -75,10 +75,10 @@ showRangeInfo: {
 }
 ```
 
-### Поиск
+### Search
 
 ### `searching`
-Включает поиск.
+Enables search.
 
 ```js
 searching: {
@@ -87,10 +87,10 @@ searching: {
 }
 ```
 
-### Сортировка
+### Sorting
 
 ### `orderBy`
-Наименование столбца, по которому данные будут отсортированы по умолчанию.
+Column name used for default sorting.
 
 ```js
 orderBy: {
@@ -100,7 +100,7 @@ orderBy: {
 ```
 
 ### `orderDirection`
-Порядок сортировки по умолчанию. Допустимые значения: `asc` и `desc`.
+Default sorting order. Allowed values: `asc` and `desc`.
 
 ```js
 orderDirection: {
@@ -109,12 +109,12 @@ orderDirection: {
 }
 ```
 
-### Общие параметры
+### General
 
 ### `actions`
-Добавляет столбец с действиями.
+Adds a column with actions.
 
-*___Примечание:___ содержимое ячеек столбца необходимо добавить с помощью слота `actions`.*
+*Note: the content of action cells must be added via the `actions` slot.*
 
 ```js
 actions: {
@@ -124,7 +124,7 @@ actions: {
 ```
 
 ### `numbering`
-Добавляет столбец с нумерацией строк.
+Adds a column with row numbering.
 
 ```js
 numbering: {
@@ -134,7 +134,7 @@ numbering: {
 ```
 
 ### `rowSelection`
-Добавляет столбец с чек-боксами для выделения строк.
+Adds a column with checkboxes for selecting rows.
 
 ```js
 rowSelection: {
@@ -144,17 +144,17 @@ rowSelection: {
 ```
 
 ### `disallowSelectAll`
-Запрещает выделение сразу всех строк в таблице.
+Prevents selecting all rows at once.
 
 ```js
 disallowSelectAll: {
   type: Boolean,
   default: false,
-},
+}
 ```
 
 ### `rowsClickable`
-Позволяет использовать событие `@click` для строки таблицы.
+Enables handling the `@click` event on a table row.
 
 ```js
 rowsClickable: {
@@ -164,9 +164,9 @@ rowsClickable: {
 ```
 
 ### `selectOnRowClick`
-Позволяет выделять строки нажатием ЛКМ на них.
+Allows selecting rows by clicking with LMB.
 
-*___Примечание:___ необходимо указать `rowSelection` и `rowsClickable` со значением `true`.*
+*Note: requires both `rowSelection` and `rowsClickable` to be `true`.*
 
 ```js
 selectOnRowClick: {
@@ -175,10 +175,10 @@ selectOnRowClick: {
 }
 ```
 
-### Внешний вид
+### Appearance
 
 ### `scrollX`
-Включает горизонтальную прокрутку таблицы.
+Enables horizontal scrolling.
 
 ```js
 scrollX: {
@@ -188,10 +188,10 @@ scrollX: {
 ```
 
 ### `fixedColumnsStart`
-Количество закрепленных столбцов с левого края.
+Number of fixed columns on the left.
 
-*___Примечание:___ использовать, только если разрешена горизонтальная прокрутка.
-Необходимо указать фиксированную ширину для закрепленных столбцов.*
+*Note: use only when horizontal scrolling is enabled.
+A fixed width must be specified for fixed columns.*
 
 ```js
 fixedColumnsStart: {
@@ -201,10 +201,10 @@ fixedColumnsStart: {
 ```
 
 ### `fixedColumnsEnd`
-Количество закрепленных столбцов с правого края.
+Number of fixed columns on the right.
 
-*___Примечание:___ использовать, только если разрешена горизонтальная прокрутка.
-Необходимо указать фиксированную ширину для закрепленных столбцов.*
+*Note: use only when horizontal scrolling is enabled.
+A fixed width must be specified for fixed columns.*
 
 ```js
 fixedColumnsEnd: {
@@ -214,7 +214,7 @@ fixedColumnsEnd: {
 ```
 
 ### `stickyHeader`
-При вертикальной прокрутке таблицы заголовок будет закреплен
+Fixes the header during vertical scrolling.
 
 ```js
 stickyHeader: {
@@ -224,7 +224,7 @@ stickyHeader: {
 ```
 
 ### `verticalBorders`
-Добавляет отображение вертикальных границ ячеек таблицы. 
+Shows vertical cell borders.
 
 ```js
 verticalBorders: {
@@ -236,8 +236,8 @@ verticalBorders: {
 ## Events
 
 ### `row-click`
-Событие срабатывает при нажатии ЛКМ по строке, если пропс `rowsClickable` равен `true`.
-Событие, переданное обработчику, содержит данные строки.
+Triggered when clicking a row if `rowsClickable` is `true`.
+The emitted event contains row data.
 
 #### script
 ```vue
@@ -264,9 +264,9 @@ export default {
 ```
 
 ### `update:selected-rows`
-Событие срабатывает при выборе/отмене выбора строки.
-Событие, переданное обработчику, содержит массив выбранных строк.
-Пропс `rowSelection` должен быть равен `true`.
+Triggered when selecting or deselecting a row.
+The emitted event contains an array of selected rows.
+Requires `rowSelection` to be `true`.
 
 #### script
 ```vue
@@ -295,7 +295,7 @@ export default {
 ## Slots
 
 ### `topLeftBeforeActions`
-Этот слот используется для отображения содержимого слева сверху от таблицы, слева от поля поиска.
+Used to display content to the left above the table, left of the search field.
 ```vue
 <data-table ... >
   <template #topLeftBeforeActions>
@@ -305,7 +305,7 @@ export default {
 ```
 
 ### `topLeftAfterActions`
-Этот слот используется для отображения содержимого слева сверху от таблицы, справа от поля поиска.
+Used to display content to the left above the table, right of the search field.
 ```vue
 <data-table ... >
   <template #topLeftAfterActions>
@@ -315,7 +315,7 @@ export default {
 ```
 
 ### `topRight`
-Этот слот используется для отображения содержимого справа сверху от таблицы.
+Used to display content to the right above the table.
 ```vue
 <data-table ... >
   <template #topRight>
@@ -325,9 +325,9 @@ export default {
 ```
 
 ### `actions`
-Этот слот используется для отображения содержимого в ячейках столбца действий. Слот предоставляет значение строки.
+Used to display content inside action column cells. Slot provides row data.
 
-*___Примечание:___ событие с директивой `@click.stop` необходимо для предотвращения события клика строки.*
+*Note: you must use `@click.stop` to prevent triggering the row click event.*
 
 ```vue
 <data-table-column ... >
@@ -339,3 +339,4 @@ export default {
   </template>
 </data-table-column>
 ```
+

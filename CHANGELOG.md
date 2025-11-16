@@ -1,18 +1,5 @@
-## v1.2.5
-- Добавлен лоадер в каждую ячейку таблицы.
-- Добавлены expose-метод `deselectAllRows`.
-- Добавлены пропущенные пропсы в declare-types: `filters`, `showRangeInfo`, `selectOnRowClick`.
-- Отключено отображение ошибок под таблицей, вывод ошибок и предупреждений в console.
-
-## v1.2.4
-- Добавлен пропс `disallowSelectAll` для запрета на выделение сразу всех строк в таблице
-
-## v1.2.1
-- Добавлен пропс `verticalBorders` для отображения вертикальных границ ячеек таблицы.
-- Добавлен пропс `stickyHeader` для закрепления заголовка таблицы при вертикальной прокрутке.
-- Исправлено: при переполнении вертикальная прокрутка будет появляться не на всем компоненте, а на таблице.
-
-## v1.2.0
-
-- Добавлен пропс `showRangeInfo` для настройки отображения количества записей на странице.
-- Добавлен пропс `selectOnRowClick` для выделения строк нажатием ЛКМ.
+## v1.2.5 (WIP)
+- Added a loader to every table cell.
+- Added the expose method `deselectAllRows`.
+- Added missing props to declare-types: `filters`, `showRangeInfo`, `selectOnRowClick`.
+- Disabled displaying errors under the table; errors and warnings are now shown in the console.

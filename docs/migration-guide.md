@@ -1,32 +1,32 @@
-# Руководство по обновлению
+# Upgrade Guide
 
-Здесь описан порядок обновления на более новые версии компонента, а так же указан список изменений и нововведений.
-Под каждой версией указан порядок обновления до нее с предыдущей.
+This section describes the procedure for updating to newer versions of the component, as well as the list of changes and new features.  
+Each version includes instructions for updating from the previous one.
 
-Для обновления компонента необходимо выполнить команду:
-```
-npm update @libs/vue-datatables-182
-```
+To update the component, run:
+```  
+npm update vue-datatables-182  
+```  
 
-## v1.0.0
+## v1.2.4
 
-### Критические изменения
-- Слоты `cell` и `actions` вместо значения `row` теперь передают объект `{ index, number, item }`;
-- Значения пропса `source` компонента `DataTableColumn` теперь принимает значения `local` или `remote`;
-- Теперь пакет предоставляется как плагин Vue:
-```typescript
-import Vue from 'vue'
-import { DTPluginOptions, VueDatatables182 } from '@libs/vue-datatables-182'
+### Breaking changes
+- The `cell` and `actions` slots now pass an object `{ index, number, item }` instead of `row`;
+- The `source` prop of the `DataTableColumn` component now accepts values `local` or `remote`;
+- The package is now provided as a Vue plugin:
+```typescript  
+import Vue from 'vue'  
+import { DTPluginOptions, VueDatatables182 } from 'vue-datatables-182'  
+  
+Vue.use<DTPluginOptions>(VueDatatables182, {  
+  defaultMethod: 'GET',  
+  registerGlobally: false,  
+  csrfToken: window.token,  
+})  
+```  
 
-Vue.use<DTPluginOptions>(VueDatatables182, {
-  defaultMethod: 'GET',
-  registerGlobally: false,
-  csrfToken: window.token,
-})
-```
+### Other changes
+- By default, the `GET` method is now used to communicate with the server.
 
-### Прочие изменения
-- По умолчанию в компоненте используется метод `GET` для обращения к серверу.
-
-*Примечание:*  
-До некоторой версии `0.0.*` пропс `title` компонента `DataTableColumn` назывался `name`. Это тоже нужно учесть.
+*Note:*  
+In earlier `0.0.*` versions, the `title` prop of the `DataTableColumn` component was called `name`. This should also be taken into account.  
