@@ -1,21 +1,20 @@
 # Vue Datatables 182
-Vue Datatables 182 — это компонент для отображения таблиц с расширенными возможностями.
-Компонент поддерживает следующие возможности:
+Vue Datatables 182 is a component that provides a table with enhanced capabilities. This component supports:
 
-- Поиск
-- Пагинацию
-- Получение данных с сервера
-- Настройку с помощью слотов
+- Searching
+- Remote data
+- Pagination
+- Customizing with slots
 
-## Содержание
-- [Для разработки](#для-разработки)
-- [Начало работы](#начало-работы)
-- [Структура компонентов](#структура-компонентов)
-- [Описание компонентов](#описание-компонентов)
-- [Руководство по обновлению](#руководство-по-обновлению)
+## Contents
+- [For development](#for-development)
+- [Getting started](#getting-started)
+- [Component structure](#component-structure)
+- [Components description](#components-description)
+- [Upgrade guide](#upgrade-guide)
 
-## Для разработки
-Необходимо выполнить команды
+## For development
+You need to run the commands
 ```sh
 cp .env.example .env
 
@@ -23,22 +22,23 @@ task build
 task up
 task bash
 
-# в контейнере
+# inside the container
 npm install
 npm run playground
 ```
 
-## Установка
-#### Установка пакета
+## Installation
+
+#### Package installation
 ```bash
-npm i @libs/vue-datatables-182
+npm i vue-datatables-182
 ```
 
-#### Использование
-Регистрация плагина:
+#### Usage
+Plugin registration:
 ```js
 import Vue from 'vue'
-import { DTPluginOptions, VueDatatables182 } from '@libs/vue-datatables-182'
+import { DTPluginOptions, VueDatatables182 } from 'vue-datatables-182'
 import "vue-datatables-182/dist/index.css"
 
 Vue.use<DTPluginOptions>(VueDatatables182, {
@@ -48,7 +48,7 @@ Vue.use<DTPluginOptions>(VueDatatables182, {
 })
 ```
 
-Использование компонента:
+Component usage:
 ```vue
 <script lang="js">
 import { DataTable, DataTableColumn } from 'vue-datatables-182'
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <template>
-  <!-- данные из массива -->
+  <!-- data from an array -->
   <data-table
     source="local"
     :items="items"
@@ -93,7 +93,7 @@ export default {
     />
   </data-table>
 
-  <!-- данные с сервера -->
+  <!-- data from the server -->
   <data-table
     source="remote"
     url="/example-table"
@@ -119,19 +119,19 @@ export default {
 
 ___
 
-## Структура компонентов
+## Component structure
 
-Пунктирные прямоугольники обозначают области, соответствующие слотам. Слоты компонента `DataTable` выделены зелёным цветом, слоты компонента `DataTableColumn` — оранжевым.
+Dashed rectangles indicate areas that correspond to slots. Slots of the `DataTable` component are highlighted in green, slots of the `DataTableColumn` component — in orange.
 
 ![DataTable](./docs/ui-highlight.jpg)
 
 ___
 
-## Описание компонентов
+## Components description
 
 - [DataTable](./docs/data-table.md)
 - [DataTableColumn](./docs/data-table-column.md)
 
-## Руководство по обновлению
+## Upgrade guide
 
-[Здесь](./docs/migration-guide.md) описан порядок обновления компонента.
+The update procedure for the component is described [here](./docs/migration-guide.md).
