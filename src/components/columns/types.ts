@@ -88,7 +88,7 @@ export interface MetaDef {
   orderableKeys: ColumnKey[]
 }
 
-export interface ColumnRegistry<RowItem = any> {
+export type ColumnRegistry<RowItem = any> = {
   readonly columns: Readonly<ColumnDef<RowItem>[]>
   readonly meta: Readonly<MetaDef>
   rebuild(args: { slots: Slots; tableProps: TableProps }): void

@@ -42,10 +42,16 @@ const isShow = ref(false)
     </div>
 
     <div style="padding: 20px; background-color: lightblue">
-      <data-table :source="DTSource.LOCAL">
+      <data-table
+        row-key="id"
+        :rows-per-page-count="31"
+        :source="DTSource.LOCAL"
+      >
         <data-table-column
           key="test"
           field="name"
+          orderable
+          searchable
           title="Name"
         />
         <data-table-column

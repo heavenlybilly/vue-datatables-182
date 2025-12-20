@@ -9,6 +9,40 @@ export type ValueOf<T> = T[keyof T]
 export type Branded<Type, Brand> = Type & { readonly __brand: Brand }
 
 /**
+ * Enums
+ */
+export const TextAlign = {
+  CENTER: 'center',
+  LEFT: 'left',
+  RIGHT: 'right',
+} as const
+export type TextAlign = ValueOf<typeof TextAlign>
+
+export const Source = {
+  LOCAL: 'local',
+  REMOTE: 'remote',
+} as const
+export type Source = ValueOf<typeof Source>
+
+export const Method = {
+  get: 'get',
+  post: 'post',
+} as const
+export type Method = ValueOf<typeof Method>
+
+export const OrderDirection = {
+  ASC: 'asc',
+  DESC: 'desc',
+} as const
+export type OrderDirection = ValueOf<typeof OrderDirection>
+
+export const Sticky = {
+  LEFT: 'left',
+  RIGHT: 'right',
+} as const
+export type Sticky = ValueOf<typeof Sticky>
+
+/**
  * Slots
  */
 export type SlotResult = VNode | VNode[] | null | undefined
@@ -26,35 +60,78 @@ export type TableProps = DataTableProps
 export type TableColumnProps = DataTableColumnProps
 
 /**
- * Enums
+ * Table types
  */
-export const TextAlign = {
-  CENTER: 'center',
-  LEFT: 'left',
-  RIGHT: 'right',
-} as const
-export type TextAlign = ValueOf<typeof TextAlign>
+export type RowValue = any
+export type RowKey = string | number
+export type RowKeySelector<T> = (keyof T & string) | ((item: T) => RowKey)
+export type RowItem = Record<string, RowValue>
 
-export const Source = {
-  LOCAL: 'local',
-  REMOTE: 'remote',
-} as const
-export type Source = ValueOf<typeof Source>
+/**
+ * Request adapter
+ */
+export type RequestContext = {
+  url: string
+  method: Method
+  query: {
+    page?: number
+    perPage?: number
+    search?: string
+    orderBy?: string
+    orderDirection?: OrderDirection
+    filter?: Record<string, unknown>
+  }
+}
 
-export const Method = {
-  GET: 'GET',
-  POST: 'POST',
-} as const
-export type Method = ValueOf<typeof Method>
+export type BuiltRequest = {
+  url: string
+  method: Method
+  headers?: Record<string, string>
+  query?: Record<string, string | number | boolean | null | undefined>
+  body?: any
+}
 
-export const OrderDirection = {
-  ASC: 'asc',
-  DESC: 'desc',
-} as const
-export type OrderDirection = ValueOf<typeof OrderDirection>
+export type RequestAdapter = (context: RequestContext) => BuiltRequest
 
-export const Sticky = {
-  LEFT: 'left',
-  RIGHT: 'right',
-} as const
-export type Sticky = ValueOf<typeof Sticky>
+/**
+ * Response adapter
+ */
+export type ResponseAdapter<TRowItem = RowItem> = (response: any) => {
+  items: TRowItem[]
+  total: number
+  filtered?: number
+}
+
+/**
+ * Emit payloads
+ */
+export type RequestStartPayload = {
+  url: string
+  method: Method
+  query?: BuiltRequest['query']
+  body?: any
+}
+
+export type RequestEndPayload = {
+  ok: boolean
+}
+
+export type RequestErrorPayload = {
+  error: unknown
+}
+
+export type RequestSuccessPayload<TRowItem = RowItem> = {
+  items: TRowItem[]
+  total: number
+  filtered?: number
+}
+
+export type SelectedKeysChangePayload<TRowItem = RowItem> = {
+  keys: RowKey[]
+  items: TRowItem[]
+}
+
+export type RowClickPayload<TRowItem = RowItem> = {
+  key: RowKey
+  item: TRowItem
+}
