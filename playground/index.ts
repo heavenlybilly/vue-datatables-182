@@ -9,9 +9,9 @@ import { DTMethod, DTPluginOptions } from '@/types'
 const pinia = createPinia()
 
 Vue.use(PiniaVuePlugin)
-Vue.use<DTPluginOptions>(VueDatatables182, {
-  defaultMethod: DTMethod.GET,
-})
+// Vue.use<DTPluginOptions>(VueDatatables182, {
+//   defaultMethod: DTMethod.GET,
+// })
 
 new Vue({
   render: (h) => h(App),

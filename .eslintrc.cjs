@@ -45,11 +45,21 @@ module.exports = {
       },
     ],
 
+    'no-console': [
+      'error',
+      {
+        allow: ['warn', 'error'],
+      },
+    ],
+
     // TypeScript
-    '@typescript-eslint/no-unused-vars': ['error', {
-      argsIgnorePattern: '^_',
-      varsIgnorePattern: '^_'
-    }],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      },
+    ],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-use-before-define': [
@@ -96,8 +106,8 @@ module.exports = {
       files: ['playground/**/*'],
       rules: {
         'no-console': 'off',
-      }
-    }
+      },
+    },
   ],
   settings: {
     'import/resolver': {

@@ -1,19 +1,17 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import VCheckbox from '~/components/VCheckbox.vue'
-import { usePersistentState } from '~/composables/usePersistentState'
-import PlaygroundTable from '~/table/PlaygroundTable.vue'
-import PlaygroundToolbar from '~/toolbar/PlaygroundToolbar.vue'
-import NewDataTable from '@/core/NewDataTable.vue'
-import { DataTableColumn } from '@/features/columns-schema'
+import TestComponent from '~/TestComponent.vue'
+import { DTSource } from '@/types'
+import DataTable from '../src/components/DataTable.vue'
+import DataTableColumn from '../src/components/DataTableColumn.vue'
 
 const isHighlight = ref(false)
-
-usePersistentState('playground-app-highlight', { isHighlight })
 
 const classObject = computed(() => ({
   'playground-highlight': isHighlight.value,
 }))
+
+const isShow = ref(false)
 </script>
 
 <template>
@@ -39,13 +37,26 @@ const classObject = computed(() => ({
     <!--      <playground-toolbar />-->
     <!--    </div>-->
 
+    <div style="margin-bottom: 10px">
+      <button @click="isShow = !isShow">Click</button>
+    </div>
+
     <div style="padding: 20px; background-color: lightblue">
-      <new-data-table url="test">
+      <data-table :source="DTSource.LOCAL">
         <data-table-column
+          key="test"
           field="name"
           title="Name"
         />
-      </new-data-table>
+        <data-table-column
+          v-if="isShow"
+          field="test"
+          title="Name"
+        />
+        <data-table-column />
+        <test-component />
+        <button>123</button>
+      </data-table>
     </div>
   </div>
 </template>
