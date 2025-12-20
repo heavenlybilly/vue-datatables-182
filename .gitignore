@@ -8,14 +8,15 @@
 *.sw?
 
 # build files and temporary files
-playground/dist
 node_modules
 dist
 build
 coverage
+.vitest/
 *.log
 *.tmp
 *.temp
+*.tgz
 
 # npm configuration files
 npm-debug.log
@@ -32,3 +33,9 @@ desktop.ini
 .yarn
 .pnpm-store
 .env
+
+# roadmaps
+roadmaps
+
+storybook-static/
+release/

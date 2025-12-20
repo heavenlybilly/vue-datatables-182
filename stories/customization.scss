@@ -1,0 +1,72 @@
+.customization-table {
+  max-width: 960px;
+  height: 420px;
+
+  --dt182-font-family: system-ui, sans-serif;
+}
+
+.customization-table-dark {
+  --dt182-background: #17212e;
+  --dt182-text-color: #e8edf5;
+  --dt182-muted-color: #b3bfd0;
+  --dt182-border-color: #435166;
+  --dt182-header-background: #243247;
+  --dt182-header-hover-background: #354662;
+  --dt182-control-background: #17212e;
+  --dt182-control-hover-background: #354662;
+  --dt182-page-active-background: #354662;
+  --dt182-row-striped-background: #1c293b;
+  --dt182-row-hover-background: #293a52;
+  --dt182-row-selected-background: #314967;
+  --dt182-row-selected-hover-background: #3b5677;
+  --dt182-checkbox-color: #91b5ff;
+  --dt182-checkbox-mark-color: #17212e;
+  --dt182-checkbox-border-color: #a7b5ca;
+  --dt182-focus-color: #91b5ff;
+  --dt182-disabled-color: #8c99ab;
+  --dt182-skeleton-background: #243247;
+  --dt182-skeleton-highlight: #354662;
+  --dt182-error-background: #39212a;
+  --dt182-error-color: #ffb6c2;
+
+  color-scheme: dark;
+}
+
+.customization-table-minimal {
+  --dt182-header-background: #fff;
+  --dt182-border-radius: 0;
+  --dt182-border-color: #e4e7eb;
+  --dt182-row-striped-background: #fff;
+  --dt182-cell-padding-block: 0.875rem;
+}
+
+.customization-number {
+  font-variant-numeric: tabular-nums;
+}
+
+.customization-control {
+  max-width: 100%;
+  min-height: 2rem;
+  padding: 0.25rem 0.5rem;
+  color: var(--dt182-text-color, #243041);
+  font: inherit;
+  background: var(--dt182-control-background, #fff);
+  border: 1px solid var(--dt182-border-color, #dce2e9);
+  border-radius: 0.375rem;
+
+  &:focus {
+    outline: 2px solid var(--dt182-focus-color, #2457c5);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.customization-host > button {
+  padding: 1rem;
+  font-family: monospace;
+  background: #ffde8a;
+  border: 3px solid #915800;
+}

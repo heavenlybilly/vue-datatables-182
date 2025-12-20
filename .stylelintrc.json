@@ -1,9 +1,7 @@
 {
-  "extends": [
-    "stylelint-config-standard-scss",
-    "stylelint-config-rational-order"
-  ],
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-rational-order"],
   "plugins": ["stylelint-order", "stylelint-scss"],
+  "overrides": [{ "files": ["**/*.vue"], "customSyntax": "postcss-html" }],
   "rules": {
     "no-descending-specificity": null
   }

@@ -1,0 +1,16 @@
+.story-table {
+  max-width: 960px;
+
+  small {
+    display: block;
+  }
+}
+
+.story-table-bounded {
+  max-width: 720px;
+  height: 380px;
+
+  > div {
+    height: 100%;
+  }
+}

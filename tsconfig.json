@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "strict": true,
     "baseUrl": ".",
     "jsx": "preserve",
@@ -12,27 +12,28 @@
     "forceConsistentCasingInFileNames": true,
     "sourceMap": false,
     "declaration": false,
-    "lib": ["esnext", "dom"],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
     "types": [
-      "node",
-      "jest"
+      "node"
     ],
     "paths": {
       "@/*": [
         "src/*"
-      ],
-      "~/*": [
-        "playground/*"
       ]
     }
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.vue",
-    "src/declare-types/index.d.ts",
-    "src/shims-vue.d.ts",
     "src/svg.d.ts",
-    "playground/**/*.ts",
-    "playground/**/*.vue",
-  ],
+    "tests/**/*.ts",
+    "config/**/*.ts",
+    "vitest.config.ts",
+    "stories/**/*.ts",
+    "stories/**/*.vue",
+    ".storybook/**/*.ts"
+  ]
 }

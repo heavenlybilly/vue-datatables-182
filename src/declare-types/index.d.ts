@@ -1,7 +1,0 @@
-export * from '@/types'
-export * from './DataTable'
-export * from './DataTableColumn'
-export * from './VueDatatables182'
-export { default as DataTable } from './DataTable'
-export { default as DataTableColumn } from './DataTableColumn'
-export { default as VueDatatables182 } from './VueDatatables182'

@@ -1,5 +1,8 @@
 name: CI & Publish
 
+permissions:
+  contents: read
+
 on:
   push:
     tags:
@@ -8,29 +11,47 @@ on:
 
 jobs:
   build:
-    name: Install, Test, Lint & Build
+    name: Node ${{ matrix.node }} checks
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22', '24']
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ matrix.node }}
           cache: 'npm'
 
       - run: npm ci
 
+      - name: Verify release tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: npm run check:release
+
+      - run: npm run check:types
       - run: npm test
       - run: npm run lint
       - run: npm run stylelint
+      - run: npm run test:release
 
-      - run: npm run build
+      - run: npm run check:package -- --output release
+      - run: npm run build:storybook
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:storybook
 
-      - name: Upload build artifacts
+      - name: Verify checked release archive
+        if: startsWith(github.ref, 'refs/tags/')
+        run: npm run check:release -- "$GITHUB_REF_NAME" release/package.tgz
+
+      - name: Upload checked package
         uses: actions/upload-artifact@v4
         with:
-          name: dist
-          path: dist/
+          name: checked-package-node-${{ matrix.node }}
+          path: release/
+          if-no-files-found: error
 
   publish:
     name: Publish to npm
@@ -42,35 +63,24 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org/'
           cache: 'npm'
 
       - run: npm ci
 
-      - name: Download dist artifacts
+      - name: Download checked archive
         uses: actions/download-artifact@v4
         with:
-          name: dist
-          path: dist/
+          name: checked-package-node-24
+          path: release/
 
-      - name: Configure npm authentication
-        run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
-
-      - name: Determine release tag
+      - name: Verify archive and determine dist-tag
         id: tag
-        run: |
-          REF="${GITHUB_REF#refs/tags/}"
-          case "$REF" in
-            *-alpha*) TAG="alpha" ;;
-            *-beta*) TAG="beta" ;;
-            *-rc*) TAG="rc" ;;
-            *) TAG="latest" ;;
-          esac
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-
-      - name: Verify dist folder exists
-        run: test -d dist
+        run: npm run check:release -- "$GITHUB_REF_NAME" release/package.tgz
 
       - name: Publish package
-        run: npm publish --tag ${{ steps.tag.outputs.tag }}
+        run: npm publish ./release/package.tgz --ignore-scripts --tag "$DIST_TAG"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          DIST_TAG: ${{ steps.tag.outputs.dist-tag }}

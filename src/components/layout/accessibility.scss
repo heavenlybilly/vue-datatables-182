@@ -1,0 +1,87 @@
+.dt182-wrapper {
+  .dt182-sort-column-btn,
+  .dt182-paginator-page,
+  .dt182-search-input,
+  .dt182-rows-per-page-select,
+  .dt182-clear-search,
+  .dt182-retry {
+    font-family: inherit;
+  }
+
+  .dt182-sort-column-btn:focus,
+  .dt182-paginator-page:focus,
+  .dt182-cross-icon:focus,
+  .dt182-checkbox-element:focus,
+  .dt182-rows-per-page-select:focus,
+  .dt182-row-action:focus,
+  .dt182-clear-search:focus,
+  .dt182-retry:focus,
+  .dt182-table-viewport:focus {
+    outline: 2px solid var(--dt182-focus-color, #2457c5);
+    outline-offset: 2px;
+  }
+
+  .dt182-sr-only,
+  .dt182-row-action {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+
+    &:focus {
+      z-index: 5;
+      width: auto;
+      height: auto;
+      padding: 0.25rem;
+      overflow: visible;
+      color: var(--dt182-text-color, #243041);
+      background: var(--dt182-background, #fff);
+      clip: auto;
+    }
+  }
+}
+
+@supports selector(:focus-visible) {
+  .dt182-wrapper {
+    .dt182-sort-column-btn:focus:not(:focus-visible),
+    .dt182-paginator-page:focus:not(:focus-visible),
+    .dt182-cross-icon:focus:not(:focus-visible),
+    .dt182-checkbox-element:focus:not(:focus-visible),
+    .dt182-rows-per-page-select:focus:not(:focus-visible),
+    .dt182-row-action:focus:not(:focus-visible),
+    .dt182-clear-search:focus:not(:focus-visible),
+    .dt182-retry:focus:not(:focus-visible),
+    .dt182-table-viewport:focus:not(:focus-visible) {
+      outline: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dt182-wrapper {
+    .dt182-cell,
+    .dt182-column,
+    .dt182-search,
+    .dt182-search-input,
+    .dt182-sort-column-btn,
+    .dt182-paginator-page {
+      transition: none;
+    }
+
+    .dt182-cell-loader {
+      animation: none;
+    }
+  }
+}
+
+.dt182-search-input:focus {
+  outline: none;
+}
+
+.dt182-wrapper .dt182-sort-column-btn:focus {
+  outline-offset: -3px;
+}

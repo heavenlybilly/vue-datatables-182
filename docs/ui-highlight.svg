@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="860" viewBox="0 0 1280 860" role="img" aria-labelledby="title description">
+  <title id="title">DataTable — interface and slot structure</title>
+  <desc id="description">Three toolbar slots surround the search input. The table supports row numbering, selection, sorting and sticky columns. Actions use a regular cell slot. Page size, row range and pagination appear below the table. Loading, empty, noResults and error slots replace the row area.</desc>
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; fill: #253248; }
+      .title { font-size: 30px; font-weight: 700; }
+      .subtitle { font-size: 15px; fill: #64748b; }
+      .label { font-size: 14px; font-weight: 600; }
+      .body { font-size: 15px; }
+      .small { font-size: 12px; fill: #64748b; }
+      .mono { font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 13px; }
+      .green { fill: #166534; }
+      .amber { fill: #92400e; }
+      .blue { fill: #1d4ed8; }
+      .muted { fill: #64748b; }
+      .slot { fill: #f0fdf4; stroke: #4ade80; stroke-dasharray: 5 4; }
+      .cell-slot { fill: #fffbeb; stroke: #f59e0b; stroke-dasharray: 5 4; }
+      .line { stroke: #e2e8f0; fill: none; }
+      .connector { stroke: #0891b2; stroke-width: 1.5; fill: none; }
+    </style>
+    <symbol id="checkbox" viewBox="0 0 18 18">
+      <rect x="1" y="1" width="16" height="16" rx="4" fill="white" stroke="#94a3b8"/>
+    </symbol>
+    <symbol id="checked" viewBox="0 0 18 18">
+      <rect x="1" y="1" width="16" height="16" rx="4" fill="#2563eb"/>
+      <path d="m5 9 3 3 5-6" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="open" viewBox="0 0 18 18">
+      <path d="m7 4 5 5-5 5" fill="none" stroke="#64748b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+  <rect width="1280" height="860" fill="#f6f8fc"/>
+  <text x="40" y="57" class="title">DataTable</text>
+  <text x="40" y="88" class="subtitle">Interface structure • public slots and settings</text>
+  <rect x="40" y="115" width="14" height="14" rx="4" class="slot"/>
+  <text x="64" y="127" class="small">DataTable slots</text>
+  <rect x="229" y="115" width="14" height="14" rx="4" class="cell-slot"/>
+  <text x="253" y="127" class="small">DataTableColumn slot</text>
+  <rect x="452" y="115" width="14" height="14" rx="4" fill="#ecfeff" stroke="#06b6d4"/>
+  <text x="476" y="127" class="small">Sticky positioning</text>
+
+  <rect x="40" y="160" width="1200" height="426" rx="16" fill="white" stroke="#dce3ef"/>
+  <text x="64" y="189" class="small">TOOLBAR</text>
+  <rect x="64" y="205" width="184" height="44" rx="8" class="slot"/>
+  <text x="156" y="232" text-anchor="middle" class="mono green">#topLeftBeforeActions</text>
+  <rect x="264" y="205" width="216" height="44" rx="8" fill="white" stroke="#cbd5e1"/>
+  <circle cx="287" cy="225" r="6" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+  <path d="m291 230 5 5" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="309" y="232" class="body muted">Search</text>
+  <rect x="496" y="205" width="188" height="44" rx="8" class="slot"/>
+  <text x="590" y="232" text-anchor="middle" class="mono green">#topLeftAfterActions</text>
+  <rect x="1012" y="205" width="204" height="44" rx="8" class="slot"/>
+  <text x="1114" y="232" text-anchor="middle" class="mono green">#topRight</text>
+
+  <text x="64" y="278" class="small">default → DataTableColumn</text>
+  <text x="1216" y="278" text-anchor="end" class="mono blue">stickyHeader</text>
+  <rect x="64" y="292" width="1152" height="48" rx="8" fill="#edf2f8"/>
+  <path d="M64 294H1216" stroke="#38bdf8" stroke-width="3"/>
+  <rect x="152" y="295" width="248" height="192" fill="#ecfeff" fill-opacity=".45"/>
+  <rect x="1000" y="295" width="216" height="192" fill="#ecfeff" fill-opacity=".45"/>
+  <path d="M400 294V487M1000 294V487" stroke="#67e8f9" stroke-width="2"/>
+  <text x="86" y="322" text-anchor="middle" class="label">#</text>
+  <use href="#checkbox" x="121" y="307" width="18" height="18"/>
+  <path d="M125 316h10" stroke="#2563eb" stroke-width="2"/>
+  <text x="174" y="322" class="label">Name</text>
+  <path d="m227 319 4-5 4 5" stroke="#2563eb" fill="none" stroke-width="1.8"/>
+  <text x="424" y="322" class="label">Email</text>
+  <text x="967" y="322" text-anchor="end" class="label">Balance</text>
+  <text x="1022" y="322" class="label">Actions</text>
+
+  <rect x="64" y="340" width="1152" height="48" fill="#eff6ff" fill-opacity=".7"/>
+  <text x="86" y="370" text-anchor="middle" class="body muted">1</text>
+  <use href="#checked" x="121" y="355" width="18" height="18"/>
+  <text x="174" y="370" class="body">Anna Smith</text>
+  <rect x="413" y="349" width="314" height="30" rx="6" class="cell-slot"/>
+  <text x="427" y="369" class="body amber">anna@example.com</text>
+  <text x="713" y="369" text-anchor="end" class="mono amber">#cell</text>
+  <text x="967" y="370" text-anchor="end" class="body">$12,500</text>
+  <rect x="1014" y="349" width="188" height="30" rx="6" class="cell-slot"/>
+  <text x="1028" y="369" class="body amber">Open</text>
+  <text x="1188" y="369" text-anchor="end" class="mono amber">#cell</text>
+  <path d="M64 388H1216" class="line"/>
+
+  <text x="86" y="418" text-anchor="middle" class="body muted">2</text>
+  <use href="#checkbox" x="121" y="403" width="18" height="18"/>
+  <text x="174" y="418" class="body">Boris Wilson</text>
+  <text x="424" y="418" class="body muted">boris@example.com</text>
+  <text x="967" y="418" text-anchor="end" class="body">$3,400</text>
+  <text x="1022" y="418" class="body blue">Open</text>
+  <path d="M64 436H1216" class="line"/>
+
+  <text x="86" y="466" text-anchor="middle" class="body muted">3</text>
+  <use href="#checkbox" x="121" y="451" width="18" height="18"/>
+  <text x="174" y="466" class="body">Vera Brown</text>
+  <text x="424" y="466" class="body muted">vera@example.com</text>
+  <text x="967" y="466" text-anchor="end" class="body">$0</text>
+  <text x="1022" y="466" class="body blue">Open</text>
+  <path d="M64 488H1216" class="line"/>
+
+  <text x="64" y="527" class="small">Rows per page</text>
+  <rect x="206" y="504" width="64" height="34" rx="6" fill="white" stroke="#cbd5e1"/>
+  <text x="228" y="526" class="body">3</text>
+  <path d="m246 518 4 4 4-4" stroke="#64748b" fill="none" stroke-width="1.5"/>
+  <text x="64" y="562" class="small">Rows 1–3 of 24</text>
+  <rect x="984" y="509" width="34" height="34" rx="7" fill="#f1f5f9"/>
+  <use href="#open" x="992" y="517" width="18" height="18" transform="rotate(180 1001 526)"/>
+  <rect x="1028" y="509" width="34" height="34" rx="7" fill="#2563eb"/>
+  <text x="1045" y="532" text-anchor="middle" font-size="15" style="fill:white">1</text>
+  <rect x="1072" y="509" width="34" height="34" rx="7" fill="#f1f5f9"/>
+  <text x="1089" y="532" text-anchor="middle" class="body">2</text>
+  <rect x="1116" y="509" width="34" height="34" rx="7" fill="#f1f5f9"/>
+  <text x="1133" y="532" text-anchor="middle" class="body">…</text>
+  <rect x="1160" y="509" width="34" height="34" rx="7" fill="#f1f5f9"/>
+  <use href="#open" x="1168" y="517" width="18" height="18"/>
+
+  <path d="M85 588v17M130 588v17" class="line"/>
+  <text x="64" y="624" class="mono muted">numbering · selection</text>
+  <text x="375" y="624" class="mono" style="fill:#0e7490">sticky="left" · width in px</text>
+  <text x="1216" y="624" text-anchor="end" class="mono" style="fill:#0e7490">sticky="right" · width in px</text>
+  <path d="M392 588v15h-16M1008 588v15h16" class="connector"/>
+
+  <rect x="40" y="656" width="752" height="160" rx="12" fill="white" stroke="#c7d2fe"/>
+  <text x="64" y="685" class="label blue">Row area: rows or a state slot</text>
+  <text x="64" y="709" class="small">Toolbar and header remain visible; a state slot replaces the row area.</text>
+  <rect x="64" y="727" width="140" height="30" rx="6" fill="#eef2ff"/>
+  <text x="134" y="747" text-anchor="middle" class="mono blue">#loading</text>
+  <rect x="216" y="727" width="120" height="30" rx="6" fill="#eef2ff"/>
+  <text x="276" y="747" text-anchor="middle" class="mono blue">#empty</text>
+  <rect x="348" y="727" width="156" height="30" rx="6" fill="#eef2ff"/>
+  <text x="426" y="747" text-anchor="middle" class="mono blue">#noResults</text>
+  <rect x="516" y="727" width="248" height="30" rx="6" fill="#eef2ff"/>
+  <text x="640" y="747" text-anchor="middle" class="mono blue">#error { error, retry }</text>
+  <text x="64" y="790" class="small">Priority: loading → error → empty / noResults → rows</text>
+
+  <rect x="816" y="656" width="424" height="160" rx="12" fill="white" stroke="#fcd34d"/>
+  <text x="840" y="685" class="label amber">#cell — any custom column</text>
+  <text x="840" y="715" class="mono amber">{ item, key, index, number }</text>
+  <text x="840" y="745" class="small">Actions: DataTableColumn key="actions"</text>
+  <text x="840" y="769" class="small">Button inside a cell: @click.stop</text>
+  <text x="840" y="793" class="small">Default text: value(item) or item[field]</text>
+</svg>
