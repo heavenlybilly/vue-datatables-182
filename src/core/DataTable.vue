@@ -2,12 +2,12 @@
 import { onMounted, ref, watch } from 'vue'
 import { DTOrder, DTRow, DTTableData } from '@/types'
 import debounce from '@/utils/debounce'
-import { useColumns } from '@/core/columns-def/useColumns'
 import { props as tableProps, validateTableProps } from '@/core/props'
 import { useRowsSelection } from '@/core/rows-selection/useRowsSelection'
 import { retrieveTableData } from '@/core/table-data/retrieveTableData'
 import { useErrorHandling } from '@/core/useErrorHandling'
 import { provideLoadingContext } from '@/context'
+import { useColumnsSchema } from '@/features/columns-schema/useColumnsSchema'
 import TableBody from '@/components/body/TableBody.vue'
 import TableBodyLoader from '@/components/body/TableBodyLoader.vue'
 import TableRow from '@/components/body/TableRow.vue'
@@ -33,7 +33,7 @@ const order = ref<DTOrder | null>(null)
 const tableData = ref<DTTableData | null>(null)
 
 const { handleError } = useErrorHandling()
-const { columns, initColumns } = useColumns()
+const { columns, initColumns } = useColumnsSchema()
 const {
   selectedRowIndexes,
   selectedRows,

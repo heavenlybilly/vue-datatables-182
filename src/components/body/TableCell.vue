@@ -55,7 +55,7 @@ const cellClassObject = computed(() => ({
 </script>
 
 <template>
-  <td
+  <div
     class="dt182-cell"
     :class="cellClassObject"
   >
@@ -75,7 +75,7 @@ const cellClassObject = computed(() => ({
       {{ value }}
     </div>
     <div class="dt182-cell-loader"></div>
-  </td>
+  </div>
 </template>
 
 <style lang="scss"></style>

@@ -1,32 +1,12 @@
 import { ExtractPropTypes, PropType } from 'vue'
-import { DTFilter, DTMethod, DTOrderDirection, DTRowItem, DTSource } from '@/types'
+import { DTMethod, DTOrderDirection, DTSource } from '@/types'
 import { Logger } from '@/logger'
 import { VueDatatables182Error } from '@/errors/VueDatatables182Error'
 import { ErrorCategory } from '@/errors/error-categories'
+import { props as dataSourceProps } from '@/features/data-params'
 
 export const props = {
-  // data
-  source: {
-    type: String as PropType<DTSource>,
-    default: DTSource.REMOTE,
-  },
-  url: {
-    type: String as PropType<string | null>,
-    default: null,
-  },
-  filters: {
-    type: Object as PropType<DTFilter | null>,
-    default: null,
-  },
-  items: {
-    type: Array as PropType<DTRowItem[]>,
-    default: () => [],
-  },
-  method: {
-    type: String as PropType<DTMethod | null>,
-    required: false,
-    default: null,
-  },
+  ...dataSourceProps,
   // pagination
   pagination: {
     type: Boolean,

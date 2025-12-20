@@ -95,11 +95,11 @@ onUpdated(() => {
 </script>
 
 <template>
-  <thead
+  <div
     class="dt182-head"
     :class="classObject"
   >
-    <tr ref="rowElement">
+    <div ref="rowElement" class="dt182-head-row">
       <table-column-numbering v-if="props.numbering" />
       <table-column-selection
         v-if="props.rowSelection"
@@ -116,6 +116,6 @@ onUpdated(() => {
         @update:order="handleOrderUpdate"
       />
       <table-column-actions v-if="props.actions" />
-    </tr>
-  </thead>
+    </div>
+  </div>
 </template>

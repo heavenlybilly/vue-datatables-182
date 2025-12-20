@@ -1,25 +1,19 @@
-import Vue, { getCurrentInstance, ref } from 'vue'
-// eslint-disable-next-line import/no-unresolved
-import { VNode } from 'vue/types/vnode'
+import { useContext } from '@/composables/useContext'
+import { ref } from 'vue'
 import { DTColumn } from '@/types'
 import { VueDatatables182Error } from '@/errors/VueDatatables182Error'
-import { resolveClassObject } from '@/core/columns-def/class-resolver'
-import { extractProps } from '@/core/columns-def/props-extractor'
+import { contextKey } from './context-key'
+import { extractColumnNodes } from './logic/extract-column-nodes'
+import { extractProps } from './logic/extract-prop-value'
+import { resolveClassObject } from './logic/resolve-class-object'
 
-export const useColumns = () => {
+export const useColumnsSchema = () => {
+  const { provideContext } = useContext(contextKey)
+
   const columns = ref<DTColumn[]>([])
 
   const initColumns = () => {
-    const instance = getCurrentInstance() as { proxy: Vue }
-
-    if (!instance || !instance.proxy) {
-      throw new VueDatatables182Error('error on getting component instance')
-    }
-
-    const { proxy } = instance
-
-    const defaultSlot = proxy.$scopedSlots.default
-    const nodes: VNode[] = defaultSlot ? (defaultSlot({}) as VNode[]) : []
+    const nodes = extractColumnNodes()
 
     let index = 0
     columns.value = nodes.reduce((carry: DTColumn[], node) => {
@@ -48,6 +42,8 @@ export const useColumns = () => {
       throw new VueDatatables182Error('columns not found')
     }
   }
+
+  provideContext({ columns })
 
   return { columns, initColumns }
 }

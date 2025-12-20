@@ -23,7 +23,7 @@ const handleClick = () => {
 </script>
 
 <template>
-  <td
+  <div
     class="dt182-cell dt182-cell-selection"
     :class="cellClassObject"
   >
@@ -37,5 +37,5 @@ const handleClick = () => {
       </div>
     </div>
     <div class="dt182-cell-loader"></div>
-  </td>
+  </div>
 </template>

@@ -86,7 +86,7 @@ const handleOrderUpdate = () => {
 </script>
 
 <template>
-  <th
+  <div
     class="dt182-column"
     :class="classObject"
     :style="columnStyleObject"
@@ -100,5 +100,5 @@ const handleOrderUpdate = () => {
         v-html="orderIcon"
       />
     </div>
-  </th>
+  </div>
 </template>

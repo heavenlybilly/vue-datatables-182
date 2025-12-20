@@ -7,16 +7,16 @@ const props = defineProps<{
 </script>
 
 <template>
-  <tbody class="dt182-body">
-    <tr>
-      <td
+  <div class="dt182-body">
+    <div>
+      <div
         v-for="(_, index) in props.columns"
         :key="index"
       >
         <div class="dt182-body-skeleton" />
-      </td>
-    </tr>
-  </tbody>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss"></style>

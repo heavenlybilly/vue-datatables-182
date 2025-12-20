@@ -10,7 +10,7 @@ const cellClassObject = computed(() => ({
 </script>
 
 <template>
-  <td
+  <div
     class="dt182-cell dt182-cell-actions"
     :class="cellClassObject"
   >
@@ -18,5 +18,5 @@ const cellClassObject = computed(() => ({
       <slot></slot>
     </div>
     <div class="dt182-cell-loader"></div>
-  </td>
+  </div>
 </template>

@@ -17,11 +17,11 @@ const cellClassObject = computed(() => ({
 </script>
 
 <template>
-  <td
+  <div
     class="dt182-cell dt182-cell-numbering"
     :class="cellClassObject"
   >
     <div class="dt182-cell-inner dt182-cell-numbering-inner">{{ props.number }}</div>
     <div class="dt182-cell-loader"></div>
-  </td>
+  </div>
 </template>

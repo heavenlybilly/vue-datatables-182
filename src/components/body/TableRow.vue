@@ -100,7 +100,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <tr
+  <div
     :key="props.row.index"
     ref="rowElement"
     class="dt182-row"
@@ -125,5 +125,5 @@ onMounted(() => {
     <table-cell-actions v-if="props.actions">
       <slot name="actions" />
     </table-cell-actions>
-  </tr>
+  </div>
 </template>

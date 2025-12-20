@@ -50,6 +50,11 @@
 }
 
 .dt182-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: 100%;
+
   &-clickable {
     cursor: pointer;
 

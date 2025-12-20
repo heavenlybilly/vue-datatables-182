@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { props } from '@/core/columns-def/props'
+import { props } from './props'
 
 defineProps(props)
 </script>

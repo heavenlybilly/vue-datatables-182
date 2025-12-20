@@ -10,7 +10,7 @@ type DTColumnParams = {
   readonly title: string | null
   readonly orderable: boolean
   readonly searchable: boolean
-  readonly classObject: Record<string, boolean>
+  readonly classObject: Record<string, true>
   readonly width?: string
   readonly textAlign?: DTTextAlign
 }

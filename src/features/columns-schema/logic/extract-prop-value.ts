@@ -1,7 +1,7 @@
 import { DTTextAlign } from '@/types'
 import { VueDatatables182Error } from '@/errors/VueDatatables182Error'
 import { ErrorCategory } from '@/errors/error-categories'
-import { props } from '@/core/columns-def/props'
+import { props } from '../props'
 
 const extractPropValue = <T>(propName: keyof typeof props, propsData: object): T => {
   const propDef = props[propName]

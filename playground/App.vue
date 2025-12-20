@@ -4,6 +4,8 @@ import VCheckbox from '~/components/VCheckbox.vue'
 import { usePersistentState } from '~/composables/usePersistentState'
 import PlaygroundTable from '~/table/PlaygroundTable.vue'
 import PlaygroundToolbar from '~/toolbar/PlaygroundToolbar.vue'
+import NewDataTable from '@/core/NewDataTable.vue'
+import { DataTableColumn } from '@/features/columns-schema'
 
 const isHighlight = ref(false)
 
@@ -19,22 +21,31 @@ const classObject = computed(() => ({
     class="playground-wrapper"
     :class="classObject"
   >
-    <div class="playground-header">
-      <div class="playground-title">Playground</div>
-      <div>
-        <v-checkbox
-          v-model="isHighlight"
-          label="highlight"
+    <!--    <div class="playground-header">-->
+    <!--      <div class="playground-title">Playground</div>-->
+    <!--      <div>-->
+    <!--        <v-checkbox-->
+    <!--          v-model="isHighlight"-->
+    <!--          label="highlight"-->
+    <!--        />-->
+    <!--      </div>-->
+    <!--    </div>-->
+
+    <!--    <div class="playground-content">-->
+    <!--      <div class="playground-table-wrapper">-->
+    <!--        <playground-table />-->
+    <!--      </div>-->
+
+    <!--      <playground-toolbar />-->
+    <!--    </div>-->
+
+    <div style="padding: 20px; background-color: lightblue">
+      <new-data-table url="test">
+        <data-table-column
+          field="name"
+          title="Name"
         />
-      </div>
-    </div>
-
-    <div class="playground-content">
-      <div class="playground-table-wrapper">
-        <playground-table />
-      </div>
-
-      <playground-toolbar />
+      </new-data-table>
     </div>
   </div>
 </template>

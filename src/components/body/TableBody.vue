@@ -1,9 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <tbody class="dt182-body">
+  <div class="dt182-body">
     <slot></slot>
-  </tbody>
+  </div>
 </template>
 
 <style lang="scss"></style>

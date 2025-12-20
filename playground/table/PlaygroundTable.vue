@@ -7,7 +7,7 @@ import { useTableSource } from '~/composables/useTableSource'
 import { books } from '~/mocks'
 import { Logger } from '~/utils/logger'
 import DataTable from '@/core/DataTable.vue'
-import DataTableColumn from '@/core/columns-def/DataTableColumn.vue'
+import DataTableColumn from '@/features/columns-schema/DataTableColumn.vue'
 import DynamicTemplateRenderer from './DynamicTemplateRenderer.vue'
 
 const { isTableVisible } = useTableRendering()
