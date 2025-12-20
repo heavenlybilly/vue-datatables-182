@@ -9,16 +9,8 @@
   "importOrder": [
     "<THIRD_PARTY_MODULES>",
     "^@/types",
-    "^@/logger",
-    "^@/errors",
-    "^@/utils",
-    "^@/plugin",
-    "^@/core",
-    "^@/context",
-    "^@/components",
     "^@/assets",
-    "^@/scss",
-    "^@/playground",
+    "^@/components",
     "^[./]"
   ],
   "importOrderSortSpecifiers": true

@@ -5,21 +5,17 @@ module.exports = {
   env: {
     node: true,
     browser: true,
-    jquery: true,
     es2020: true,
   },
   extends: [
     'eslint:recommended',
-    'plugin:vue/essential',
-    'plugin:vue/strongly-recommended',
-    'plugin:vue/recommended',
+    'plugin:vue/vue3-recommended',
     '@vue/eslint-config-airbnb',
     '@vue/eslint-config-typescript/recommended',
     '@vue/eslint-config-prettier',
     'plugin:prettier/recommended',
   ],
   globals: {
-    moment: 'readonly',
     defineProps: 'readonly',
     defineEmits: 'readonly',
     defineExpose: 'readonly',
@@ -44,12 +40,23 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'import/no-extraneous-dependencies': 'off',
+
+    'no-console': [
+      'error',
+      {
+        allow: ['warn', 'error'],
+      },
+    ],
 
     // TypeScript
-    '@typescript-eslint/no-unused-vars': ['error', {
-      argsIgnorePattern: '^_',
-      varsIgnorePattern: '^_'
-    }],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      },
+    ],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-use-before-define': [
@@ -71,43 +78,53 @@ module.exports = {
     'vue/v-on-event-hyphenation': 'error',
     'vue/attributes-order': ['error', { alphabetical: true }],
     'vue/no-v-html': 'off',
-    'vue/html-button-has-type': 'off',
-    'vuejs-accessibility/click-events-have-key-events': 'off',
-    'vuejs-accessibility/form-control-has-label': 'off',
-    'vuejs-accessibility/heading-has-content': 'off',
-    'vuejs-accessibility/iframe-has-title': 'off',
-    'vuejs-accessibility/interactive-supports-focus': 'off',
-    'vuejs-accessibility/label-has-for': 'off',
-    'vuejs-accessibility/media-has-caption': 'off',
-    'vuejs-accessibility/mouse-events-have-key-events': 'off',
-    'vuejs-accessibility/no-access-key': 'off',
-    'vuejs-accessibility/no-autofocus': 'off',
-    'vuejs-accessibility/no-distracting-elements': 'off',
-    'vuejs-accessibility/no-onchange': 'off',
-    'vuejs-accessibility/no-redundant-roles': 'off',
-    'vuejs-accessibility/role-has-required-aria-props': 'off',
-    'vuejs-accessibility/role-supports-aria-props': 'off',
-    'vuejs-accessibility/scope': 'off',
-    'vuejs-accessibility/tabindex-no-positive': 'off',
-    'vuejs-accessibility/anchor-has-content': 'off',
+    'vue/html-button-has-type': 'error',
+    'vue/multi-word-component-names': 'off',
+    'vuejs-accessibility/click-events-have-key-events': 'error',
+    'vuejs-accessibility/form-control-has-label': 'error',
+    'vuejs-accessibility/label-has-for': ['error', { required: { some: ['nesting', 'id'] } }],
   },
   overrides: [
     {
-      files: ['playground/**/*'],
+      files: ['src/**/*.{ts,vue}', 'scripts/**/*.{ts,vue,mjs,cjs}'],
       rules: {
-        'no-console': 'off',
-      }
-    }
+        curly: ['error', 'all'],
+        'object-curly-newline': [
+          'error',
+          { ObjectExpression: { minProperties: 1, consistent: true } },
+        ],
+      },
+    },
+    {
+      files: ['src/components/layout/table/body/TableRow.vue'],
+      rules: {
+        'vuejs-accessibility/interactive-supports-focus': 'off',
+        'vuejs-accessibility/click-events-have-key-events': 'off',
+      },
+    },
+    {
+      files: [
+        '*.js',
+        '*.cjs',
+        'scripts/**/*.mjs',
+        'scripts/package-check/*.ts',
+        'scripts/package-check/*.vue',
+      ],
+      parserOptions: { project: null, ecmaVersion: 'latest' },
+    },
+    {
+      files: ['scripts/package-check/**'],
+      rules: {
+        'import/no-unresolved': [
+          'error',
+          { ignore: ['^vue-datatables-182(?:/dist/index\\.css)?$'] },
+        ],
+      },
+    },
   ],
   settings: {
     'import/resolver': {
-      'eslint-import-resolver-custom-alias': {
-        alias: {
-          '@': './src',
-          '~': './playground',
-        },
-        extensions: ['.ts', '.d.ts', '.vue'],
-      },
+      typescript: { project: './tsconfig.json' },
     },
   },
 }

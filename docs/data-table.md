@@ -1,342 +1,354 @@
-# DataTable
-## Props
+# Таблица `DataTable`
 
-### Data
+`DataTable` управляет источником записей, поиском, сортировкой, пагинацией,
+выбором строк и состояниями загрузки. Колонки объявляются внутри таблицы через
+`DataTableColumn`. Прямой импорт компонента не требует установки плагина.
 
-### `source`
-Data source. Allowed values: `local` and `remote`.
+[Публичный контракт](api-v2.md) · [Колонки](data-table-column.md) ·
+[Типизация](typed-table.md) · [Оформление](customization.md)
 
-```js
-source: {
-  type: String,
-  default: 'remote'
-}
-```
+## Структура интерфейса
 
-### `url`
-URL for loading data. Use only with `source="remote"`.
+![Панели, колонки, ячейки и состояния таблицы](ui-highlight.svg)
 
-```js
-url: {
-  type: String,
-  default: null
-}
-```
+Зелёным обозначены слоты верхней панели, оранжевым — слот `cell` колонки.
+Нумерация и выбор создаются самой таблицей. Действия записи оформляются
+обычной колонкой со слотом `cell`; отдельного слота действий нет.
 
-### `items`
-Array of data to display. Use only with `source="local"`.
+Слоты состояний заменяют область строк. Заголовок и панели сохраняются.
+Поиск скрывается при `search=false`; пустая верхняя панель без пользовательских
+слотов не создаётся.
 
-```js
-items: {
-  type: Array,
-  default: () => []
-}
-```
+## Параметры
 
-### Pagination
+| Параметр                  | Тип                         | Значение по умолчанию и ограничения                                      |
+| ------------------------- | --------------------------- | ------------------------------------------------------------------------ |
+| `messages`                | `Partial<TableMessages>`    | конфигурация приложения / `defaultMessages`                              |
+| `source`                  | `local` или `remote`        | `'remote'`                                                               |
+| `items`                   | `readonly RowItem[]`        | `[]`; используется только для `local`                                    |
+| `url`                     | `string`                    | `undefined`; непустой `URL` обязателен для `remote`                      |
+| `filter`                  | `TableFilter`               | `{}`; `JSON`-совместимые значения, только для `remote`                   |
+| `requestAdapter`          | `RequestAdapter`            | конфигурация приложения / стандартный адаптер                            |
+| `responseAdapter`         | `ResponseAdapter<T>`        | конфигурация приложения / стандартный адаптер                            |
+| `pagination`              | `boolean`                   | `true`                                                                   |
+| `page`                    | `number`                    | `undefined`; управляемый режим                                           |
+| `defaultPage`             | `number`                    | `1`                                                                      |
+| `rowsPerPageCount`        | `number`                    | `undefined`; управляемый режим                                           |
+| `defaultRowsPerPageCount` | `number`                    | `25`                                                                     |
+| `rowsPerPageOptions`      | `readonly number[]`         | `[10, 25, 50, 100]`                                                      |
+| `search`                  | `boolean`                   | `true`                                                                   |
+| `searchQuery`             | `string`                    | `undefined`; управляемый режим                                           |
+| `defaultSearchQuery`      | `string`                    | `''`                                                                     |
+| `sort`                    | `Sort`                      | `undefined`; управляемый режим, `null` означает отсутствие сортировки    |
+| `defaultSort`             | `Sort`                      | `null`                                                                   |
+| `rowKey`                  | `RowKeySelector<RowItem>`   | обязательный: имя поля записи или функция получения ключа                |
+| `selection`               | `boolean`                   | `false`                                                                  |
+| `selectedRowKeys`         | `readonly RowKey[]`         | `undefined`; управляемый режим                                           |
+| `defaultSelectedRowKeys`  | `readonly RowKey[]`         | `[]`                                                                     |
+| `allowSelectAll`          | `boolean`                   | `true`                                                                   |
+| `selectionLimit`          | `number` или `null`         | `1000`; 0 запрещает выбор, `null` снимает лимит                          |
+| `rowsClickable`           | `boolean`                   | `false`                                                                  |
+| `selectOnRowClick`        | `boolean`                   | `false`; требует `rowsClickable` и `selection`                           |
+| `showPageDetails`         | `boolean`                   | `true`                                                                   |
+| `scrollX`                 | `boolean`                   | `false`                                                                  |
+| `stickyHeader`            | `boolean`                   | `false`; заголовок закрепляется относительно ближайшей области прокрутки |
+| `verticalBorders`         | `boolean`                   | `false`; заголовок и ячейки                                              |
+| `striped`                 | `boolean`                   | `false`                                                                  |
+| `density`                 | `compact` или `comfortable` | `comfortable`; плотность ячеек и контролов                               |
+| `numbering`               | `boolean`                   | `false`                                                                  |
 
-### `pagination`
-Enables table pagination.
+Управляемые параметры по умолчанию равны `undefined`. Это позволяет отличить
+автономный режим от значения, заданного родителем. Если переданы оба параметра
+пары, например `page` и `defaultPage`, приоритет имеет управляемый `page`.
 
-```js
-pagination: {
-  type: Boolean,
-  default: true
-}
-```
+### Источник данных
 
-### `rowsPerPageOptions`
-List of options for selecting rows per page.
+В режиме `source="local"` используется `items`. Исходный массив и записи
+не изменяются. Поиск работает только по колонкам с `searchable=true`.
+Параметр `filter` в локальном режиме не применяется.
 
-```js
-rowsPerPageOptions: {
-  type: Array,
-  default: () => [5, 10, 25, 50, 100]
-}
-```
+В режиме `source="remote"` обязателен непустой `url`. Запрос и ответ могут
+преобразовываться через адаптеры. При пагинации сервер возвращает текущую
+страницу; без пагинации — весь отфильтрованный результат.
+Подробные правила приведены в [контракте удалённых данных](api-v2/remote.md).
 
-### `rowsPerPageCount`
-Number of rows per page. The value must exist in `rowsPerPageOptions`.
+### Пагинация и поиск
 
-```js
-rowsPerPageCount: {
-  type: Number,
-  default: 10
-}
-```
+При `pagination=false` эффективная страница равна `1`, элементы пагинации
+и размера страницы скрыты. Локальная таблица показывает весь отфильтрованный набор.
+`showPageDetails` независимо управляет текстом диапазона.
 
-### `showRangeInfo`
-Show record count on page.
+При `search=false` поле и слот поиска скрыты, эффективный запрос пуст.
+Начальные значения читаются один раз; управляемые значения применяются при
+обновлении родителем. Правила нормализации описаны в [руководстве по состоянию](api-v2/state.md).
 
-```js
-showRangeInfo: {
-  type: Boolean,
-  default: true
-}
-```
+## Слоты
 
-### Search
+| Слот                   | Передаваемые данные            | Назначение                                      |
+| ---------------------- | ------------------------------ | ----------------------------------------------- |
+| `default`              | `Нет`                          | Объявления колонок, включая `v-for` и `v-if`    |
+| `topLeftBeforeActions` | `ToolbarSlotProps`             | Содержимое перед поиском                        |
+| `topLeftAfterActions`  | `ToolbarSlotProps`             | Содержимое после поиска                         |
+| `topRight`             | `ToolbarSlotProps`             | Правая часть верхней панели                     |
+| `search`               | `{ value, setValue }`          | Замена поиска при `search=true`                 |
+| `rowsPerPage`          | `{ value, options, setValue }` | Замена размера страницы при `pagination=true`   |
+| `pagination`           | `{ page, pageCount, setPage }` | Замена пагинации при `pagination=true`          |
+| `empty`                | `Нет`                          | Источник не содержит записей                    |
+| `noResults`            | `Нет`                          | Источник содержит записи, но `filtered=0`       |
+| `loading`              | `Нет`                          | Замена стандартного отображения загрузки        |
+| `error`                | `{ error, retry }`             | Замена сообщения об ошибке и повторного запроса |
 
-### `searching`
-Enables search.
+### Контекст верхней панели
 
-```js
-searching: {
-  type: Boolean,
-  default: true
-}
-```
+`ToolbarSlotProps` содержит:
 
-### Sorting
+- `selectedCount: number` — количество выбранных видимых записей.
+- `loading: boolean` — выполняется ли запрос.
+- `clearSelection: () => void` — очистка выбора с учётом управляемого режима.
+- `reload: () => Promise<void>` — принудительное обновление данных.
 
-### `orderBy`
-Column name used for default sorting.
+Существующие слоты без параметров продолжают работать. Кнопки и другие
+пользовательские элементы оформляются приложением.
 
-```js
-orderBy: {
-  type: String,
-  default: null
-}
-```
+### Контекст элементов управления
 
-### `orderDirection`
-Default sorting order. Allowed values: `asc` and `desc`.
+`setValue` поиска принимает строку. `setValue` размера страницы принимает число;
+`options` содержит нормализованный список размеров. `setPage` принимает номер
+страницы. Обработчики сохраняют обычные правила нормализации и событий таблицы.
+`pageCount` равен `0`, если результатов нет.
 
-```js
-orderDirection: {
-  type: String,
-  default: 'asc'
-}
-```
+Имена полей объекта слота записываются в `camelCase`, например `setValue`.
+Пользовательский слот полностью заменяет соответствующий встроенный элемент.
+Пример и `CSS`-переменные находятся в [руководстве по оформлению](customization.md).
 
-### General
+## Состояния данных
 
-### `actions`
-Adds a column with actions.
+| Состояние                | Когда отображается                                           | Стандартное содержимое                                            |
+| ------------------------ | ------------------------------------------------------------ | ----------------------------------------------------------------- |
+| `loading`                | `Первая загрузка` или `задан пользовательский слот загрузки` | Сообщение о загрузке                                              |
+| Строки во время загрузки | Уже есть записи и слот `loading` отсутствует                 | Прежняя геометрия строк, полосы загрузки вместо содержимого ячеек |
+| `error`                  | `Последний актуальный запрос завершился ошибкой`             | Сообщение и кнопка повторного запроса                             |
+| `noResults`              | `total>0, filtered=0, записей нет`                           | Сообщение и очистка активного поиска                              |
+| `empty`                  | `Записей в источнике нет`                                    | Сообщение об отсутствии данных                                    |
+| Обычные строки           | Есть записи, нет загрузки и ошибки                           | Содержимое ячеек                                                  |
 
-*Note: the content of action cells must be added via the `actions` slot.*
+Приоритет проверки: загрузка → ошибка → строки → отсутствие результатов
+или пустой источник. При наличии записей стандартная загрузка сохраняет строки,
+но скрывает их содержимое. Слот `loading` заменяет область строк целиком.
 
-```js
-actions: {
-  type: Boolean,
-  default: false
-}
-```
+Во время запроса выбор и действие по клику на строку недоступны. Поиск,
+сортировка и пагинация могут инициировать заменяющий запрос. При ошибке прежние
+строки скрываются. Слот `error` получает ошибку типа `unknown` и `retry`, который
+вызывает `reload()`.
 
-### `numbering`
-Adds a column with row numbering.
+Кнопка очистки в стандартном `noResults` появляется только при включённом поиске
+и непустом запросе. Подпись берётся из `messages.clearSearch`. Действие использует
+обычный обработчик поиска и сохраняет управляемый режим. Слот `noResults`
+заменяет сообщение и кнопку целиком.
 
-```js
-numbering: {
-  type: Boolean,
-  default: false
-}
-```
+## События
 
-### `rowSelection`
-Adds a column with checkboxes for selecting rows.
+| Событие                   | Данные события                                                     |
+| ------------------------- | ------------------------------------------------------------------ |
+| `update:page`             | `number`                                                           |
+| `update:rowsPerPageCount` | `number`                                                           |
+| `update:searchQuery`      | `string`                                                           |
+| `update:sort`             | `Sort`                                                             |
+| `update:selectedRowKeys`  | `RowKey[]`                                                         |
+| `selectionChange`         | `{ keys: RowKey[], items: T[] }`                                   |
+| `rowClick`                | `{ key: RowKey, item: T }`                                         |
+| `requestStart`            | `{ requestId: number, request: BuiltRequest }`                     |
+| `requestSuccess`          | `{ requestId: number, data: TableData<T> }`                        |
+| `requestError`            | `{ requestId: number, error: unknown }`                            |
+| `requestEnd`              | `{ requestId: number, status: 'success' \| 'error' \| 'aborted' }` |
 
-```js
-rowSelection: {
-  type: Boolean,
-  default: false
-}
-```
+Имена событий в `TypeScript` имеют вид `rowClick` и `selectionChange`.
+В шаблонах используются дефисы: `@row-click`, `@selection-change`.
+Модели связываются через `v-model:page`, `v-model:search-query` и аналогичные имена.
 
-### `disallowSelectAll`
-Prevents selecting all rows at once.
+`rowClick` отправляется только при `rowsClickable=true`. Если одновременно
+включён `selectOnRowClick`, после события запрашивается переключение выбора.
+Флажок не вызывает `rowClick`.
 
-```js
-disallowSelectAll: {
-  type: Boolean,
-  default: false,
-}
-```
+Для кнопки или ссылки внутри `cell` используется `@click.stop`, если действие
+не должно запускать клик строки. Таблица не определяет это автоматически
+по типу `DOM`-элемента.
 
-### `rowsClickable`
-Enables handling the `@click` event on a table row.
+`selectionChange` содержит эффективные выбранные ключи и соответствующие записи.
+События удалённых запросов отсутствуют в локальном режиме. Их последовательность
+и отмена описаны в [контракте запросов](api-v2/remote.md#отмена-и-события).
 
-```js
-rowsClickable: {
-  type: Boolean,
-  default: false
-}
-```
+## Методы экземпляра
 
-### `selectOnRowClick`
-Allows selecting rows by clicking with LMB.
+| Метод                     | Поведение                                                                                           |
+| ------------------------- | --------------------------------------------------------------------------------------------------- |
+| `reload(): Promise<void>` | Локально пересчитывает данные; удалённо отменяет задержку и активный запрос и сразу запускает новый |
+| `clearSelection(): void`  | Очищает автономный выбор либо отправляет предложение `update:selectedRowKeys` с пустым массивом     |
 
-*Note: requires both `rowSelection` and `rowsClickable` to be `true`.*
+`reload()` завершается после успеха, ошибки или отмены. Ошибка транспорта
+не отклоняет `Promise`: она доступна через состояние и события.
+После уничтожения компонента методы ничего не меняют, а `reload()` возвращает
+завершённый `Promise`.
 
-```js
-selectOnRowClick: {
-  type: Boolean,
-  default: false
-}
-```
+## Управляемое состояние и ссылка на компонент
 
-### Appearance
+Каждое поле может управляться независимо. Начальное значение модели должно быть
+задано до создания таблицы. `sort=null` сохраняет управляемый режим без сортировки;
+`undefined` при создании означает автономный режим.
 
-### `scrollX`
-Enables horizontal scrolling.
-
-```js
-scrollX: {
-  type: Boolean,
-  default: false
-}
-```
-
-### `fixedColumnsStart`
-Number of fixed columns on the left.
-
-*Note: use only when horizontal scrolling is enabled.
-A fixed width must be specified for fixed columns.*
-
-```js
-fixedColumnsStart: {
-  type: Number,
-  default: 0
-}
-```
-
-### `fixedColumnsEnd`
-Number of fixed columns on the right.
-
-*Note: use only when horizontal scrolling is enabled.
-A fixed width must be specified for fixed columns.*
-
-```js
-fixedColumnsEnd: {
-  type: Number,
-  default: 0
-}
-```
-
-### `stickyHeader`
-Fixes the header during vertical scrolling.
-
-```js
-stickyHeader: {
-  type: Boolean,
-  default: false
-}
-```
-
-### `verticalBorders`
-Shows vertical cell borders.
-
-```js
-verticalBorders: {
-  type: Boolean,
-  default: false
-}
-```
-
-## Events
-
-### `row-click`
-Triggered when clicking a row if `rowsClickable` is `true`.
-The emitted event contains row data.
-
-#### script
 ```vue
-<script lang="js">
-export default {
-  name: 'SomeComponent',
-  methods: {
-    handleClickRow(row) {
-      // to do smth.
-    }
-  }
+<script setup lang="ts">
+import { ref } from 'vue'
+import { DataTable, DataTableColumn, type RowKey, type Sort } from 'vue-datatables-182'
+import 'vue-datatables-182/dist/index.css'
+
+const table = ref<InstanceType<typeof DataTable> | null>(null)
+const items = [
+  { id: 1, name: 'Анна' },
+  { id: 2, name: 'Борис' },
+]
+const page = ref(1)
+const perPage = ref(10)
+const query = ref('')
+const sort = ref<Sort>(null)
+const selected = ref<RowKey[]>([])
+
+async function refresh() {
+  await table.value?.reload()
+}
+function clear() {
+  table.value?.clearSelection()
 }
 </script>
+
+<template>
+  <button
+    type="button"
+    @click="refresh"
+  >
+    Обновить
+  </button>
+  <button
+    type="button"
+    @click="clear"
+  >
+    Снять выбор
+  </button>
+  <DataTable
+    ref="table"
+    v-model:page="page"
+    v-model:rows-per-page-count="perPage"
+    v-model:search-query="query"
+    v-model:sort="sort"
+    v-model:selected-row-keys="selected"
+    :items="items"
+    row-key="id"
+    selection
+    source="local"
+  >
+    <DataTableColumn
+      field="name"
+      title="Имя"
+      searchable
+      sortable
+    />
+  </DataTable>
+</template>
 ```
 
-#### template
-```vue
-<data-table
-  source="local"
-  :items="items"
-  rows-clickable
-  @row-click="handleClickRow"
->
-```
+После изменения поиска, сортировки или размера страницы эффективная `page`
+становится `1`, выбор очищается. При обновлении данных выбранные ключи
+согласуются с текущими видимыми строками. Полные правила:
+[состояние таблицы](api-v2/state.md).
 
-### `update:selected-rows`
-Triggered when selecting or deselecting a row.
-The emitted event contains an array of selected rows.
-Requires `rowSelection` to be `true`.
+## Ключи и выбор записей
 
-#### script
+`rowKey` задаётся прямым именем поля или функцией от записи. Результат — строка
+или конечное число. Значения `1` и `'1'` различаются. Повторы, отсутствие ключа,
+`NaN` и бесконечность запрещены. Локально проверяется весь массив, удалённо — ответ.
+
+Выбор ограничен текущей страницей. `selectionLimit=0` запрещает выбор,
+`null` снимает ограничение. Выбор всех строк берёт первые видимые записи до лимита.
+Если лимит меньше страницы, флажок заголовка показывает частичный выбор.
+
+В управляемом режиме родитель подтверждает `update:selectedRowKeys`.
+Изменение содержимого записи при прежнем выбранном ключе не создаёт
+`selectionChange`. Отключение `selection` очищает выбор.
+
+## Сообщения и локализация
+
+Все стандартные тексты доступны через `messages`. Приоритет: параметр таблицы →
+конфигурация приложения → `defaultMessages`. Допустим частичный объект;
+`undefined` не удаляет стандартное значение.
+
+Для номера страницы, строки, сортировки и диапазона используются функции.
+`pageDetails` получает `start`, `end`, `filtered` и `total`; пустой диапазон — `0–0`.
+
 ```vue
-<script lang="js">
-export default {
-  name: 'SomeComponent',
-  methods: {
-    handleUpdateSelectedRows(rows) {
-      // to do smth.
-    }
-  }
+<script setup lang="ts">
+import { DataTable, DataTableColumn, type TableMessages } from 'vue-datatables-182'
+import 'vue-datatables-182/dist/index.css'
+
+const items = [{ id: 1, name: 'Анна' }]
+const messages: Partial<TableMessages> = {
+  tableLabel: 'Пользователи',
+  search: 'Поиск',
+  searchPlaceholder: 'Найти пользователя',
+  empty: 'Пользователей пока нет',
+  noResults: 'По запросу ничего не найдено',
+  pageDetails: ({ start, end, filtered }) => `${start}–${end} из ${filtered}`,
 }
 </script>
+
+<template>
+  <DataTable
+    :items="items"
+    :messages="messages"
+    row-key="id"
+    source="local"
+  >
+    <DataTableColumn
+      field="name"
+      title="Имя"
+      searchable
+    />
+  </DataTable>
+</template>
 ```
 
-#### template
-```vue
-<data-table
-  source="local"
-  :items="items"
-  row-selection
-  @update:selected-rows="handleUpdateSelectedRows"
->
-```
+Остальные ключи: `clearSearch`, `rowsPerPage`, `pagination`, `firstPage`,
+`previousPage`, `nextPage`, `lastPage`, `page`, `sort`, `selectAll`, `selectRow`,
+`activateRow`, `numbering`, `selection`, `loading`, `error`, `retry`.
+Непереопределённые сообщения остаются русскими. Слоты состояний имеют приоритет
+над стандартным текстом.
 
-## Slots
+## Доступность
 
-### `topLeftBeforeActions`
-Used to display content to the left above the table, left of the search field.
-```vue
-<data-table ... >
-  <template #topLeftBeforeActions>
-    <div>Content here</div>
-  </template>
-</data-table>
-```
+Структура использует роли `table`, `row`, `rowgroup`, `columnheader` и `cell`.
+Кнопки, поля ввода, список размеров и флажки являются нативными элементами.
+Подписи задаются через сообщения; при нескольких таблицах `tableLabel`
+должен описывать назначение каждой из них.
 
-### `topLeftAfterActions`
-Used to display content to the left above the table, right of the search field.
-```vue
-<data-table ... >
-  <template #topLeftAfterActions>
-    <div>Content here</div>
-  </template>
-</data-table>
-```
+Сортировка запускается отдельной кнопкой, доступной с клавиатуры.
+При `rowsClickable=true` дополнительная кнопка действия строки доступна через
+`Tab` и становится видимой при фокусе. Поле поиска меняет цвет границы при фокусе
+без `outline`. Снижение движения учитывается через `prefers-reduced-motion`.
+Ручные сценарии приведены в [Storybook](storybook.md).
 
-### `topRight`
-Used to display content to the right above the table.
-```vue
-<data-table ... >
-  <template #topRight>
-    <div>Content here</div>
-  </template>
-</data-table>
-```
+## Ошибки конфигурации и производительность
 
-### `actions`
-Used to display content inside action column cells. Slot provides row data.
+Непустой `url` обязателен для удалённых данных. Неправильные `rowKey`,
+`selectionLimit`, ключи колонок, источники их значений и ширины закрепления
+приводят к ошибке конфигурации. Недопустимые значения активной локальной
+сортировки также вызывают `Error`.
 
-*Note: you must use `@click.stop` to prevent triggering the row click event.*
+Ошибки сети, `JSON`, адаптеров и удалённых ключей отображаются через `error`,
+`requestError` и `requestEnd` со статусом `error`.
 
-```vue
-<data-table-column ... >
-  <template #actions="{ index, item, number}">
-    <div @click.stop>
-      <div>Actions for row #{{ number }}:</div>
-      <button id="delete" :data-id="item.id"></button>
-    </div>
-  </template>
-</data-table-column>
-```
+Виртуализация не используется. Ориентир для измерений локальной таблицы — до
+`10 000` простых записей с пагинацией `25–100`; для режима без пагинации —
+примерно `1000` строк. Это рекомендации, а не ограничения выполнения.
+Сложные слоты и большие объёмы требуют измерений или серверной обработки.
 
+Типизированное использование описано в [createTypedTable](typed-table.md).
+Для оформления предназначены [CSS-переменные](customization.md).

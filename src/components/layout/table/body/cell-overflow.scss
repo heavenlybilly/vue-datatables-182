@@ -1,0 +1,10 @@
+.dt182-cell-ellipsis .dt182-cell-content {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  > div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
