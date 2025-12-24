@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, onMounted, onUpdated, useSlots } from 'vue'
-import { useTableCore } from '@/components/core/useTableCore'
+import { onMounted, onUpdated, useSlots } from 'vue'
+import { useDataAdapter } from './adapters'
 import { useColumnRegistry } from './columns'
+import { useCore } from './core'
+import { getPluginConf } from './plugin'
 import {
-  Method,
   OrderDirection,
   RequestAdapter,
   RequestEndPayload,
@@ -18,16 +19,17 @@ import {
   SelectedKeysChangePayload,
   Slots,
   Source,
+  TableFilter,
 } from './types'
 
-export type DataTableProps = {
+export type TableProps = {
   // Core props
   rowKey: RowKeySelector<RowItem>
   source?: Source
 
   // Data props
   url?: string
-  method?: Method
+  filter?: TableFilter
   items?: RowItem[]
   requestAdapter?: RequestAdapter
   responseAdapter?: ResponseAdapter
@@ -67,11 +69,11 @@ export type DataTableProps = {
   actions?: boolean
 }
 
-const props = withDefaults(defineProps<DataTableProps>(), {
+const props = withDefaults(defineProps<TableProps>(), {
   url: undefined,
   source: Source.REMOTE,
-  method: Method.post,
   items: () => [],
+  filter: () => ({}),
   requestAdapter: undefined,
   responseAdapter: undefined,
   pagination: true,
@@ -109,22 +111,37 @@ const emit = defineEmits<{
   (e: 'requestSuccess', payload: RequestSuccessPayload): void
 }>()
 
-const coreConf = computed(() => ({
-  rowKey: props.rowKey,
-  pagination: props.pagination,
-  rowsPerPageCount: props.rowsPerPageCount,
-  rowsPerPageOptions: props.rowsPerPageOptions ?? [],
-  search: props.search,
-  orderBy: props.orderBy ?? null,
-  orderDirection: props.orderDirection ?? null,
-  selection: props.selection,
-  selectionLimit: props.selectionLimit,
-  allowSelectAll: props.allowSelectAll,
-}))
-
 const slots = useSlots()
+
 const columnRegistry = useColumnRegistry<RowItem>()
-const tableCore = useTableCore({ emit: emit as any, initialProps: coreConf.value })
+
+const core = useCore({
+  columnRegistry,
+  getRowKey: () => props.rowKey,
+  getPagination: () => props.pagination,
+  getRowsPerPageCount: () => props.rowsPerPageCount,
+  getRowsPerPageOptions: () => props.rowsPerPageOptions ?? [],
+  getSearch: () => props.search,
+  getOrderBy: () => props.orderBy ?? null,
+  getOrderDirection: () => props.orderDirection ?? null,
+  getSelection: () => props.selection,
+  getSelectionLimit: () => props.selectionLimit,
+  getAllowSelectAll: () => props.allowSelectAll,
+  emit,
+})
+
+const dataAdapter = useDataAdapter({
+  getSource: () => props.source,
+  columnRegistry,
+  core,
+  getLocalItems: () => props.items,
+  getFilter: () => props.filter,
+  getUrl: () => props.url,
+  getRequestAdapter: () => props.requestAdapter ?? getPluginConf().requestAdapter,
+  getResponseAdapter: () => props.responseAdapter ?? getPluginConf().responseAdapter,
+  getCsrfToken: () => getPluginConf().csrfToken,
+  emit,
+})
 
 const sync = () => {
   columnRegistry.rebuild({
@@ -132,16 +149,8 @@ const sync = () => {
     slots: slots as unknown as Slots,
   })
 
-  tableCore.normalize({
-    columnRegistry,
-    props: coreConf.value,
-  })
-
-  // if (props.source === Source.LOCAL) {
-  //
-  // } else {
-  //
-  // }
+  core.normalize()
+  dataAdapter.apply()
 }
 
 onMounted(() => {

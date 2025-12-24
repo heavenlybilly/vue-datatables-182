@@ -1,6 +1,4 @@
 import { VNode } from 'vue'
-import { DataTableProps } from './DataTable.vue'
-import { DataTableColumnProps } from './DataTableColumn.vue'
 
 /**
  * Shared
@@ -23,12 +21,6 @@ export const Source = {
   REMOTE: 'remote',
 } as const
 export type Source = ValueOf<typeof Source>
-
-export const Method = {
-  get: 'get',
-  post: 'post',
-} as const
-export type Method = ValueOf<typeof Method>
 
 export const OrderDirection = {
   ASC: 'asc',
@@ -54,12 +46,6 @@ export type Slots = {
 }
 
 /**
- * Component props
- */
-export type TableProps = DataTableProps
-export type TableColumnProps = DataTableColumnProps
-
-/**
  * Table types
  */
 export type RowValue = any
@@ -68,27 +54,30 @@ export type RowKeySelector<T> = (keyof T & string) | ((item: T) => RowKey)
 export type RowItem = Record<string, RowValue>
 
 /**
+ * Table filter
+ */
+export type TableFilter = Record<string, any>
+
+/**
  * Request adapter
  */
 export type RequestContext = {
   url: string
-  method: Method
-  query: {
+  requestBody: {
     page?: number
     perPage?: number
     search?: string
     orderBy?: string
     orderDirection?: OrderDirection
-    filter?: Record<string, unknown>
+    filter?: TableFilter
+    [key: string]: any
   }
 }
 
 export type BuiltRequest = {
   url: string
-  method: Method
   headers?: Record<string, string>
-  query?: Record<string, string | number | boolean | null | undefined>
-  body?: any
+  requestBody?: any
 }
 
 export type RequestAdapter = (context: RequestContext) => BuiltRequest
@@ -96,21 +85,18 @@ export type RequestAdapter = (context: RequestContext) => BuiltRequest
 /**
  * Response adapter
  */
-export type ResponseAdapter<TRowItem = RowItem> = (response: any) => {
+export type BuiltResponse<TRowItem = RowItem> = {
   items: TRowItem[]
   total: number
   filtered?: number
 }
 
+export type ResponseAdapter<TRowItem = RowItem> = (response: any) => BuiltResponse<TRowItem>
+
 /**
  * Emit payloads
  */
-export type RequestStartPayload = {
-  url: string
-  method: Method
-  query?: BuiltRequest['query']
-  body?: any
-}
+export type RequestStartPayload = BuiltRequest
 
 export type RequestEndPayload = {
   ok: boolean
@@ -120,11 +106,7 @@ export type RequestErrorPayload = {
   error: unknown
 }
 
-export type RequestSuccessPayload<TRowItem = RowItem> = {
-  items: TRowItem[]
-  total: number
-  filtered?: number
-}
+export type RequestSuccessPayload<TRowItem = RowItem> = BuiltResponse<TRowItem>
 
 export type SelectedKeysChangePayload<TRowItem = RowItem> = {
   keys: RowKey[]

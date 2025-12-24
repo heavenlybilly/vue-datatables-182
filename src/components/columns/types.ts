@@ -1,4 +1,5 @@
-import { Branded, Slots, Sticky, TableProps, TextAlign, ValueOf } from '../types'
+import { TableProps } from '../DataTable.vue'
+import { Branded, Slots, Sticky, TextAlign, ValueOf } from '../types'
 
 export type ColumnKey = Branded<string, 'columnKey'>
 
@@ -92,4 +93,6 @@ export type ColumnRegistry<RowItem = any> = {
   readonly columns: Readonly<ColumnDef<RowItem>[]>
   readonly meta: Readonly<MetaDef>
   rebuild(args: { slots: Slots; tableProps: TableProps }): void
+  findColumnByKey(key: ColumnKey, kind?: ColumnKind): ColumnDef<RowItem> | null
+  findColumnByField(field: string, kind?: ColumnKind): ColumnDef<RowItem> | null
 }

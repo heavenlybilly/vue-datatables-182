@@ -1,5 +1,6 @@
 import { ref } from 'vue'
-import { Slots, TableProps } from '../types'
+import { TableProps } from '../DataTable.vue'
+import { Slots } from '../types'
 import { normalizeSlotResult } from './normalize-slot-result'
 import { ColumnDef, ColumnKey, ColumnKind, ColumnRegistry, MetaDef } from './types'
 
@@ -133,6 +134,22 @@ export const useColumnRegistry = <RowItem>() => {
     meta.value = newMeta
   }
 
+  const findColumnByKey = (key: ColumnKey, kind?: ColumnKind) => {
+    return (
+      columns.value.find((column) => {
+        return column.key === key && (!kind || column.kind === kind)
+      }) ?? null
+    )
+  }
+
+  const findColumnByField = (field: string, kind?: ColumnKind) => {
+    return (
+      columns.value.find((column) => {
+        return column.field === field && (!kind || column.kind === kind)
+      }) ?? null
+    )
+  }
+
   const registry: ColumnRegistry<RowItem> = {
     get columns() {
       return columns.value
@@ -141,6 +158,8 @@ export const useColumnRegistry = <RowItem>() => {
       return meta.value
     },
     rebuild,
+    findColumnByKey,
+    findColumnByField,
   }
 
   return registry

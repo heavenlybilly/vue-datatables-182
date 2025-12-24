@@ -1,5 +1,6 @@
 import { Logger } from '@/logger'
-import { SlotResult, TableColumnProps } from '../types'
+import { TableColumnProps } from '../DataTableColumn.vue'
+import { SlotResult } from '../types'
 import { ColumnKey } from './types'
 
 export const normalizeSlotResult = (slotResult: SlotResult) => {

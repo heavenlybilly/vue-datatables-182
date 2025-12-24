@@ -1,5 +1,11 @@
 import { ColumnKey, ColumnRegistry } from '../columns/types'
-import { OrderDirection, RowItem, RowKey, RowKeySelector } from '../types'
+import {
+  OrderDirection,
+  RowItem,
+  RowKey,
+  RowKeySelector,
+  SelectedKeysChangePayload,
+} from '../types'
 
 export type TableData = {
   items: RowItem[]
@@ -12,20 +18,30 @@ export type SortState = {
   direction: OrderDirection | null
 }
 
-export type TableCoreConfig = {
-  rowKey: RowKeySelector<RowItem>
-  pagination: boolean
-  rowsPerPageCount: number
-  rowsPerPageOptions: number[]
-  search: boolean
-  orderBy: string | null
-  orderDirection: OrderDirection | null
-  selection: boolean
-  selectionLimit: number | null
-  allowSelectAll: boolean
+export type CoreOptions = {
+  columnRegistry: ColumnRegistry<RowItem>
+
+  getRowKey: () => RowKeySelector<RowItem>
+  getPagination: () => boolean
+  getRowsPerPageCount: () => number
+  getRowsPerPageOptions: () => number[]
+  getSearch: () => boolean
+  getOrderBy: () => string | null
+  getOrderDirection: () => OrderDirection | null
+  getSelection: () => boolean
+  getSelectionLimit: () => number | null
+  getAllowSelectAll: () => boolean
+
+  emit: {
+    (e: 'update:page', page: number): void
+    (e: 'update:rowsPerPageCount', perPage: number): void
+    (e: 'update:searchQuery', query: string): void
+    (e: 'update:selectedRowKeys', keys: RowKey[]): void
+    (e: 'selectionChange', payload: SelectedKeysChangePayload): void
+  }
 }
 
-export type TableCoreState = {
+export type CoreState = {
   // data
   tableData: TableData
 
@@ -54,11 +70,11 @@ export type TableCoreState = {
   error: unknown | null
 }
 
-export type TableCoreApi = {
+export type Core = {
   /**
    * Stable getters
    */
-  get state(): TableCoreState
+  get state(): CoreState
 
   /**
    * Computed getters
@@ -93,5 +109,5 @@ export type TableCoreApi = {
   setError(value: unknown | null): void
 
   // normalize
-  normalize(args: { columnRegistry: ColumnRegistry<RowItem>; props: TableCoreConfig }): void
+  normalize(): void
 }

@@ -1,18 +1,20 @@
 import { ColumnKind } from '../columns/types'
-import { OrderDirection, RowItem } from '../types'
+import { OrderDirection } from '../types'
 import { formatSearchString } from './helpers'
-import { Adapter } from './types'
+import { LocalAdapterOptions } from './types'
 
-const useLocalAdapter: Adapter = ({ columnRegistry, tableCore }) => {
-  const apply = (items: RowItem[]) => {
-    let rowItems = items.slice()
+export const useLocalAdapter = (options: LocalAdapterOptions) => {
+  const apply = () => {
+    const { columnRegistry, core } = options
 
-    tableCore.setTableData({
+    let rowItems = options.getLocalItems() ?? []
+
+    core.setTableData({
       total: rowItems.length,
     })
 
     const { searchQuery, searchEnabled, sort, page, rowsPerPageCount, paginationEnabled } =
-      tableCore.state
+      core.state
 
     // search
     if (searchQuery.trim() && searchEnabled) {
@@ -37,7 +39,7 @@ const useLocalAdapter: Adapter = ({ columnRegistry, tableCore }) => {
     }
 
     // local total after searching
-    tableCore.setTableData({
+    core.setTableData({
       filtered: rowItems.length,
     })
 
@@ -45,9 +47,7 @@ const useLocalAdapter: Adapter = ({ columnRegistry, tableCore }) => {
     if (sort.by && sort.direction) {
       const orderDirection = sort.direction === OrderDirection.ASC ? 1 : -1
 
-      const column = columnRegistry.columns.find((c) => {
-        return c.key === sort.by
-      })
+      const column = columnRegistry.findColumnByKey(sort.by)
 
       if (column?.orderable && (column.field || column.value)) {
         rowItems.sort((a, b) => {
@@ -68,12 +68,12 @@ const useLocalAdapter: Adapter = ({ columnRegistry, tableCore }) => {
       const end = start + rowsPerPageCount
       rowItems = rowItems.slice(start, end)
 
-      if (page > tableCore.pageCount) {
-        tableCore.setPage(tableCore.pageCount)
+      if (page > core.pageCount) {
+        core.setPage(core.pageCount)
       }
     }
 
-    tableCore.setTableData({
+    core.setTableData({
       items: rowItems,
     })
   }
@@ -82,5 +82,3 @@ const useLocalAdapter: Adapter = ({ columnRegistry, tableCore }) => {
     apply,
   }
 }
-
-export default useLocalAdapter

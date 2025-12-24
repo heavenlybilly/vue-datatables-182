@@ -1,4 +1,4 @@
-import { TableCoreApi } from './types'
-import { useTableCore } from './useTableCore'
+import type { Core } from './types'
+import { useCore } from './useCore'
 
-export { useTableCore, TableCoreApi }
+export { useCore, Core }

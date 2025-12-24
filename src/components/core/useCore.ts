@@ -1,23 +1,13 @@
 import { computed, ref } from 'vue'
 import { Logger } from '@/logger'
 import { ColumnKey } from '../columns/types'
-import { OrderDirection, RowItem, RowKey, SelectedKeysChangePayload } from '../types'
+import { OrderDirection, RowItem, RowKey } from '../types'
 import { clampInt, makeRowKeySelector } from './helpers'
-import { SortState, TableCoreApi, TableCoreConfig, TableCoreState, TableData } from './types'
+import { Core, CoreOptions, CoreState, SortState, TableData } from './types'
 
-export const useTableCore = ({
-  emit,
-  initialProps,
-}: {
-  emit: {
-    (e: 'update:page', page: number): void
-    (e: 'update:rowsPerPageCount', perPage: number): void
-    (e: 'update:searchQuery', query: string): void
-    (e: 'update:selectedRowKeys', keys: RowKey[]): void
-    (e: 'selectionChange', payload: SelectedKeysChangePayload): void
-  }
-  initialProps: TableCoreConfig
-}) => {
+export const useCore = (options: CoreOptions) => {
+  const { columnRegistry, emit, ...props } = options
+
   /**
    * Stable getters
    */
@@ -31,11 +21,11 @@ export const useTableCore = ({
   // pagination
   const page = ref(1)
   const rowsPerPageCount = ref(0)
-  const paginationEnabled = ref<boolean>(initialProps.pagination)
-  const rowsPerPageOptions = ref<number[]>(initialProps.rowsPerPageOptions)
+  const paginationEnabled = ref<boolean>(props.getPagination())
+  const rowsPerPageOptions = ref<number[]>(props.getRowsPerPageOptions())
 
   // search
-  const searchEnabled = ref<boolean>(initialProps.search)
+  const searchEnabled = ref<boolean>(props.getSearch())
   const searchQuery = ref('')
 
   // sort
@@ -45,11 +35,11 @@ export const useTableCore = ({
   })
 
   // row selection
-  const selectionEnabled = ref<boolean>(initialProps.selection)
+  const selectionEnabled = ref<boolean>(props.getSelection())
   const selectedRowKeys = ref<RowKey[]>([])
-  const rowKeySelector = ref<(item: RowItem) => RowKey>(makeRowKeySelector(initialProps.rowKey))
-  const selectionLimit = ref<number | null>(initialProps.selectionLimit)
-  const allowSelectAll = ref<boolean>(initialProps.allowSelectAll)
+  const rowKeySelector = ref<(item: RowItem) => RowKey>(makeRowKeySelector(props.getRowKey()))
+  const selectionLimit = ref<number | null>(props.getSelectionLimit())
+  const allowSelectAll = ref<boolean>(props.getAllowSelectAll())
 
   // status
   const isLoading = ref(false)
@@ -204,61 +194,58 @@ export const useTableCore = ({
   /**
    * Normalize
    */
-  const normalize: TableCoreApi['normalize'] = ({ columnRegistry, props }) => {
-    rowKeySelector.value = makeRowKeySelector(props.rowKey)
+  const normalize: Core['normalize'] = () => {
+    rowKeySelector.value = makeRowKeySelector(props.getRowKey())
 
     // pagination
-    paginationEnabled.value = props.pagination
-    rowsPerPageOptions.value = props.rowsPerPageOptions
+    paginationEnabled.value = props.getPagination()
+    rowsPerPageOptions.value = props.getRowsPerPageOptions()
 
-    if (!props.pagination) {
+    if (!props.getPagination()) {
       page.value = 1
     } else {
-      const options = props.rowsPerPageOptions ?? []
-      const fallback = props.rowsPerPageCount ?? options[0] ?? 25
+      const opts = props.getRowsPerPageOptions() ?? []
+      const fallback = props.getRowsPerPageCount() ?? opts[0] ?? 25
 
-      if (options.length === 0) {
+      if (opts.length === 0) {
         Logger.warn(`prop 'rowsPerPageOptions' is an empty array`)
         rowsPerPageCount.value = Math.max(1, fallback)
-      } else if (props.rowsPerPageCount > 0) {
-        if (!options.includes(props.rowsPerPageCount)) {
+      } else if (props.getRowsPerPageCount() > 0) {
+        if (!opts.includes(props.getRowsPerPageCount())) {
           Logger.warn(`prop 'rowsPerPageCount' is not present in prop 'rowsPerPageOptions'`)
-          rowsPerPageOptions.value.push(props.rowsPerPageCount)
+          rowsPerPageOptions.value.push(props.getRowsPerPageCount())
         } else {
-          rowsPerPageCount.value = props.rowsPerPageCount
+          rowsPerPageCount.value = props.getRowsPerPageCount()
         }
       } else {
-        rowsPerPageCount.value = Math.max(1, options[0] ?? 25)
+        rowsPerPageCount.value = Math.max(1, opts[0] ?? 25)
       }
 
       page.value = clampInt(page.value, 1, pageCount.value)
     }
 
     // search
-    searchEnabled.value = props.search
+    searchEnabled.value = props.getSearch()
 
-    if (!props.search) {
+    if (!props.getSearch()) {
       searchQuery.value = ''
     }
 
     // sort
-    if (props.orderBy) {
-      const column = columnRegistry.columns.find((c) => {
-        return c.field === props.orderBy
-      })
+    const propOrderBy = props.getOrderBy()
+    if (propOrderBy) {
+      const column = columnRegistry.findColumnByField(propOrderBy)
 
       if (!column || !column.orderable) {
         clearSort()
       } else {
         sort.value = {
           by: column?.key ?? null,
-          direction: props.orderDirection ?? OrderDirection.ASC,
+          direction: props.getOrderDirection() ?? OrderDirection.ASC,
         }
       }
     } else if (sort.value.by) {
-      const column = columnRegistry.columns.find((c) => {
-        return c.key === sort.value.by
-      })
+      const column = columnRegistry.findColumnByKey(sort.value.by)
 
       if (!column || !column.orderable) {
         clearSort()
@@ -266,14 +253,16 @@ export const useTableCore = ({
     }
 
     // rows selection
-    selectionEnabled.value = props.selection
-    selectionLimit.value = props.selectionLimit ?? null
-    allowSelectAll.value = props.allowSelectAll
+    selectionEnabled.value = props.getSelection()
+    selectionLimit.value = props.getSelectionLimit() ?? null
+    allowSelectAll.value = props.getAllowSelectAll()
 
-    if (!props.selection) {
+    const propSelectionLimit = props.getSelectionLimit()
+
+    if (!props.getSelection()) {
       clearSelection()
-    } else if (props.selectionLimit && selectedRowKeys.value.length > props.selectionLimit) {
-      selectedRowKeys.value = selectedRowKeys.value.slice(0, props.selectionLimit)
+    } else if (propSelectionLimit && selectedRowKeys.value.length > propSelectionLimit) {
+      selectedRowKeys.value = selectedRowKeys.value.slice(0, propSelectionLimit)
       emit('update:selectedRowKeys', selectedRowKeys.value)
     }
 
@@ -281,7 +270,7 @@ export const useTableCore = ({
   }
 
   const state = computed(
-    (): TableCoreState => ({
+    (): CoreState => ({
       tableData: tableData.value,
       page: page.value,
       rowsPerPageCount: rowsPerPageCount.value,
@@ -300,7 +289,7 @@ export const useTableCore = ({
     }),
   )
 
-  const api: TableCoreApi = {
+  const core: Core = {
     get state() {
       return state.value
     },
@@ -330,5 +319,5 @@ export const useTableCore = ({
     normalize,
   }
 
-  return api
+  return core
 }

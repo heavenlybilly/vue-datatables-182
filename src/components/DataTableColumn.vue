@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Sticky, TextAlign } from './types'
 
-export interface DataTableColumnProps {
+export interface TableColumnProps {
   title?: string
   field?: string
   value?: (row: unknown) => unknown
@@ -12,7 +12,7 @@ export interface DataTableColumnProps {
   sticky?: Sticky
 }
 
-defineProps<DataTableColumnProps>()
+defineProps<TableColumnProps>()
 </script>
 
 <template>
