@@ -45,8 +45,13 @@ const isShow = ref(false)
       <data-table
         row-key="id"
         :rows-per-page-count="31"
+        :search="true"
         :source="DTSource.LOCAL"
       >
+        <template #topLeftBeforeActions>before</template>
+        <template #topLeftAfterActions>after</template>
+        <template #topRight>right</template>
+
         <data-table-column
           key="test"
           field="name"
@@ -59,9 +64,6 @@ const isShow = ref(false)
           field="test"
           title="Name"
         />
-        <data-table-column />
-        <test-component />
-        <button>123</button>
       </data-table>
     </div>
   </div>

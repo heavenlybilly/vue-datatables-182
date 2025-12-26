@@ -1,3 +1,4 @@
+import { type } from 'node:os'
 import { computed } from 'vue'
 import { ColumnKey, ColumnKind } from '../columns/types'
 import { OrderDirection, RowItem } from '../types'
@@ -63,8 +64,10 @@ export const useInteractor = (options: InteractorOptions) => {
       return
     }
 
-    const key = options.getRowKey(item)
-    options.emit('rowClick', { item, key })
+    const rowKeyGetter = options.props.getRowKey()
+
+    const key = typeof rowKeyGetter === 'string' ? rowKeyGetter : rowKeyGetter(item)
+    options.emit('rowClick', { item, key: item[key] })
 
     if (options.props.getSelectOnRowClick() && options.props.getSelectionEnabled()) {
       options.core.toggleRowItemSelection(item)

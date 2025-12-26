@@ -82,6 +82,7 @@ module.exports = {
     'vue/attributes-order': ['error', { alphabetical: true }],
     'vue/no-v-html': 'off',
     'vue/html-button-has-type': 'off',
+    'vue/multi-word-component-names': 'off',
     'vuejs-accessibility/click-events-have-key-events': 'off',
     'vuejs-accessibility/form-control-has-label': 'off',
     'vuejs-accessibility/heading-has-content': 'off',

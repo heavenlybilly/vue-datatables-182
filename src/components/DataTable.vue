@@ -3,6 +3,8 @@ import { onMounted, onUpdated, useSlots } from 'vue'
 import { useColumnRegistry } from './columns'
 import { useCore } from './core'
 import { useDataProvider } from './data'
+import { useInteractor } from './interactor'
+import Root from './layout/Root.vue'
 import { getPluginConf } from './plugin'
 import {
   OrderDirection,
@@ -143,6 +145,20 @@ const dataProvider = useDataProvider({
   emit,
 })
 
+const interactor = useInteractor({
+  columnRegistry,
+  core,
+  data: dataProvider,
+  props: {
+    getRowsClickable: () => props.rowsClickable,
+    getSelectOnRowClick: () => props.selectOnRowClick,
+    getSelectionEnabled: () => props.selection,
+    getAllowSelectAll: () => props.allowSelectAll,
+    getRowKey: () => props.rowKey,
+  },
+  emit,
+})
+
 const rebuildColumns = () => {
   columnRegistry.rebuild({
     tableProps: props,
@@ -168,6 +184,26 @@ onUpdated(() => {
 
 <template>
   <div>
+    <root
+      :column-registry="columnRegistry"
+      :core="core"
+      :data-provider="dataProvider"
+      :interactor="interactor"
+      :search-enabled="props.search"
+    >
+      <template #topLeftBeforeActions>
+        <slot name="topLeftBeforeActions"></slot>
+      </template>
+
+      <template #topLeftAfterActions>
+        <slot name="topLeftAfterActions"></slot>
+      </template>
+
+      <template #topRight>
+        <slot name="topRight"></slot>
+      </template>
+    </root>
+
     <slot></slot>
   </div>
 </template>
