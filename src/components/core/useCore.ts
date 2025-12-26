@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 import { Logger } from '@/logger'
-import { ColumnKey } from '../columns/types'
+import { ColumnKey } from '../columns'
 import { OrderDirection, RowItem, RowKey } from '../types'
 import { clampInt, makeRowKeySelector } from './helpers'
 import { Core, CoreOptions, CoreState, SortState, TableData } from './types'

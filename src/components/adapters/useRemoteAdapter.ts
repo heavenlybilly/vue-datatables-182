@@ -1,5 +1,5 @@
 import { Logger } from '@/logger'
-import { ColumnKind } from '../columns/types'
+import { ColumnKind } from '../columns'
 import { RequestContext } from '../types'
 import { makeSnapshot } from './helpers'
 import { RemoteAdapterOptions } from './types'

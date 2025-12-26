@@ -1,4 +1,4 @@
-import { RequestAdapter, ResponseAdapter } from '@/components/types'
+import { RequestAdapter, ResponseAdapter } from '../types'
 
 export interface PluginConf {
   csrfToken?: string

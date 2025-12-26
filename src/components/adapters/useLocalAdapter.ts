@@ -1,4 +1,4 @@
-import { ColumnKind } from '../columns/types'
+import { ColumnKind } from '../columns'
 import { OrderDirection } from '../types'
 import { formatSearchString } from './helpers'
 import { LocalAdapterOptions } from './types'

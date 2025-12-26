@@ -1,4 +1,4 @@
-import { ColumnKey, ColumnRegistry } from '../columns/types'
+import { ColumnKey, ColumnRegistry } from '../columns'
 import {
   OrderDirection,
   RowItem,
