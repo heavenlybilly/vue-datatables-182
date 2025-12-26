@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { ColumnKey, ColumnKind } from '../columns'
+import { ColumnKey, ColumnKind } from '../columns/types'
 import { OrderDirection, RowItem } from '../types'
 import { Interactor, InteractorOptions } from './types'
 

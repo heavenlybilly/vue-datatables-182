@@ -1,5 +1,5 @@
-import { ColumnRegistry } from '../columns'
-import { Core } from '../core'
+import { ColumnRegistry } from '../columns/types'
+import { Core } from '../core/types'
 import {
   RequestAdapter,
   RequestEndPayload,

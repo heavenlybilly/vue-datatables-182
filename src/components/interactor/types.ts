@@ -1,7 +1,7 @@
 import { ComputedRef } from 'vue'
-import { DataProvider } from '../adapters'
-import { ColumnKey, ColumnRegistry } from '../columns'
-import { Core } from '../core'
+import { ColumnKey, ColumnRegistry } from '../columns/types'
+import { Core } from '../core/types'
+import { DataProvider } from '../data/types'
 import { OrderDirection, RowClickPayload, RowItem, RowKey } from '../types'
 
 export interface InteractorProps {

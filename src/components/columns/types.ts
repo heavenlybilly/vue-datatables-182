@@ -1,5 +1,5 @@
 import { TableProps } from '../DataTable.vue'
-import { Branded, Slots, Sticky, TextAlign, ValueOf } from '../types'
+import { Branded, RowKey, Slots, Sticky, TextAlign, ValueOf } from '../types'
 
 export type ColumnKey = Branded<string, 'columnKey'>
 
@@ -79,7 +79,7 @@ export interface ColumnDef<RowItem> {
       column: ColumnDef<RowItem>
       value: unknown
       index: number
-      rowKey: string
+      rowKey: RowKey
     }) => any
   }
 }

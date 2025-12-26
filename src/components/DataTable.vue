@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted, onUpdated, useSlots } from 'vue'
-import { useDataAdapter } from './adapters'
 import { useColumnRegistry } from './columns'
 import { useCore } from './core'
+import { useDataProvider } from './data'
 import { getPluginConf } from './plugin'
 import {
   OrderDirection,
@@ -130,7 +130,7 @@ const core = useCore({
   emit,
 })
 
-const dataAdapter = useDataAdapter({
+const dataProvider = useDataProvider({
   getSource: () => props.source,
   columnRegistry,
   core,
@@ -143,22 +143,26 @@ const dataAdapter = useDataAdapter({
   emit,
 })
 
-const sync = () => {
+const rebuildColumns = () => {
   columnRegistry.rebuild({
     tableProps: props,
     slots: slots as unknown as Slots,
   })
+}
 
+const syncData = () => {
   core.normalize()
-  dataAdapter.apply()
+  dataProvider.apply()
 }
 
 onMounted(() => {
-  sync()
+  rebuildColumns()
+  syncData()
 })
 
 onUpdated(() => {
-  sync()
+  rebuildColumns()
+  syncData()
 })
 </script>
 

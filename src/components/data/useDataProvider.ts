@@ -6,7 +6,7 @@ import { useRemoteAdapter } from './useRemoteAdapter'
 
 const DEBOUNCE_MS = 300
 
-export const useDataAdapter = (options: DataProviderOptions) => {
+export const useDataProvider = (options: DataProviderOptions) => {
   const {
     columnRegistry,
     core,
