@@ -40,7 +40,7 @@ export type TableProps = {
   pagination?: boolean
   rowsPerPageCount?: number
   rowsPerPageOptions?: number[]
-  showRangeInfo?: boolean
+  showPageDetails?: boolean
 
   // Search props
   search?: boolean
@@ -81,7 +81,7 @@ const props = withDefaults(defineProps<TableProps>(), {
   pagination: true,
   rowsPerPageCount: 25,
   rowsPerPageOptions: () => [10, 25, 50, 100],
-  showRangeInfo: true,
+  showPageDetails: true,
   search: true,
   orderBy: undefined,
   orderDirection: undefined,
@@ -187,9 +187,9 @@ onUpdated(() => {
     <root
       :column-registry="columnRegistry"
       :core="core"
-      :data-provider="dataProvider"
       :interactor="interactor"
       :search-enabled="props.search"
+      :show-page-details="props.showPageDetails"
     >
       <template #topLeftBeforeActions>
         <slot name="topLeftBeforeActions"></slot>

@@ -22,23 +22,23 @@ const displayCross = computed(() => {
   return !!props.value
 })
 
-const handleInput = (event: Event) => {
+const onInput = (event: Event) => {
   if (event.target instanceof HTMLInputElement) {
     emit('update:value', event.target.value ?? '')
   }
 }
 
-const handleClearSearch = () => {
+const onClearSearch = () => {
   emit('update:value', '')
 }
 
-const handleWrapperClick = () => {
+const onWrapperClick = () => {
   if (inputElement.value) {
     inputElement.value.focus()
   }
 }
 
-const handleFocus = (value: boolean) => {
+const onFocus = (value: boolean) => {
   hasFocus.value = value
 }
 </script>
@@ -47,7 +47,7 @@ const handleFocus = (value: boolean) => {
   <div
     class="dt182-search"
     :class="classObject"
-    @click="handleWrapperClick"
+    @click="onWrapperClick"
   >
     <input
       ref="inputElement"
@@ -55,9 +55,9 @@ const handleFocus = (value: boolean) => {
       placeholder="Введите для поиска"
       type="text"
       :value="value"
-      @blur="handleFocus(false)"
-      @focus="handleFocus(true)"
-      @input="handleInput"
+      @blur="onFocus(false)"
+      @focus="onFocus(true)"
+      @input="onInput"
     />
     <div
       class="dt182-search-icon"
@@ -67,7 +67,7 @@ const handleFocus = (value: boolean) => {
     <div
       v-if="displayCross"
       class="dt182-cross-icon"
-      @click="handleClearSearch"
+      @click="onClearSearch"
       v-html="crossIcon"
     />
   </div>

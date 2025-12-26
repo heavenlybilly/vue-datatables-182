@@ -1,28 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const props = defineProps({
-  total: {
-    type: Number,
-    required: true,
-  },
-  filtered: {
-    type: Number,
-    required: true,
-  },
-  page: {
-    type: Number,
-    required: true,
-  },
-  rowsPerPage: {
-    type: Number,
-    required: true,
-  },
-  countItems: {
-    type: Number,
-    required: true,
-  },
-})
+const props = defineProps<{
+  total: number
+  filtered: number
+  page: number
+  rowsPerPage: number
+  countItems: number
+}>()
 
 const numberStart = computed(() => {
   if (!props.countItems) {
@@ -70,3 +55,13 @@ const totalRecords = computed(() => {
     <span v-if="props.total !== props.filtered"> (из {{ props.total }} {{ totalRecords }}) </span>
   </div>
 </template>
+
+<style lang="scss">
+@use '../vars';
+
+.dt182-page-details {
+  color: vars.$dt182-page-details-color;
+  font-size: 0.82rem;
+  line-height: 1;
+}
+</style>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import TestComponent from '~/TestComponent.vue'
+import { books } from '~/mocks'
 import { DTSource } from '@/types'
 import DataTable from '../src/components/DataTable.vue'
 import DataTableColumn from '../src/components/DataTableColumn.vue'
@@ -43,8 +43,10 @@ const isShow = ref(false)
 
     <div style="padding: 20px; background-color: lightblue">
       <data-table
+        :items="books"
         row-key="id"
-        :rows-per-page-count="31"
+        :rows-per-page-count="5"
+        :rows-per-page-options="[5, 10, 20]"
         :search="true"
         :source="DTSource.LOCAL"
       >
