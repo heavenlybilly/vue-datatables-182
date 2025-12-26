@@ -149,12 +149,12 @@ const interactor = useInteractor({
   columnRegistry,
   core,
   data: dataProvider,
+  getRowKey: (item) => core.state.rowKeySelector(item),
   props: {
     getRowsClickable: () => props.rowsClickable,
     getSelectOnRowClick: () => props.selectOnRowClick,
     getSelectionEnabled: () => props.selection,
     getAllowSelectAll: () => props.allowSelectAll,
-    getRowKey: () => props.rowKey,
   },
   emit,
 })

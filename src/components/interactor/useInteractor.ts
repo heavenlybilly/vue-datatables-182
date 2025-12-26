@@ -64,9 +64,7 @@ export const useInteractor = (options: InteractorOptions) => {
       return
     }
 
-    const rowKeyGetter = options.props.getRowKey()
-
-    const key = typeof rowKeyGetter === 'string' ? rowKeyGetter : rowKeyGetter(item)
+    const key = options.getRowKey(item)
     options.emit('rowClick', { item, key: item[key] })
 
     if (options.props.getSelectOnRowClick() && options.props.getSelectionEnabled()) {

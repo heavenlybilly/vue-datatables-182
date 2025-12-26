@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import Paginator from '@/components/layout/controls/Paginator.vue'
-import RowsPerPageSelector from '@/components/layout/controls/RowsPerPageSelector.vue'
+import { computed } from 'vue'
 import { ColumnRegistry } from '../columns/types'
 import { Core } from '../core/types'
 import { Interactor } from '../interactor/types'
 import Pagination from './containers/Pagination.vue'
 import Toolbar from './containers/Toolbar.vue'
 import Wrapper from './containers/Wrapper.vue'
+import Paginator from './controls/Paginator.vue'
+import RowsPerPageSelector from './controls/RowsPerPageSelector.vue'
 import SearchField from './controls/SearchField.vue'
 import PageDetails from './widgets/PageDetails.vue'
 
@@ -17,6 +18,10 @@ const props = defineProps<{
   searchEnabled: boolean
   showPageDetails: boolean
 }>()
+
+const state = computed(() => props.core.state)
+const handlers = computed(() => props.interactor.handlers)
+const columns = computed(() => props.columnRegistry.columns)
 </script>
 
 <template>
@@ -28,8 +33,8 @@ const props = defineProps<{
       <template #topSearch>
         <search-field
           v-if="props.searchEnabled"
-          :value="props.core.state.searchQuery"
-          @update:value="props.interactor.handlers.searchInput"
+          :value="state.searchQuery"
+          @update:value="handlers.searchInput"
         />
       </template>
       <template #topLeftAfterActions>
@@ -45,25 +50,25 @@ const props = defineProps<{
     <pagination>
       <template #bottomLeft>
         <rows-per-page-selector
-          :options="props.core.state.rowsPerPageOptions"
-          :value="props.core.state.rowsPerPageCount"
-          @update:value="props.interactor.handlers.rowsPerPageCountChange"
+          :options="state.rowsPerPageOptions"
+          :value="state.rowsPerPageCount"
+          @update:value="handlers.rowsPerPageCountChange"
         />
         <page-details
           v-if="props.showPageDetails"
-          :count-items="props.core.state.tableData.items.length"
-          :filtered="props.core.state.tableData.filtered"
-          :page="props.core.state.page"
-          :rows-per-page="props.core.state.rowsPerPageCount"
-          :total="props.core.state.tableData.total"
+          :count-items="state.tableData.items.length"
+          :filtered="state.tableData.filtered"
+          :page="state.page"
+          :rows-per-page="state.rowsPerPageCount"
+          :total="state.tableData.total"
         />
       </template>
       <template #bottomRight>
         <paginator
-          :items-count="props.core.state.tableData.filtered"
-          :page="props.core.state.page"
-          :rows-per-page="props.core.state.rowsPerPageCount"
-          @update:page="props.interactor.handlers.pageChange"
+          :items-count="state.tableData.filtered"
+          :page="state.page"
+          :rows-per-page="state.rowsPerPageCount"
+          @update:page="handlers.pageChange"
         />
       </template>
     </pagination>

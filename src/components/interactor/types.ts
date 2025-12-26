@@ -2,14 +2,13 @@ import { ComputedRef } from 'vue'
 import { ColumnKey, ColumnRegistry } from '../columns/types'
 import { Core } from '../core/types'
 import { DataProvider } from '../data/types'
-import { OrderDirection, RowClickPayload, RowItem, RowKeySelector } from '../types'
+import { OrderDirection, RowClickPayload, RowItem, RowKey } from '../types'
 
 export interface InteractorProps {
   getRowsClickable(): boolean
   getSelectOnRowClick(): boolean
   getSelectionEnabled(): boolean
   getAllowSelectAll(): boolean
-  getRowKey(): RowKeySelector<RowItem>
 }
 
 export interface InteractorEmit {
@@ -20,6 +19,7 @@ export interface InteractorOptions {
   columnRegistry: ColumnRegistry<RowItem>
   core: Core
   data: DataProvider
+  getRowKey(item: RowItem): RowKey
   props: InteractorProps
   emit: InteractorEmit
 }
