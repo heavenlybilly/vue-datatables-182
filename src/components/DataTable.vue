@@ -204,6 +204,10 @@ onUpdated(() => {
       <template #topRight>
         <slot name="topRight"></slot>
       </template>
+
+      <template #actions>
+        <slot name="actions"></slot>
+      </template>
     </root>
 
     <slot></slot>

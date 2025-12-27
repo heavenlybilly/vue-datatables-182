@@ -59,7 +59,6 @@ export interface ColumnDef<RowItem> {
   /**
    * Text alignment for cell content.
    */
-
   textAlign?: TextAlign
 
   /**

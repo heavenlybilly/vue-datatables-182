@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import TableView from '@/components/layout/table/TableView.vue'
 import { Controller } from '../controller/types'
 import Pagination from './containers/Pagination.vue'
 import Toolbar from './containers/Toolbar.vue'
@@ -16,7 +17,6 @@ const props = defineProps<{
 const state = computed(() => props.controller.state)
 const appearance = computed(() => props.controller.appearance)
 const handlers = computed(() => props.controller.handlers)
-const columns = computed(() => props.controller.columns)
 </script>
 
 <template>
@@ -40,13 +40,11 @@ const columns = computed(() => props.controller.columns)
       </template>
     </toolbar>
 
-    <div>
-      <div>{{ columns }}</div>
-      <div>{{ state.selectionEnabled }}</div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+    <table-view :controller="controller">
+      <template #actions>
+        <slot name="actions"></slot>
+      </template>
+    </table-view>
 
     <pagination>
       <template #bottomLeft>

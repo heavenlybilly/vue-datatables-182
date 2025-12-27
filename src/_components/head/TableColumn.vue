@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
 import { DTColumn, DTOrder, DTOrderDirection, DTTextAlign } from '@/types'
-import orderAscIcon from '@/assets/order-asc.svg'
-import orderDefaultIcon from '@/assets/order-default.svg'
-import orderDescIcon from '@/assets/order-desc.svg'
+import orderAscIcon from '@/assets/sort-asc.svg'
+import orderDefaultIcon from '@/assets/sort-default.svg'
+import orderDescIcon from '@/assets/sort-desc.svg'
 
 const props = defineProps({
   column: {

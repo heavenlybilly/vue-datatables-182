@@ -67,15 +67,25 @@ const selectEnabled = ref(false)
         <data-table-column
           key="id"
           field="id"
-          orderable
-          searchable
+          :sortable="true"
           title="Id"
         />
         <data-table-column
-          v-if="isShow"
           key="title"
-          field="Title"
-          title="Name"
+          field="title"
+          :searchable="true"
+          :sortable="true"
+          title="Title"
+        />
+        <data-table-column
+          field="author"
+          title="Author"
+        />
+        <data-table-column
+          v-if="isShow"
+          key="price"
+          field="price"
+          title="Price"
         />
       </data-table>
     </div>

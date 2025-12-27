@@ -1,4 +1,3 @@
-import { Logger } from '@/logger'
 import { ColumnKind } from '../columns/types'
 import { RequestContext } from '../types'
 import { makeSnapshot } from './helpers'
@@ -65,7 +64,6 @@ export const useRemoteAdapter = (options: RemoteAdapterOptions) => {
 
     const requestAdapter = options.getRequestAdapter()
     if (!requestAdapter) {
-      Logger.error('Request adapter is not defined')
       throw new Error('Request adapter is not defined')
     }
 
@@ -92,17 +90,13 @@ export const useRemoteAdapter = (options: RemoteAdapterOptions) => {
       })
 
       if (!response.ok) {
-        const message = `Request failed with status ${response.status}`
-
-        Logger.error(message)
-        throw new Error(message)
+        throw new Error(`Request failed with status ${response.status}`)
       }
 
       const raw = await response.json()
 
       const responseAdapter = options.getResponseAdapter()
       if (!responseAdapter) {
-        Logger.error('Response adapter is not defined')
         throw new Error('Response adapter is not defined')
       }
 

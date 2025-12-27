@@ -64,7 +64,7 @@ export const useController = (options: ControllerOptions) => {
     }
 
     const key = options.core.state.rowKeySelector(item)
-    options.emit('rowClick', { item, key: item[key] })
+    options.emit('rowClick', { item, key })
 
     if (options.props.isSelectOnRowClickEnabled()) {
       options.core.toggleRowItemSelection(item)
