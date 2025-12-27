@@ -46,10 +46,10 @@ export interface ColumnDef<RowItem> {
   searchable?: boolean
 
   /**
-   * Allows this column to participate in ordering logic.
-   * Can be used to disable ordering while keeping sorting UI.
+   * Allows this column to participate in sorting logic.
+   * Can be used to disable sorting while keeping sorting UI.
    */
-  orderable?: boolean
+  sortable?: boolean
 
   /**
    * CSS width of the column (e.g. '120px', '20%', 'auto').
@@ -84,14 +84,8 @@ export interface ColumnDef<RowItem> {
   }
 }
 
-export interface MetaDef {
-  searchableKeys: ColumnKey[]
-  orderableKeys: ColumnKey[]
-}
-
 export type ColumnRegistry<RowItem = any> = {
   readonly columns: Readonly<ColumnDef<RowItem>[]>
-  readonly meta: Readonly<MetaDef>
   rebuild(args: { slots: Slots; tableProps: TableProps }): void
   findColumnByKey(key: ColumnKey, kind?: ColumnKind): ColumnDef<RowItem> | null
   findColumnByField(field: string, kind?: ColumnKind): ColumnDef<RowItem> | null

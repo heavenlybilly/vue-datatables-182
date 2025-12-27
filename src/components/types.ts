@@ -22,11 +22,11 @@ export const Source = {
 } as const
 export type Source = ValueOf<typeof Source>
 
-export const OrderDirection = {
+export const SortDirection = {
   ASC: 'asc',
   DESC: 'desc',
 } as const
-export type OrderDirection = ValueOf<typeof OrderDirection>
+export type SortDirection = ValueOf<typeof SortDirection>
 
 export const Sticky = {
   LEFT: 'left',
@@ -67,8 +67,8 @@ export type RequestContext = {
     page?: number
     perPage?: number
     search?: string
-    orderBy?: string
-    orderDirection?: OrderDirection
+    sortBy?: string
+    sortDirection?: SortDirection
     filter?: TableFilter
     [key: string]: any
   }

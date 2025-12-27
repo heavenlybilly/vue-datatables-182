@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { TableProps } from '../DataTable.vue'
 import { Slots } from '../types'
 import { normalizeSlotResult } from './normalize-slot-result'
-import { ColumnDef, ColumnKey, ColumnKind, ColumnRegistry, MetaDef } from './types'
+import { ColumnDef, ColumnKey, ColumnKind, ColumnRegistry } from './types'
 
 const numberingColumnKey = '_internal:numbering' as ColumnKey
 const selectionColumnKey = '_internal:selection' as ColumnKey
@@ -11,10 +11,6 @@ const actionsColumnKey = '_internal:actions' as ColumnKey
 export const useColumnRegistry = <RowItem>() => {
   const keysSnapshot = ref<ColumnKey[]>([])
   const columns = ref<ColumnDef<RowItem>[]>([])
-  const meta = ref<MetaDef>({
-    searchableKeys: [],
-    orderableKeys: [],
-  })
 
   const rebuild = ({ slots, tableProps }: { slots: Slots; tableProps: TableProps }) => {
     /**
@@ -47,10 +43,6 @@ export const useColumnRegistry = <RowItem>() => {
      */
     const columnKeys = new Set<string>()
 
-    const newMeta: MetaDef = {
-      searchableKeys: [],
-      orderableKeys: [],
-    }
     columns.value = []
 
     if (tableProps.numbering) {
@@ -101,7 +93,7 @@ export const useColumnRegistry = <RowItem>() => {
         field: tableColumnProps.field,
         value: tableColumnProps.value,
         searchable: tableColumnProps.searchable,
-        orderable: tableColumnProps.orderable,
+        sortable: tableColumnProps.sortable,
         width: tableColumnProps.width,
         textAlign: tableColumnProps.textAlign,
         sticky: tableColumnProps.sticky,
@@ -111,14 +103,6 @@ export const useColumnRegistry = <RowItem>() => {
       }
 
       columns.value.push(newColumn)
-
-      if (tableColumnProps.searchable) {
-        newMeta.searchableKeys.push(columnKey)
-      }
-
-      if (tableColumnProps.orderable) {
-        newMeta.orderableKeys.push(columnKey)
-      }
     })
 
     if (tableProps.actions) {
@@ -130,8 +114,6 @@ export const useColumnRegistry = <RowItem>() => {
         kind: ColumnKind.ACTIONS,
       })
     }
-
-    meta.value = newMeta
   }
 
   const findColumnByKey = (key: ColumnKey, kind?: ColumnKind) => {
@@ -153,9 +135,6 @@ export const useColumnRegistry = <RowItem>() => {
   const registry: ColumnRegistry<RowItem> = {
     get columns() {
       return columns.value
-    },
-    get meta() {
-      return meta.value
     },
     rebuild,
     findColumnByKey,

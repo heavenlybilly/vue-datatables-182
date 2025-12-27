@@ -17,8 +17,8 @@ export const useRemoteAdapter = (options: RemoteAdapterOptions) => {
 
     const { state } = options.core
 
-    let orderBy: string | undefined
-    let orderDirection = state.sort.direction ?? undefined
+    let sortBy: string | undefined
+    let sortDirection = state.sort.direction ?? undefined
 
     if (state.sort.by) {
       const column = options.columnRegistry.columns.find((c) => {
@@ -26,10 +26,10 @@ export const useRemoteAdapter = (options: RemoteAdapterOptions) => {
       })
 
       if (column?.field) {
-        orderBy = column.field
+        sortBy = column.field
       } else {
-        orderBy = undefined
-        orderDirection = undefined
+        sortBy = undefined
+        sortDirection = undefined
       }
     }
 
@@ -37,8 +37,8 @@ export const useRemoteAdapter = (options: RemoteAdapterOptions) => {
       page: state.page,
       perPage: state.rowsPerPageCount,
       search: state.searchQuery?.trim() ? state.searchQuery.trim() : undefined,
-      orderBy,
-      orderDirection,
+      sortBy,
+      sortDirection,
       filter: options.getFilter(),
     }
 

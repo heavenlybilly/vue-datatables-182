@@ -1,5 +1,5 @@
 import { ColumnKind } from '../columns/types'
-import { OrderDirection } from '../types'
+import { SortDirection } from '../types'
 import { formatSearchString } from './helpers'
 import { LocalAdapterOptions } from './types'
 
@@ -45,18 +45,18 @@ export const useLocalAdapter = (options: LocalAdapterOptions) => {
 
     // sort
     if (sort.by && sort.direction) {
-      const orderDirection = sort.direction === OrderDirection.ASC ? 1 : -1
+      const sortDirection = sort.direction === SortDirection.ASC ? 1 : -1
 
       const column = columnRegistry.findColumnByKey(sort.by)
 
-      if (column?.orderable && (column.field || column.value)) {
+      if (column?.sortable && (column.field || column.value)) {
         rowItems.sort((a, b) => {
           // extract value from rows items
           const av = column.field ? a[column.field] : column.value!(a)
           const bv = column.field ? b[column.field] : column.value!(b)
 
-          if (av < bv) return -1 * orderDirection
-          if (av > bv) return 1 * orderDirection
+          if (av < bv) return -1 * sortDirection
+          if (av > bv) return 1 * sortDirection
           return 0
         })
       }

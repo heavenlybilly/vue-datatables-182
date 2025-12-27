@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { ColumnRegistry } from '../columns/types'
-import { Core } from '../core/types'
-import { Interactor } from '../interactor/types'
+import { Controller } from '../controller/types'
 import Pagination from './containers/Pagination.vue'
 import Toolbar from './containers/Toolbar.vue'
 import Wrapper from './containers/Wrapper.vue'
@@ -12,16 +10,13 @@ import SearchField from './controls/SearchField.vue'
 import PageDetails from './widgets/PageDetails.vue'
 
 const props = defineProps<{
-  core: Core
-  columnRegistry: ColumnRegistry
-  interactor: Interactor
-  searchEnabled: boolean
-  showPageDetails: boolean
+  controller: Controller
 }>()
 
-const state = computed(() => props.core.state)
-const handlers = computed(() => props.interactor.handlers)
-const columns = computed(() => props.columnRegistry.columns)
+const state = computed(() => props.controller.state)
+const appearance = computed(() => props.controller.appearance)
+const handlers = computed(() => props.controller.handlers)
+const columns = computed(() => props.controller.columns)
 </script>
 
 <template>
@@ -32,7 +27,7 @@ const columns = computed(() => props.columnRegistry.columns)
       </template>
       <template #topSearch>
         <search-field
-          v-if="props.searchEnabled"
+          v-if="state.searchEnabled"
           :value="state.searchQuery"
           @update:value="handlers.searchInput"
         />
@@ -45,7 +40,13 @@ const columns = computed(() => props.columnRegistry.columns)
       </template>
     </toolbar>
 
-    <div>view</div>
+    <div>
+      <div>{{ columns }}</div>
+      <div>{{ state.selectionEnabled }}</div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
 
     <pagination>
       <template #bottomLeft>
@@ -55,7 +56,7 @@ const columns = computed(() => props.columnRegistry.columns)
           @update:value="handlers.rowsPerPageCountChange"
         />
         <page-details
-          v-if="props.showPageDetails"
+          v-if="appearance.isShowPageDetailsEnabled()"
           :count-items="state.tableData.items.length"
           :filtered="state.tableData.filtered"
           :page="state.page"

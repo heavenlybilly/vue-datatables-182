@@ -7,7 +7,7 @@ const pluginConf: PluginConf = {
   responseAdapter: undefined,
 }
 
-const plugin: PluginObject<PluginOptions> = {
+const VueDatatables182: PluginObject<PluginOptions> = {
   install: (Vue, options) => {
     if (!options) {
       return
@@ -36,4 +36,4 @@ const plugin: PluginObject<PluginOptions> = {
 
 export const getPluginConf = () => pluginConf
 
-export default plugin
+export default VueDatatables182

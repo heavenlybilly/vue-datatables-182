@@ -1,19 +1,18 @@
-import { type } from 'node:os'
 import { computed } from 'vue'
 import { ColumnKey, ColumnKind } from '../columns/types'
-import { OrderDirection, RowItem } from '../types'
-import { Interactor, InteractorOptions } from './types'
+import { RowItem, SortDirection } from '../types'
+import { Controller, ControllerOptions } from './types'
 
-export const useInteractor = (options: InteractorOptions) => {
+export const useController = (options: ControllerOptions) => {
   const nextSort = (key: ColumnKey) => {
     const { by, direction } = options.core.state.sort
 
     if (by !== key) {
-      return { by: key, direction: OrderDirection.ASC }
+      return { by: key, direction: SortDirection.ASC }
     }
 
-    if (direction === OrderDirection.ASC) {
-      return { by: key, direction: OrderDirection.DESC }
+    if (direction === SortDirection.ASC) {
+      return { by: key, direction: SortDirection.DESC }
     }
 
     return { by: null, direction: null }
@@ -24,13 +23,13 @@ export const useInteractor = (options: InteractorOptions) => {
    */
   const searchInput = (value: string) => {
     options.core.setSearchQuery(value)
-    options.data.apply()
+    options.dataProvider.apply()
   }
 
   const sortClick = (key: ColumnKey) => {
     const column = options.columnRegistry.findColumnByKey(key, ColumnKind.DATA)
 
-    if (!column || !column?.orderable) {
+    if (!column || !column?.sortable) {
       return
     }
 
@@ -42,41 +41,37 @@ export const useInteractor = (options: InteractorOptions) => {
       options.core.setSort(by, direction)
     }
 
-    options.data.apply()
+    options.dataProvider.apply()
   }
 
   const pageChange = (page: number) => {
     options.core.setPage(page)
-    options.data.apply()
+    options.dataProvider.apply()
   }
 
   const rowsPerPageCountChange = (rowsPerPage: number) => {
     options.core.setRowsPerPageCount(rowsPerPage)
-    options.data.apply()
+    options.dataProvider.apply()
   }
 
   const reload = () => {
-    return options.data.reload()
+    return options.dataProvider.reload()
   }
 
   const rowClick = (item: RowItem) => {
-    if (!options.props.getRowsClickable()) {
+    if (!options.props.isRowsClickable()) {
       return
     }
 
-    const key = options.getRowKey(item)
+    const key = options.core.state.rowKeySelector(item)
     options.emit('rowClick', { item, key: item[key] })
 
-    if (options.props.getSelectOnRowClick() && options.props.getSelectionEnabled()) {
+    if (options.props.isSelectOnRowClickEnabled()) {
       options.core.toggleRowItemSelection(item)
     }
   }
 
   const toggleRowSelection = (item: RowItem) => {
-    if (!options.props.getSelectionEnabled()) {
-      return
-    }
-
     options.core.toggleRowItemSelection(item)
   }
 
@@ -85,10 +80,6 @@ export const useInteractor = (options: InteractorOptions) => {
   }
 
   const selectAllRows = () => {
-    if (!options.props.getAllowSelectAll() || !options.props.getSelectionEnabled()) {
-      return
-    }
-
     options.core.selectAllRows()
   }
 
@@ -96,7 +87,7 @@ export const useInteractor = (options: InteractorOptions) => {
    * Ui
    */
   const sortIndicators = computed(() => {
-    const result: Record<ColumnKey, OrderDirection | null> = {}
+    const result: Record<ColumnKey, SortDirection | null> = {}
     const { by, direction } = options.core.state.sort
 
     options.columnRegistry.columns.forEach((column) => {
@@ -107,10 +98,17 @@ export const useInteractor = (options: InteractorOptions) => {
   })
 
   const canSelectAll = computed(() => {
-    return options.props.getSelectionEnabled() && options.props.getAllowSelectAll()
+    return options.core.state.selectionEnabled && options.core.state.selectAllAllowed
   })
 
-  const interactor: Interactor = {
+  const interactor: Controller = {
+    get state() {
+      return options.core.state
+    },
+    get columns() {
+      return options.columnRegistry.columns
+    },
+    appearance: options.props,
     handlers: {
       searchInput,
       sortClick,

@@ -1,11 +1,5 @@
 import { ColumnKey, ColumnRegistry } from '../columns/types'
-import {
-  OrderDirection,
-  RowItem,
-  RowKey,
-  RowKeySelector,
-  SelectedKeysChangePayload,
-} from '../types'
+import { RowItem, RowKey, RowKeySelector, SelectedKeysChangePayload, SortDirection } from '../types'
 
 export type TableData = {
   items: RowItem[]
@@ -15,23 +9,30 @@ export type TableData = {
 
 export type SortState = {
   by: ColumnKey | null
-  direction: OrderDirection | null
+  direction: SortDirection | null
 }
 
 export type CoreOptions = {
   columnRegistry: ColumnRegistry<RowItem>
+  props: {
+    // pagination
+    isPaginationEnabled(): boolean
+    getRowsPerPageCount(): number
+    getRowsPerPageOptions(): number[]
 
-  getRowKey: () => RowKeySelector<RowItem>
-  getPagination: () => boolean
-  getRowsPerPageCount: () => number
-  getRowsPerPageOptions: () => number[]
-  getSearch: () => boolean
-  getOrderBy: () => string | null
-  getOrderDirection: () => OrderDirection | null
-  getSelection: () => boolean
-  getSelectionLimit: () => number | null
-  getAllowSelectAll: () => boolean
+    // search
+    isSearchEnabled(): boolean
 
+    // sort
+    getSortBy(): string | null
+    getSortDirection(): SortDirection | null
+
+    // row selection
+    getRowKey(): RowKeySelector<RowItem>
+    isSelectionEnabled(): boolean
+    isSelectAllAllowed(): boolean
+    getSelectionLimit(): number | null
+  }
   emit: {
     (e: 'update:page', page: number): void
     (e: 'update:rowsPerPageCount', perPage: number): void
@@ -46,10 +47,10 @@ export type CoreState = {
   tableData: TableData
 
   // pagination
-  page: number
-  rowsPerPageCount: number
-  rowsPerPageOptions: number[]
   paginationEnabled: boolean
+  rowsPerPageOptions: number[]
+  rowsPerPageCount: number
+  page: number
 
   // search
   searchEnabled: boolean
@@ -58,12 +59,12 @@ export type CoreState = {
   // sort
   sort: SortState
 
-  // row selection
-  selectionEnabled: boolean
-  selectedRowKeys: RowKey[]
+  // rows & selection & click
   rowKeySelector: (item: RowItem) => RowKey
+  selectionEnabled: boolean
+  selectAllAllowed: boolean
   selectionLimit: number | null
-  allowSelectAll: boolean
+  selectedRowKeys: RowKey[]
 
   // status
   isLoading: boolean
@@ -96,7 +97,7 @@ export type Core = {
   setSearchQuery(value: string): void
 
   // sort
-  setSort(orderBy: ColumnKey | null, orderDirection: OrderDirection | null): void
+  setSort(sortBy: ColumnKey | null, sortDirection: SortDirection | null): void
   clearSort(): void
 
   // selection

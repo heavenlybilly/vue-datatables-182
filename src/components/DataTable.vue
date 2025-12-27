@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { onMounted, onUpdated, useSlots } from 'vue'
 import { useColumnRegistry } from './columns'
+import { useController } from './controller'
 import { useCore } from './core'
 import { useDataProvider } from './data'
-import { useInteractor } from './interactor'
 import Root from './layout/Root.vue'
 import { getPluginConf } from './plugin'
 import {
-  OrderDirection,
   RequestAdapter,
   RequestEndPayload,
   RequestErrorPayload,
@@ -20,53 +19,46 @@ import {
   RowKeySelector,
   SelectedKeysChangePayload,
   Slots,
+  SortDirection,
   Source,
   TableFilter,
 } from './types'
 
 export type TableProps = {
-  // Core props
-  rowKey: RowKeySelector<RowItem>
+  // data
   source?: Source
-
-  // Data props
   url?: string
   filter?: TableFilter
   items?: RowItem[]
   requestAdapter?: RequestAdapter
   responseAdapter?: ResponseAdapter
 
-  // Pagination props
+  // pagination
   pagination?: boolean
   rowsPerPageCount?: number
   rowsPerPageOptions?: number[]
-  showPageDetails?: boolean
 
-  // Search props
+  // search
   search?: boolean
 
-  // Order props
-  orderBy?: string
-  orderDirection?: OrderDirection
+  // sort
+  sortBy?: string
+  sortDirection?: SortDirection
 
-  // Row selection props
+  // rows & selection & click
+  rowKey: RowKeySelector<RowItem>
   selection?: boolean
-  selectionLimit?: number
   allowSelectAll?: boolean
+  selectionLimit?: number
 
-  // Click rows props
+  // appearance
   rowsClickable?: boolean
   selectOnRowClick?: boolean
-
-  // Scroll options
+  showPageDetails?: boolean
   scrollX?: boolean
   stickyHeader?: boolean
-
-  // Appearance props
   verticalBorders?: boolean
   striped?: boolean
-
-  // Other props
   numbering?: boolean
   actions?: boolean
 }
@@ -83,8 +75,8 @@ const props = withDefaults(defineProps<TableProps>(), {
   rowsPerPageOptions: () => [10, 25, 50, 100],
   showPageDetails: true,
   search: true,
-  orderBy: undefined,
-  orderDirection: undefined,
+  sortBy: undefined,
+  sortDirection: undefined,
   selection: false,
   selectionLimit: 1000,
   allowSelectAll: true,
@@ -99,18 +91,21 @@ const props = withDefaults(defineProps<TableProps>(), {
 })
 
 const emit = defineEmits<{
+  // core
   (e: 'update:page', page: number): void
   (e: 'update:rowsPerPageCount', perPage: number): void
   (e: 'update:searchQuery', query: string): void
   (e: 'update:selectedRowKeys', keys: RowKey[]): void
   (e: 'selectionChange', payload: SelectedKeysChangePayload): void
-  (e: 'rowClick', payload: RowClickPayload): void
 
-  // request events
+  // remote
   (e: 'requestStart', payload: RequestStartPayload): void
   (e: 'requestEnd', payload: RequestEndPayload): void
   (e: 'requestError', payload: RequestErrorPayload): void
   (e: 'requestSuccess', payload: RequestSuccessPayload): void
+
+  // interactivity
+  (e: 'rowClick', payload: RowClickPayload): void
 }>()
 
 const slots = useSlots()
@@ -119,16 +114,25 @@ const columnRegistry = useColumnRegistry<RowItem>()
 
 const core = useCore({
   columnRegistry,
-  getRowKey: () => props.rowKey,
-  getPagination: () => props.pagination,
-  getRowsPerPageCount: () => props.rowsPerPageCount,
-  getRowsPerPageOptions: () => props.rowsPerPageOptions ?? [],
-  getSearch: () => props.search,
-  getOrderBy: () => props.orderBy ?? null,
-  getOrderDirection: () => props.orderDirection ?? null,
-  getSelection: () => props.selection,
-  getSelectionLimit: () => props.selectionLimit,
-  getAllowSelectAll: () => props.allowSelectAll,
+  props: {
+    // pagination
+    isPaginationEnabled: () => props.pagination,
+    getRowsPerPageCount: () => props.rowsPerPageCount,
+    getRowsPerPageOptions: () => props.rowsPerPageOptions ?? [],
+
+    // search
+    isSearchEnabled: () => props.search,
+
+    // sort
+    getSortBy: () => props.sortBy ?? null,
+    getSortDirection: () => props.sortDirection ?? null,
+
+    // rows & selection
+    getRowKey: () => props.rowKey,
+    isSelectionEnabled: () => props.selection,
+    isSelectAllAllowed: () => props.allowSelectAll,
+    getSelectionLimit: () => props.selectionLimit,
+  },
   emit,
 })
 
@@ -145,16 +149,20 @@ const dataProvider = useDataProvider({
   emit,
 })
 
-const interactor = useInteractor({
+const controller = useController({
   columnRegistry,
   core,
-  data: dataProvider,
-  getRowKey: (item) => core.state.rowKeySelector(item),
+  dataProvider,
   props: {
-    getRowsClickable: () => props.rowsClickable,
-    getSelectOnRowClick: () => props.selectOnRowClick,
-    getSelectionEnabled: () => props.selection,
-    getAllowSelectAll: () => props.allowSelectAll,
+    isShowPageDetailsEnabled: () => props.showPageDetails,
+    isSelectOnRowClickEnabled: () => props.selectOnRowClick,
+    isRowsClickable: () => props.rowsClickable,
+    isScrollXEnabled: () => props.scrollX,
+    isStickyHeaderEnabled: () => props.stickyHeader,
+    isVerticalBordersEnabled: () => props.verticalBorders,
+    isStripedEnabled: () => props.striped,
+    isNumberingEnabled: () => props.numbering,
+    isActionsEnabled: () => props.actions,
   },
   emit,
 })
@@ -184,13 +192,7 @@ onUpdated(() => {
 
 <template>
   <div>
-    <root
-      :column-registry="columnRegistry"
-      :core="core"
-      :interactor="interactor"
-      :search-enabled="props.search"
-      :show-page-details="props.showPageDetails"
-    >
+    <root :controller="controller">
       <template #topLeftBeforeActions>
         <slot name="topLeftBeforeActions"></slot>
       </template>

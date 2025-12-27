@@ -11,7 +11,8 @@ const classObject = computed(() => ({
   'playground-highlight': isHighlight.value,
 }))
 
-const isShow = ref(false)
+const isShow = ref(true)
+const selectEnabled = ref(false)
 </script>
 
 <template>
@@ -37,8 +38,16 @@ const isShow = ref(false)
     <!--      <playground-toolbar />-->
     <!--    </div>-->
 
-    <div style="margin-bottom: 10px">
-      <button @click="isShow = !isShow">Click</button>
+    <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px">
+      <div>
+        <button @click="isShow = !isShow">Show test column [now: {{ isShow }}]</button>
+      </div>
+
+      <div>
+        <button @click="selectEnabled = !selectEnabled">
+          selection [now: {{ selectEnabled }}]
+        </button>
+      </div>
     </div>
 
     <div style="padding: 20px; background-color: lightblue">
@@ -48,6 +57,7 @@ const isShow = ref(false)
         :rows-per-page-count="5"
         :rows-per-page-options="[5, 10, 20]"
         :search="true"
+        :selection="selectEnabled"
         :source="DTSource.LOCAL"
       >
         <template #topLeftBeforeActions>before</template>
@@ -55,15 +65,16 @@ const isShow = ref(false)
         <template #topRight>right</template>
 
         <data-table-column
-          key="test"
-          field="name"
+          key="id"
+          field="id"
           orderable
           searchable
-          title="Name"
+          title="Id"
         />
         <data-table-column
           v-if="isShow"
-          field="test"
+          key="title"
+          field="Title"
           title="Name"
         />
       </data-table>

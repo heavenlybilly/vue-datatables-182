@@ -6,7 +6,7 @@ export interface TableColumnProps {
   field?: string
   value?: (row: unknown) => unknown
   searchable?: boolean
-  orderable?: boolean
+  sortable?: boolean
   width?: string
   textAlign?: TextAlign
   sticky?: Sticky

@@ -1,6 +1,5 @@
-import VueDatatables182 from '@/plugin'
-import DataTable from '@/core/DataTable.vue'
-import DataTableColumn from '@/features/columns-schema/DataTableColumn.vue'
-import '@/scss/index.scss'
+import DataTable from '@/components/DataTable.vue'
+import DataTableColumn from '@/components/DataTableColumn.vue'
+import VueDatatables182 from '@/components/plugin'
 
 export { DataTable, DataTableColumn, VueDatatables182 }
