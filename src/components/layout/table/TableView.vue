@@ -17,14 +17,23 @@ const gridLayout = computed(() => {
 const onHeaderCellClick = (column: ColumnDef<RowItem>) => {
   props.controller.handlers.sortClick(column.key)
 }
+
+const onSelectAllClick = () => {
+  props.controller.handlers.selectAllRows()
+}
 </script>
 
 <template>
   <div>
     <table-header
+      :all-visible-selected="props.controller.ui.allVisibleSelected.value"
       :grid-layout="gridLayout"
+      :has-selection="props.controller.ui.hasSelection.value"
+      :loading="props.controller.state.isLoading"
+      :select-all-allowed="props.controller.state.selectAllAllowed"
       :sort-indicators="controller.ui.sortIndicators.value"
       @cell-click="onHeaderCellClick"
+      @select-all-click="onSelectAllClick"
     />
 
     <div

@@ -15,8 +15,19 @@ export const normalizeSlotResult = (slotResult: SlotResult) => {
   })
 
   return filteredNodes.map((node, index) => {
+    const staticClass = node.data?.staticClass
     const tableColumnProps = node.componentOptions!.propsData as TableColumnProps
     let columnKey: ColumnKey
+
+    // @ts-ignore
+    if (tableColumnProps?.searchable === '') {
+      tableColumnProps.searchable = true
+    }
+
+    // @ts-ignore
+    if (tableColumnProps?.sortable === '') {
+      tableColumnProps.sortable = true
+    }
 
     if (node.key !== null && node.key !== undefined) {
       columnKey = String(node.key) as ColumnKey
@@ -30,6 +41,7 @@ export const normalizeSlotResult = (slotResult: SlotResult) => {
     return {
       node,
       columnKey,
+      staticClass,
       tableColumnProps,
     }
   })

@@ -1,12 +1,11 @@
 import { ref } from 'vue'
 import { TableProps } from '../DataTable.vue'
-import { Slots } from '../types'
+import { Slots, Sticky } from '../types'
 import { normalizeSlotResult } from './normalize-slot-result'
 import { ColumnDef, ColumnKey, ColumnKind, ColumnRegistry } from './types'
 
 const numberingColumnKey = '_internal:numbering' as ColumnKey
 const selectionColumnKey = '_internal:selection' as ColumnKey
-const actionsColumnKey = '_internal:actions' as ColumnKey
 
 export const useColumnRegistry = <RowItem>() => {
   const keysSnapshot = ref<ColumnKey[]>([])
@@ -25,7 +24,6 @@ export const useColumnRegistry = <RowItem>() => {
       ...(tableProps.numbering ? [numberingColumnKey] : []),
       ...(tableProps.selection ? [selectionColumnKey] : []),
       ...normalizedItems.map((x) => x.columnKey),
-      ...(tableProps.actions ? [actionsColumnKey] : []),
     ]
 
     const isChanged =
@@ -41,6 +39,8 @@ export const useColumnRegistry = <RowItem>() => {
     /**
      * Rebuild columns and meta.
      */
+    const leftStickyColumnsExist = columns.value.filter((column) => column.sticky === Sticky.LEFT)
+
     const columnKeys = new Set<string>()
 
     columns.value = []
@@ -52,6 +52,8 @@ export const useColumnRegistry = <RowItem>() => {
         key: fieldName,
         field: fieldName,
         kind: ColumnKind.NUMBERING,
+        width: '50px',
+        sticky: leftStickyColumnsExist ? Sticky.LEFT : undefined,
       })
 
       columnKeys.add(numberingColumnKey)
@@ -64,17 +66,15 @@ export const useColumnRegistry = <RowItem>() => {
         key: fieldName,
         field: fieldName,
         kind: ColumnKind.SELECTION,
+        width: '72px',
+        sticky: leftStickyColumnsExist ? Sticky.LEFT : undefined,
       })
 
       columnKeys.add(selectionColumnKey)
     }
 
-    if (tableProps.actions) {
-      columnKeys.add(actionsColumnKey)
-    }
-
     normalizedItems.forEach((item) => {
-      const { node, columnKey, tableColumnProps } = item
+      const { node, columnKey, tableColumnProps, staticClass } = item
 
       /**
        * todo: potential failure point
@@ -97,6 +97,7 @@ export const useColumnRegistry = <RowItem>() => {
         width: tableColumnProps.width,
         textAlign: tableColumnProps.textAlign,
         sticky: tableColumnProps.sticky,
+        className: staticClass,
         slots: {
           cell: cellSlot ? (ctx) => cellSlot(ctx) : undefined,
         },
@@ -104,16 +105,6 @@ export const useColumnRegistry = <RowItem>() => {
 
       columns.value.push(newColumn)
     })
-
-    if (tableProps.actions) {
-      const fieldName = actionsColumnKey
-
-      columns.value.push({
-        key: fieldName,
-        field: fieldName,
-        kind: ColumnKind.ACTIONS,
-      })
-    }
   }
 
   const findColumnByKey = (key: ColumnKey, kind?: ColumnKind) => {

@@ -13,7 +13,6 @@ export type ControllerProps = {
   isVerticalBordersEnabled(): boolean
   isStripedEnabled(): boolean
   isNumberingEnabled(): boolean
-  isActionsEnabled(): boolean
 }
 
 export interface ControllerOptions {
@@ -27,7 +26,7 @@ export interface ControllerOptions {
 }
 
 /**
- * Interactor
+ * Controller
  */
 export interface ControllerHandlers {
   searchInput(value: string): void
@@ -45,6 +44,9 @@ export interface ControllerHandlers {
 export interface ControllerUi {
   sortIndicators: ComputedRef<Record<ColumnKey, SortDirection | null>>
   canSelectAll: ComputedRef<boolean>
+  hasSelection: ComputedRef<boolean>
+  allVisibleSelected: ComputedRef<boolean>
+  isRowSelected(item: RowItem): boolean
 }
 
 export interface Controller {

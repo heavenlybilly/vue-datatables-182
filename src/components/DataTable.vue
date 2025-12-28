@@ -60,7 +60,6 @@ export type TableProps = {
   verticalBorders?: boolean
   striped?: boolean
   numbering?: boolean
-  actions?: boolean
 }
 
 const props = withDefaults(defineProps<TableProps>(), {
@@ -87,7 +86,6 @@ const props = withDefaults(defineProps<TableProps>(), {
   verticalBorders: false,
   striped: false,
   numbering: false,
-  actions: false,
 })
 
 const emit = defineEmits<{
@@ -162,7 +160,6 @@ const controller = useController({
     isVerticalBordersEnabled: () => props.verticalBorders,
     isStripedEnabled: () => props.striped,
     isNumberingEnabled: () => props.numbering,
-    isActionsEnabled: () => props.actions,
   },
   emit,
 })
@@ -203,10 +200,6 @@ onUpdated(() => {
 
       <template #topRight>
         <slot name="topRight"></slot>
-      </template>
-
-      <template #actions>
-        <slot name="actions"></slot>
       </template>
     </root>
 

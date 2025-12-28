@@ -24,13 +24,17 @@ const styleObject = computed(() => {
 })
 
 const classValue = computed(() => {
-  let value = ''
+  const value: string[] = []
 
   if (props.column.sortable) {
-    value += 'dt182-column-sortable'
+    value.push('dt182-column-sortable')
   }
 
-  return value
+  if (props.column.className) {
+    value.push(props.column.className)
+  }
+
+  return value.join(' ')
 })
 
 const sortIcon = computed(() => {

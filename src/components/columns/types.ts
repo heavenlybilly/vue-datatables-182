@@ -7,7 +7,6 @@ export const ColumnKind = {
   DATA: 'data',
   SELECTION: 'selection',
   NUMBERING: 'numbering',
-  ACTIONS: 'actions',
 } as const
 export type ColumnKind = ValueOf<typeof ColumnKind>
 
@@ -65,6 +64,11 @@ export interface ColumnDef<RowItem> {
    * Makes column sticky (left / right).
    */
   sticky?: Sticky
+
+  /**
+   * CSS class name for the column.
+   */
+  className?: string
 
   /**
    * Slot renderers for column content.

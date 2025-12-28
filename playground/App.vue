@@ -13,6 +13,7 @@ const classObject = computed(() => ({
 
 const isShow = ref(true)
 const selectEnabled = ref(false)
+const numberingEnabled = ref(false)
 </script>
 
 <template>
@@ -48,11 +49,18 @@ const selectEnabled = ref(false)
           selection [now: {{ selectEnabled }}]
         </button>
       </div>
+
+      <div>
+        <button @click="numberingEnabled = !numberingEnabled">
+          numbering [now: {{ numberingEnabled }}]
+        </button>
+      </div>
     </div>
 
     <div style="padding: 20px; background-color: lightblue">
       <data-table
         :items="books"
+        :numbering="numberingEnabled"
         row-key="id"
         :rows-per-page-count="5"
         :rows-per-page-options="[5, 10, 20]"
@@ -72,9 +80,10 @@ const selectEnabled = ref(false)
         />
         <data-table-column
           key="title"
+          class="bg-red"
           field="title"
-          :searchable="true"
-          :sortable="true"
+          searchable
+          sortable
           title="Title"
         />
         <data-table-column
@@ -148,5 +157,9 @@ const selectEnabled = ref(false)
   flex: 1;
   height: calc(100vh - 128px);
   max-height: calc(100vh - 128px);
+}
+
+.bg-red {
+  background-color: red;
 }
 </style>

@@ -78,6 +78,39 @@ export const useCore = (options: CoreOptions) => {
       ...tableData.value,
       ...value,
     }
+
+    if (!selectionEnabled.value || !('items' in value)) {
+      return
+    }
+
+    const items = value.items ?? []
+    const existingKeysInItems = new Set(items.map((i) => rowKeySelector.value(i)))
+
+    const prevKeys = selectedRowKeys.value
+    const keptKeys = prevKeys.filter((key) => existingKeysInItems.has(key))
+
+    if (keptKeys.length === prevKeys.length) {
+      return
+    }
+
+    selectedRowKeys.value = keptKeys
+    emit('update:selectedRowKeys', keptKeys)
+
+    const keptSet = new Set(keptKeys)
+    const keptItems = items.filter((item) => keptSet.has(rowKeySelector.value(item)))
+
+    emit('selectionChange', { keys: keptKeys, items: keptItems })
+  }
+
+  // clear selection
+  const clearSelection = () => {
+    if (!selectedRowKeys.value.length || !selectionEnabled.value) {
+      return
+    }
+
+    selectedRowKeys.value = []
+    emit('update:selectedRowKeys', [])
+    emit('selectionChange', { keys: [], items: [] })
   }
 
   // pagination
@@ -91,6 +124,7 @@ export const useCore = (options: CoreOptions) => {
     if (newValue !== page.value) {
       page.value = newValue
       emit('update:page', newValue)
+      clearSelection()
     }
   }
 
@@ -106,6 +140,7 @@ export const useCore = (options: CoreOptions) => {
       page.value = 1
       emit('update:rowsPerPageCount', newValue)
       emit('update:page', 1)
+      clearSelection()
     }
   }
 
@@ -124,6 +159,7 @@ export const useCore = (options: CoreOptions) => {
       if (paginationEnabled.value) {
         page.value = 1
         emit('update:page', 1)
+        clearSelection()
       }
     }
   }
@@ -135,6 +171,7 @@ export const useCore = (options: CoreOptions) => {
     if (paginationEnabled.value) {
       page.value = 1
       emit('update:page', 1)
+      clearSelection()
     }
   }
 
@@ -170,16 +207,6 @@ export const useCore = (options: CoreOptions) => {
     const selectedItems = tableData.value.items.filter((i) => set.has(rowKeySelector.value(i)))
 
     emit('selectionChange', { keys: next, items: selectedItems })
-  }
-
-  const clearSelection = () => {
-    if (!selectedRowKeys.value.length || !selectionEnabled.value) {
-      return
-    }
-
-    selectedRowKeys.value = []
-    emit('update:selectedRowKeys', [])
-    emit('selectionChange', { keys: [], items: [] })
   }
 
   const selectAllRows = () => {

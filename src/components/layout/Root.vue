@@ -40,11 +40,7 @@ const handlers = computed(() => props.controller.handlers)
       </template>
     </toolbar>
 
-    <table-view :controller="controller">
-      <template #actions>
-        <slot name="actions"></slot>
-      </template>
-    </table-view>
+    <table-view :controller="controller" />
 
     <pagination>
       <template #bottomLeft>

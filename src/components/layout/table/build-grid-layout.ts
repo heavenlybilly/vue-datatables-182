@@ -43,6 +43,8 @@ export const buildGridLayout = <RowItem>(
     })
     .join(' ')
 
+  console.log(gridTemplateColumns)
+
   const stickyOffsets: StickyOffsets = {}
 
   // left offset

@@ -19,6 +19,40 @@ export const useController = (options: ControllerOptions) => {
   }
 
   /**
+   * Ui
+   */
+  const sortIndicators = computed(() => {
+    const result: Record<ColumnKey, SortDirection | null> = {}
+    const { by, direction } = options.core.state.sort
+
+    options.columnRegistry.columns.forEach((column) => {
+      result[column.key] = column.key === by ? direction : null
+    })
+
+    return result
+  })
+
+  const canSelectAll = computed(() => {
+    return options.core.state.selectionEnabled && options.core.state.selectAllAllowed
+  })
+
+  const hasSelection = computed(() => {
+    return !!options.core.state.selectedRowKeys.length
+  })
+
+  const allVisibleSelected = computed(() => {
+    return options.core.state.selectedRowKeys.length === options.core.state.tableData.items.length
+  })
+
+  const selectedKeysSet = computed(() => {
+    return new Set(options.core.state.selectedRowKeys)
+  })
+
+  const isRowSelected = (item: RowItem) => {
+    return selectedKeysSet.value.has(options.core.state.rowKeySelector(item))
+  }
+
+  /**
    * Handlers
    */
   const searchInput = (value: string) => {
@@ -80,26 +114,13 @@ export const useController = (options: ControllerOptions) => {
   }
 
   const selectAllRows = () => {
+    if (allVisibleSelected.value) {
+      options.core.clearSelection()
+      return
+    }
+
     options.core.selectAllRows()
   }
-
-  /**
-   * Ui
-   */
-  const sortIndicators = computed(() => {
-    const result: Record<ColumnKey, SortDirection | null> = {}
-    const { by, direction } = options.core.state.sort
-
-    options.columnRegistry.columns.forEach((column) => {
-      result[column.key] = column.key === by ? direction : null
-    })
-
-    return result
-  })
-
-  const canSelectAll = computed(() => {
-    return options.core.state.selectionEnabled && options.core.state.selectAllAllowed
-  })
 
   const interactor: Controller = {
     get state() {
@@ -124,6 +145,9 @@ export const useController = (options: ControllerOptions) => {
     ui: {
       sortIndicators,
       canSelectAll,
+      hasSelection,
+      allVisibleSelected,
+      isRowSelected,
     },
   }
 
