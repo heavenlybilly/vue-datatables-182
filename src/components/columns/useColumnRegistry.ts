@@ -66,7 +66,7 @@ export const useColumnRegistry = <RowItem>() => {
         key: fieldName,
         field: fieldName,
         kind: ColumnKind.SELECTION,
-        width: '72px',
+        width: '42px',
         sticky: leftStickyColumnsExist ? Sticky.LEFT : undefined,
       })
 

@@ -10,6 +10,8 @@ export const ColumnKind = {
 } as const
 export type ColumnKind = ValueOf<typeof ColumnKind>
 
+export type ColumnCellSlot<RowItem> = (ctx: { item: RowItem }) => any
+
 export interface ColumnDef<RowItem> {
   /**
    * Unique column identifier.
@@ -77,13 +79,7 @@ export interface ColumnDef<RowItem> {
     /**
      * Renders a single cell.
      */
-    cell?: (ctx: {
-      row: RowItem
-      column: ColumnDef<RowItem>
-      value: unknown
-      index: number
-      rowKey: RowKey
-    }) => any
+    cell?: ColumnCellSlot<RowItem>
   }
 }
 

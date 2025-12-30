@@ -1,61 +1,17 @@
 <script setup lang="ts">
-import CellSelection from '@/components/layout/table/header/CellSelection.vue'
-import { ColumnDef, ColumnKey, ColumnKind } from '../../../columns/types'
-import { RowItem, SortDirection } from '../../../types'
-import { GridLayout } from '../build-grid-layout'
-import CellData from './CellData.vue'
-import CellNumbering from './CellNumbering.vue'
+import { GridLayoutStyle } from '../build-grid-layout'
 
 const props = defineProps<{
-  loading: boolean
-  selectAllAllowed: boolean
-  hasSelection: boolean
-  allVisibleSelected: boolean
-  gridLayout: GridLayout<RowItem>
-  sortIndicators: Record<ColumnKey, SortDirection | null>
+  gridStyle: GridLayoutStyle
 }>()
-
-const emit = defineEmits<{
-  (e: 'cell-click', column: ColumnDef<RowItem>): void
-  (e: 'select-all-click'): void
-}>()
-
-const onCellClick = (column: ColumnDef<RowItem>) => {
-  emit('cell-click', column)
-}
-
-const onSelectAllClick = () => {
-  emit('select-all-click')
-}
 </script>
 
 <template>
   <div
     class="dt182-head"
-    :style="props.gridLayout.gridStyle"
+    :style="props.gridStyle"
   >
-    <template v-for="column of props.gridLayout.orderedColumns">
-      <cell-data
-        v-if="column.kind === ColumnKind.DATA"
-        :key="column.key"
-        :column="column"
-        :sort-indicator="props.sortIndicators[column.key]"
-        @click="onCellClick"
-      />
-      <cell-numbering
-        v-else-if="column.kind === ColumnKind.NUMBERING"
-        :key="column.key"
-      />
-      <cell-selection
-        v-else-if="column.kind === ColumnKind.SELECTION"
-        :key="column.key"
-        :all-visible-selected="props.allVisibleSelected"
-        :has-selection="props.hasSelection"
-        :loading="props.loading"
-        :select-all-allowed="props.selectAllAllowed"
-        @click="onSelectAllClick"
-      />
-    </template>
+    <slot></slot>
   </div>
 </template>
 

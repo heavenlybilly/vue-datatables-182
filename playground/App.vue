@@ -57,16 +57,19 @@ const numberingEnabled = ref(false)
       </div>
     </div>
 
-    <div style="padding: 20px; background-color: lightblue">
+    <div style="padding: 20px; background-color: white">
       <data-table
         :items="books"
         :numbering="numberingEnabled"
         row-key="id"
+        rows-clickable
         :rows-per-page-count="5"
         :rows-per-page-options="[5, 10, 20]"
         :search="true"
+        select-on-row-click
         :selection="selectEnabled"
         :source="DTSource.LOCAL"
+        vertical-borders
       >
         <template #topLeftBeforeActions>before</template>
         <template #topLeftAfterActions>after</template>
@@ -75,7 +78,6 @@ const numberingEnabled = ref(false)
         <data-table-column
           key="id"
           field="id"
-          :sortable="true"
           title="Id"
         />
         <data-table-column
@@ -87,6 +89,16 @@ const numberingEnabled = ref(false)
           title="Title"
         />
         <data-table-column
+          field="genres"
+          title="Genres"
+        >
+          <template #cell="{ item }">
+            <div>
+              {{ item.genres }}
+            </div>
+          </template>
+        </data-table-column>
+        <data-table-column
           field="author"
           title="Author"
         />
@@ -94,7 +106,10 @@ const numberingEnabled = ref(false)
           v-if="isShow"
           key="price"
           field="price"
+          sortable
+          text-align="center"
           title="Price"
+          width="120px"
         />
       </data-table>
     </div>

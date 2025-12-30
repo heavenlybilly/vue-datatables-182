@@ -28,7 +28,7 @@ const onClick = () => {
 </script>
 
 <template>
-  <th class="dt182-column-selection">
+  <div class="dt182-column-selection">
     <div class="dt182-column-selection-inner">
       <checkbox-element
         v-if="props.selectAllAllowed"
@@ -37,16 +37,13 @@ const onClick = () => {
         @click="onClick"
       />
     </div>
-  </th>
+  </div>
 </template>
 
 <style lang="scss">
 @use '../../vars';
 
 .dt182-column-selection {
-  width: 42px;
-  min-width: 42px;
-  max-width: 42px;
   padding-right: 0;
   padding-left: 0;
   vertical-align: middle;
@@ -57,6 +54,7 @@ const onClick = () => {
     align-items: center;
     justify-content: center;
     width: 100%;
+    height: 100%;
   }
 }
 </style>

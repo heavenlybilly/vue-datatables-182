@@ -3,13 +3,15 @@ import { Sticky } from '../../types'
 
 type StickyOffsets = Partial<Record<ColumnKey, { left?: string; right?: string }>>
 
+export type GridLayoutStyle = {
+  display: 'grid'
+  gridTemplateColumns: string
+}
+
 export type GridLayout<RowItem> = {
   stickyOffsets: StickyOffsets
   orderedColumns: ColumnDef<RowItem>[]
-  gridStyle: {
-    display: 'grid'
-    gridTemplateColumns: string
-  }
+  gridStyle: GridLayoutStyle
 }
 
 const calcSum = (parts: string[]) => {
@@ -42,8 +44,6 @@ export const buildGridLayout = <RowItem>(
       return column.width && column.width.trim() ? column.width.trim() : noWidthTrack
     })
     .join(' ')
-
-  console.log(gridTemplateColumns)
 
   const stickyOffsets: StickyOffsets = {}
 
