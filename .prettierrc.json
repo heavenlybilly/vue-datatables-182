@@ -10,16 +10,8 @@
     "<THIRD_PARTY_MODULES>",
     "^@/types",
     "^@/logger",
-    "^@/errors",
-    "^@/utils",
-    "^@/plugin",
-    "^@/core",
-    "^@/context",
-    "^@/features",
-    "^@/components",
     "^@/assets",
-    "^@/scss",
-    "^@/playground",
+    "^@/components",
     "^[./]"
   ],
   "importOrderSortSpecifiers": true

@@ -1,13 +1,13 @@
 import { computed } from 'vue'
 import { useFieldsState } from '~/composables/useFieldsState'
-import { useTableRendering } from '~/composables/useTableRendering'
-import { useTableStore } from '~/store/useTableStore'
+import { useStore } from '~/store'
 import { FieldDef, TableItem } from '~/types'
+import { useTableRendering } from '~/useTableRendering'
 import { Logger } from '~/utils/logger'
 import { DTSource } from '@/types'
 
 export const useTableFields = () => {
-  const tableStore = useTableStore()
+  const tableStore = useStore()
   const { reRender } = useTableRendering()
   const { retrieveFieldsState, storeFieldsState } = useFieldsState()
 

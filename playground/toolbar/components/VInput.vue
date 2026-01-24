@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-  value?: string | null
+  value?: string
   label?: string
   disabled?: boolean
 }>()

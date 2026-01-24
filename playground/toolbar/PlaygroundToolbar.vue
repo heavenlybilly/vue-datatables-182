@@ -1,25 +1,18 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { usePersistentState } from '~/composables/usePersistentState'
-import { useTableRendering } from '~/composables/useTableRendering'
-import { useTableSource } from '~/composables/useTableSource'
+import { toolbarControls } from '~/toolbar-controls'
 import ExpandBtn from '~/toolbar/ExpandBtn.vue'
 import ReRenderBtn from '~/toolbar/ReRenderBtn.vue'
-import AppearanceGroup from '~/toolbar/groups/AppearanceGroup.vue'
-import FieldsGroup from '~/toolbar/groups/FieldsGroup.vue'
-import ItemsGroup from '~/toolbar/groups/ItemsGroup.vue'
-import OtherParamsGroup from '~/toolbar/groups/OtherParamsGroup.vue'
-import PaginationGroup from '~/toolbar/groups/PaginationGroup.vue'
-import SortGroup from '~/toolbar/groups/SortGroup.vue'
-import SourceGroup from '~/toolbar/groups/SourceGroup.vue'
-import UrlGroup from '~/toolbar/groups/UrlGroup.vue'
+import ToolbarGroup from '~/toolbar/ToolbarGroup.vue'
+import { useTableParams } from '~/toolbar/useTableParams'
 import { ToolbarState } from '~/types'
+import { usePersistentState } from '~/usePersistentState'
+import { useTableRendering } from '~/useTableRendering'
 import { Logger } from '~/utils/logger'
-import { DTSource } from '@/types'
 
 const toolbarState = ref<ToolbarState>('collapsed')
 
-const { source } = useTableSource()
+const { tableParams, setTableParams } = useTableParams()
 const { reRender } = useTableRendering()
 usePersistentState('playground-toolbar-state', { toolbarState })
 
@@ -35,6 +28,12 @@ const classObject = computed(() => ({
 const handleReRender = (): void => {
   Logger.trigger('rendering', 're-render button click')
   reRender()
+}
+
+const handleControlInput = (payload: { name: string; value: unknown }) => {
+  setTableParams({
+    [payload.name]: payload.value,
+  })
 }
 </script>
 
@@ -61,42 +60,16 @@ const handleReRender = (): void => {
       v-show="isExpanded"
       class="playground-toolbar-content"
     >
-      <div class="playground-toolbar-group">
-        <source-group />
-      </div>
-
       <div
-        v-show="source === DTSource.LOCAL"
-        class="playground-toolbar-group"
+        v-for="(group, index) of toolbarControls"
+        :key="index"
+        class="playground-toolbar-group-wrapper"
       >
-        <items-group />
-      </div>
-
-      <div
-        v-show="source === DTSource.REMOTE"
-        class="playground-toolbar-group"
-      >
-        <url-group />
-      </div>
-
-      <div class="playground-toolbar-group">
-        <fields-group />
-      </div>
-
-      <div class="playground-toolbar-group">
-        <other-params-group />
-      </div>
-
-      <div class="playground-toolbar-group">
-        <pagination-group />
-      </div>
-
-      <div class="playground-toolbar-group">
-        <sort-group />
-      </div>
-
-      <div class="playground-toolbar-group">
-        <appearance-group />
+        <toolbar-group
+          :group="group"
+          :table-params="tableParams"
+          @input="handleControlInput"
+        />
       </div>
     </div>
   </div>
@@ -107,9 +80,6 @@ const handleReRender = (): void => {
   display: flex;
   flex-direction: column;
   position: relative;
-  padding: 30px 15px;
-  border-radius: 10px;
-  background-color: #fff;
   min-height: 100%;
   width: 62px;
   min-width: 62px;
@@ -153,7 +123,7 @@ const handleReRender = (): void => {
   overflow-y: auto;
 }
 
-.playground-toolbar-group {
+.playground-toolbar-group-wrapper {
   & + & {
     margin-top: 15px;
     padding-top: 15px;

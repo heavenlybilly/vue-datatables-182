@@ -1,5 +1,4 @@
 @use "reset.css";
-@use "@/scss/index";
 @use '@fortawesome/fontawesome-free/css/all.min.css';
 
 *,
@@ -22,5 +21,4 @@ body {
   font-size: 0.84rem;
   font-family: Rubic, sans-serif;
   font-style: normal;
-  font-optical-sizing: auto;
 }

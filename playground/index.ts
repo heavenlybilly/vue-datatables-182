@@ -2,6 +2,7 @@
 import { PiniaVuePlugin, createPinia } from 'pinia'
 import Vue from 'vue'
 import App from '~/App.vue'
+import './style/index.scss'
 
 const pinia = createPinia()
 

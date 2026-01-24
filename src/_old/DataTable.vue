@@ -1,25 +1,15 @@
 <script setup lang="ts">
+import { props as tableProps } from '@/core/props'
 import { onMounted, ref, watch } from 'vue'
 import { DTOrder, DTRow, DTTableData } from '@/types'
-import debounce from '@/utils/debounce'
-import { props as tableProps, validateTableProps } from '@/core/props'
-import { useRowsSelection } from '@/core/rows-selection/useRowsSelection'
-import { retrieveTableData } from '@/core/table-data/retrieveTableData'
-import { useErrorHandling } from '@/core/useErrorHandling'
 import { provideLoadingContext } from '@/context'
-import { useColumnsSchema } from '@/features/columns-schema/useColumnsSchema'
+import debounce from '@/utils/debounce'
 import TableBody from '@/components/body/TableBody.vue'
 import TableBodyLoader from '@/components/body/TableBodyLoader.vue'
 import TableRow from '@/components/body/TableRow.vue'
-import TableBottom from '@/components/bottom/TableBottom.vue'
 import TableContent from '@/components/content/TableContent.vue'
 import TableHead from '@/components/head/TableHead.vue'
-import PageDetails from '@/components/page-details/PageDetails.vue'
-import PaginationControl from '@/components/pagination/PaginationControl.vue'
-import PerPageControl from '@/components/per-page-control/PerPageControl.vue'
 import NoDataPlug from '@/components/plugs/NoDataPlug.vue'
-import TableSearch from '@/components/search/TableSearch.vue'
-import TableTop from '@/components/top/TableTop.vue'
 
 const props = defineProps(tableProps)
 const emit = defineEmits(['update:selected-rows', 'row-click', 'loading-start', 'loading-end'])
@@ -31,75 +21,6 @@ const page = ref<number>(1)
 const rowsPerPage = ref<number>(0)
 const order = ref<DTOrder | null>(null)
 const tableData = ref<DTTableData | null>(null)
-
-const { handleError } = useErrorHandling()
-const { columns, initColumns } = useColumnsSchema()
-const {
-  selectedRowIndexes,
-  selectedRows,
-  isSelectedAll,
-  selectRow,
-  deselectRow,
-  selectAll,
-  clearSelection,
-} = useRowsSelection(tableData)
-
-const init = async () => {
-  try {
-    validateTableProps(props)
-
-    initColumns()
-
-    rowsPerPage.value = props.rowsPerPageCount
-
-    if (props.orderBy) {
-      order.value = {
-        column: props.orderBy,
-        direction: props.orderDirection,
-      }
-    }
-  } catch (e) {
-    handleError(e)
-  }
-}
-
-const handleSearchInput = (value: string) => {
-  search.value = value
-  page.value = 1
-  clearSelection()
-}
-
-const handleRowsPerPageInput = (value: number) => {
-  rowsPerPage.value = value
-  page.value = 1
-  clearSelection()
-}
-
-const handlePageInput = (value: number) => {
-  page.value = value
-  clearSelection()
-}
-
-const handleOrderUpdate = (value: DTOrder) => {
-  order.value = value
-  clearSelection()
-}
-
-const handleSelectAll = () => {
-  selectAll()
-}
-
-const handleDeselectAll = () => {
-  clearSelection()
-}
-
-const handleSelectRow = (index: number) => {
-  selectRow(index)
-}
-
-const handleDeselectRow = (index: number) => {
-  deselectRow(index)
-}
 
 const handleClickRow = (row: DTRow) => {
   emit('row-click', row)
@@ -171,25 +92,6 @@ watch(
 
 <template>
   <div class="vue-datatables-182">
-    <table-top>
-      <template #topLeftBeforeActions>
-        <slot name="topLeftBeforeActions" />
-      </template>
-      <template #topSearch>
-        <table-search
-          v-if="props.searching"
-          :value="search"
-          @input="handleSearchInput"
-        />
-      </template>
-      <template #topLeftAfterActions>
-        <slot name="topLeftAfterActions" />
-      </template>
-      <template #topRight>
-        <slot name="topRight" />
-      </template>
-    </table-top>
-
     <table-content :scroll-x="props.scrollX">
       <table-head
         :actions="actions"
@@ -242,35 +144,5 @@ watch(
       />
     </table-content>
     <no-data-plug v-if="tableData && tableData.filtered === 0" />
-
-    <table-bottom>
-      <template #bottomLeft>
-        <per-page-control
-          v-if="props.pagination"
-          :rows-per-page-options="rowsPerPageOptions"
-          :value="rowsPerPage"
-          @input="handleRowsPerPageInput"
-        />
-        <page-details
-          v-if="tableData && props.showRangeInfo"
-          :count-items="tableData.rows.length"
-          :filtered="tableData.filtered"
-          :page="page"
-          :rows-per-page="rowsPerPage"
-          :total="tableData.total"
-        />
-      </template>
-      <template #bottomRight>
-        <pagination-control
-          v-if="tableData && props.pagination"
-          :filtered="tableData.filtered"
-          :page="page"
-          :rows-per-page="rowsPerPage"
-          @input="handlePageInput"
-        />
-      </template>
-    </table-bottom>
-
-    <slot></slot>
   </div>
 </template>

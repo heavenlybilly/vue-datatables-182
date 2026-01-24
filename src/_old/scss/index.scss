@@ -2,14 +2,14 @@
 @use "vars";
 @use "top";
 @use "search";
-@use "content";
+@use "content/index";
 @use "head";
 @use "body";
 @use "bottom";
 @use "pagination";
 @use "per-page-control";
 @use "page-details";
-@use "plugs";
+@use "plugs/index";
 @use "utils";
 
 .vue-datatables-182 {

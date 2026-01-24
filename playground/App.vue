@@ -1,19 +1,17 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { books } from '~/mocks'
-import { DTSource } from '@/types'
-import DataTable from '../src/components/DataTable.vue'
-import DataTableColumn from '../src/components/DataTableColumn.vue'
+import PlaygroundTable from '~/table/PlaygroundTable.vue'
+import PlaygroundToolbar from '~/toolbar/PlaygroundToolbar.vue'
+import VCheckbox from '~/toolbar/components/VCheckbox.vue'
+import { usePersistentState } from '~/usePersistentState'
 
 const isHighlight = ref(false)
+
+usePersistentState('playground-is-highlight', isHighlight)
 
 const classObject = computed(() => ({
   'playground-highlight': isHighlight.value,
 }))
-
-const isShow = ref(true)
-const selectEnabled = ref(false)
-const numberingEnabled = ref(false)
 </script>
 
 <template>
@@ -21,97 +19,24 @@ const numberingEnabled = ref(false)
     class="playground-wrapper"
     :class="classObject"
   >
-    <!--    <div class="playground-header">-->
-    <!--      <div class="playground-title">Playground</div>-->
-    <!--      <div>-->
-    <!--        <v-checkbox-->
-    <!--          v-model="isHighlight"-->
-    <!--          label="highlight"-->
-    <!--        />-->
-    <!--      </div>-->
-    <!--    </div>-->
-
-    <!--    <div class="playground-content">-->
-    <!--      <div class="playground-table-wrapper">-->
-    <!--        <playground-table />-->
-    <!--      </div>-->
-
-    <!--      <playground-toolbar />-->
-    <!--    </div>-->
-
-    <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px">
+    <div class="playground-header">
+      <div class="playground-title">Vue Datatables 182</div>
       <div>
-        <button @click="isShow = !isShow">Show test column [now: {{ isShow }}]</button>
-      </div>
-
-      <div>
-        <button @click="selectEnabled = !selectEnabled">
-          selection [now: {{ selectEnabled }}]
-        </button>
-      </div>
-
-      <div>
-        <button @click="numberingEnabled = !numberingEnabled">
-          numbering [now: {{ numberingEnabled }}]
-        </button>
+        <v-checkbox
+          v-model="isHighlight"
+          label="highlight"
+        />
       </div>
     </div>
 
-    <div style="padding: 20px; background-color: white">
-      <data-table
-        :items="books"
-        :numbering="numberingEnabled"
-        row-key="id"
-        rows-clickable
-        :rows-per-page-count="5"
-        :rows-per-page-options="[5, 10, 20]"
-        :search="true"
-        select-on-row-click
-        :selection="selectEnabled"
-        :source="DTSource.LOCAL"
-        vertical-borders
-      >
-        <template #topLeftBeforeActions>before</template>
-        <template #topLeftAfterActions>after</template>
-        <template #topRight>right</template>
+    <div class="playground-content">
+      <div class="playground-table-wrapper">
+        <playground-table />
+      </div>
 
-        <data-table-column
-          key="id"
-          field="id"
-          title="Id"
-        />
-        <data-table-column
-          key="title"
-          class="bg-red"
-          field="title"
-          searchable
-          sortable
-          title="Title"
-        />
-        <data-table-column
-          field="genres"
-          title="Genres"
-        >
-          <template #cell="{ item }">
-            <div>
-              {{ item.genres }}
-            </div>
-          </template>
-        </data-table-column>
-        <data-table-column
-          field="author"
-          title="Author"
-        />
-        <data-table-column
-          v-if="isShow"
-          key="price"
-          field="price"
-          sortable
-          text-align="center"
-          title="Price"
-          width="120px"
-        />
-      </data-table>
+      <div class="playground-toolbar-wrapper">
+        <playground-toolbar />
+      </div>
     </div>
   </div>
 </template>
@@ -162,6 +87,8 @@ const numberingEnabled = ref(false)
   display: flex;
   gap: 15px;
   min-width: 0;
+  height: calc(100vh - 128px);
+  max-height: calc(100vh - 128px);
 }
 
 .playground-table-wrapper {
@@ -170,11 +97,12 @@ const numberingEnabled = ref(false)
   background-color: #fff;
   overflow: hidden;
   flex: 1;
-  height: calc(100vh - 128px);
-  max-height: calc(100vh - 128px);
 }
 
-.bg-red {
-  background-color: red;
+.playground-toolbar-wrapper {
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #fff;
+  overflow-y: scroll;
 }
 </style>

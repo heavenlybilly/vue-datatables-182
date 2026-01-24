@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-  value: boolean
+  value?: boolean
   label?: string
 }>()
 

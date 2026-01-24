@@ -1,11 +1,11 @@
-import { DTMethod, DTOrderDirection, DTTextAlign } from '@/types'
+type ValueOf<T> = T[keyof T]
 
 export const ToolbarState = {
   COLLAPSED: 'collapsed',
   EXPANDED: 'expanded',
   FULL_EXPANDED: 'full_expanded',
 } as const
-export type ToolbarState = (typeof ToolbarState)[keyof typeof ToolbarState]
+export type ToolbarState = ValueOf<typeof ToolbarState>
 
 export type TableItem = Record<string, any>
 
@@ -16,30 +16,65 @@ export type FieldDef = {
   searchable: boolean
   orderable: boolean
   width?: string
-  textAlign?: DTTextAlign
+  textAlign?: string
   cellSlot?: string
 }
 
-export type ToolbarTableParams = {
-  url: string | null
-  method: DTMethod
-  items: TableItem[]
-  paginationEnabled: boolean
-  rowPerPageOptionsRaw: string
-  rowsPerPage: number
-  showRangeInfo: boolean
-  orderBy: string | null
-  orderDirection: DTOrderDirection
-  searching: boolean
-  actions: boolean
-  numbering: boolean
-  rowSelection: boolean
-  disallowSelectAll: boolean
-  rowsClickable: boolean
-  selectOnRowClick: boolean
-  scrollX: boolean
-  fixedColumnsStart: number
-  fixedColumnsEnd: number
-  stickyHeader: boolean
-  verticalBorders: boolean
+/**
+ * Toolbar
+ */
+export const ControlType = {
+  STRING: 'string',
+  NUMBER: 'number',
+  SWITCHER: 'switcher',
+  CODE: 'code',
+  SELECT: 'select',
+} as const
+export type ControlType = ValueOf<typeof ControlType>
+
+type ControlParamsMap = {
+  [ControlType.STRING]: {
+    defaultValue?: string
+    normalizer?: (value?: string) => unknown
+  }
+  [ControlType.NUMBER]: {
+    defaultValue?: number
+    normalizer?: (value?: string) => unknown
+  }
+  [ControlType.SWITCHER]: {
+    defaultValue?: boolean
+    normalizer?: (value?: boolean) => unknown
+  }
+  [ControlType.CODE]: {
+    defaultValue?: string
+    normalizer?: (value?: string) => unknown
+  }
+  [ControlType.SELECT]: {
+    defaultValue?: string
+    normalizer?: (value?: string) => unknown
+  }
+}
+
+type ControlPropsMap = {
+  [ControlType.STRING]: Record<string, never>
+  [ControlType.NUMBER]: Record<string, never>
+  [ControlType.SWITCHER]: Record<string, never>
+  [ControlType.CODE]: Record<string, never>
+  [ControlType.SELECT]: {
+    options: string[]
+  }
+}
+
+export type ToolbarControl<Type extends ControlType = ControlType> = {
+  type: Type
+  name: string
+  params?: ControlParamsMap[Type]
+  props?: ControlPropsMap[Type]
+  required?: boolean
+  hidden?: boolean
+}
+
+export type ToolbarGroup = {
+  title: string
+  controls: ToolbarControl[]
 }

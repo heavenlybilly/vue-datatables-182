@@ -29,10 +29,10 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.vue",
-    "src/declare-types/index.d.ts",
+    "src/types/index.d.ts",
     "src/shims-vue.d.ts",
     "src/svg.d.ts",
     "playground/**/*.ts",
-    "playground/**/*.vue",
+    "playground/**/*.vue"
   ],
 }

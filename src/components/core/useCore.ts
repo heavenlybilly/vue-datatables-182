@@ -255,7 +255,9 @@ export const useCore = (options: CoreOptions) => {
         rowsPerPageCount.value = Math.max(1, fallback)
       } else if (props.getRowsPerPageCount() > 0) {
         if (!opts.includes(props.getRowsPerPageCount())) {
-          Logger.warn(`prop 'rowsPerPageCount' is not present in prop 'rowsPerPageOptions'`)
+          Logger.warn(
+            `prop 'rowsPerPageCount' (value is ${props.getRowsPerPageCount()}) is not present in prop 'rowsPerPageOptions'`,
+          )
           rowsPerPageOptions.value.push(props.getRowsPerPageCount())
           rowsPerPageCount.value = props.getRowsPerPageCount()
         } else {
