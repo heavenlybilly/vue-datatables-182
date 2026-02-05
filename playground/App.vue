@@ -1,108 +1,68 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import PlaygroundTable from '~/table/PlaygroundTable.vue'
-import PlaygroundToolbar from '~/toolbar/PlaygroundToolbar.vue'
-import VCheckbox from '~/toolbar/components/VCheckbox.vue'
-import { usePersistentState } from '~/usePersistentState'
+import PlaygroundHeader from '~/core/header/PlaygroundHeader.vue'
+import { useHeader } from '~/core/header/useHeader'
+import PlaygroundParams from '~/core/params/PlaygroundParams.vue'
+import PlaygroundTable from '~/core/table/PlaygroundTable.vue'
 
-const isHighlight = ref(false)
-
-usePersistentState('playground-is-highlight', isHighlight)
-
-const classObject = computed(() => ({
-  'playground-highlight': isHighlight.value,
-}))
+const { headerStyleObject, bodyStyleObject, tableStyleObject, showTableParams } = useHeader()
 </script>
 
 <template>
   <div
     class="playground-wrapper"
-    :class="classObject"
+    :style="bodyStyleObject"
   >
-    <div class="playground-header">
-      <div class="playground-title">Vue Datatables 182</div>
-      <div>
-        <v-checkbox
-          v-model="isHighlight"
-          label="highlight"
-        />
-      </div>
+    <div
+      class="playground-header"
+      :style="headerStyleObject"
+    >
+      <playground-header />
     </div>
 
-    <div class="playground-content">
-      <div class="playground-table-wrapper">
-        <playground-table />
-      </div>
+    <div
+      class="playground-table"
+      :style="tableStyleObject"
+    >
+      <playground-table />
+    </div>
 
-      <div class="playground-toolbar-wrapper">
-        <playground-toolbar />
-      </div>
+    <div
+      v-if="showTableParams"
+      class="playground-params"
+    >
+      <playground-params />
     </div>
   </div>
 </template>
 
 <style lang="scss">
 .playground-wrapper {
-  display: grid;
-  grid-template-rows: auto calc(100vh - 60px - 34px - 35px);
-  padding: 30px;
-  gap: 35px;
-  background-color: #f6f6f6;
+  padding: 10px 30px 30px 30px;
   overflow: hidden;
-
-  &.playground-highlight {
-    background-color: #fff !important;
-
-    .playground-table-wrapper {
-      background-color: #f6f6f6 !important;
-    }
-
-    .playground-control-group {
-      background-color: #f6f6f6 !important;
-    }
-
-    .playground-tools {
-      background-color: #f6f6f6 !important;
-    }
-  }
 }
 
 .playground-header {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 5px;
-
-  .playground-title {
-    font-weight: 600;
-    font-size: 12px;
-    color: #6c6c6c;
-    text-transform: uppercase;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  z-index: 1000;
 }
 
-.playground-content {
-  display: flex;
-  gap: 15px;
-  min-width: 0;
-  height: calc(100vh - 128px);
-  max-height: calc(100vh - 128px);
+.playground-table {
+  margin-top: 60px;
 }
 
-.playground-table-wrapper {
-  padding: 30px;
-  border-radius: 10px;
+.playground-params {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100%;
+  z-index: 1001;
   background-color: #fff;
-  overflow: hidden;
-  flex: 1;
-}
-
-.playground-toolbar-wrapper {
-  padding: 30px;
-  border-radius: 10px;
-  background-color: #fff;
-  overflow-y: scroll;
+  padding: 20px;
+  box-shadow: -4px 0px 5px -5px rgba(154, 154, 154, 0.6);
 }
 </style>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-  value?: string | null
+  value?: number
   label?: string
   disabled?: boolean
 }>()
@@ -8,8 +8,8 @@ const props = defineProps<{
 const emit = defineEmits(['input'])
 
 const handleInput = (event: Event) => {
-  if (event.target instanceof HTMLTextAreaElement) {
-    emit('input', event.target.value)
+  if (event.target instanceof HTMLInputElement) {
+    emit('input', +event.target.value)
   }
 }
 </script>
@@ -21,12 +21,12 @@ const handleInput = (event: Event) => {
       class="playground-input-label"
       >{{ props.label }}:</span
     >
-    <textarea
+    <input
       :disabled="props.disabled"
-      :rows="6"
-      :value="props.value ?? undefined"
+      type="text"
+      :value="props.value"
       @input="handleInput"
-    ></textarea>
+    />
   </label>
 </template>
 
@@ -37,7 +37,7 @@ const handleInput = (event: Event) => {
   gap: 5px;
   cursor: pointer;
 
-  textarea {
+  input[type='text'] {
     display: block;
     width: 100%;
     accent-color: #4848ca;
@@ -47,7 +47,6 @@ const handleInput = (event: Event) => {
     border: 1px solid #ececec;
     outline: none;
     font-size: 11px;
-    resize: vertical;
 
     &:not([disabled]):hover,
     &:not([disabled]):active,

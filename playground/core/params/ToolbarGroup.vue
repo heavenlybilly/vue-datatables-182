@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import ToolbarControl from '~/toolbar/ToolbarControl.vue'
+import ToolbarControl from '~/core/params/ToolbarControl.vue'
 import { ToolbarGroup } from '~/types'
 
 const props = defineProps<{
@@ -67,7 +67,7 @@ const handleInput = (name: string, value: unknown) => {
 
 .playground-toolbar-group-title {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
   text-transform: uppercase;
   color: #1a1a65;
 }
@@ -87,7 +87,7 @@ const handleInput = (name: string, value: unknown) => {
 .playground-toolbar-group-control-label {
   position: relative;
   font-weight: 600;
-  font-size: 8px;
+  font-size: 9px;
   text-transform: uppercase;
   color: #4848ca;
 

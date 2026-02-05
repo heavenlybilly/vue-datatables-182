@@ -11,7 +11,7 @@ export const useStore = defineStore('playground-store', () => {
   const fields = ref<FieldDef[]>([])
   const tableParams = ref<Record<string, unknown>>({})
 
-  const { triggerUpdateState } = usePersistentState('playground-table-params', tableParams)
+  usePersistentState('playground-table-params', tableParams)
 
   const source = computed(() => {
     return tableParams.value.source

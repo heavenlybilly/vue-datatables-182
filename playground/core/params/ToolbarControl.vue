@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import VCheckbox from '~/toolbar/components/VCheckbox.vue'
-import VInput from '~/toolbar/components/VInput.vue'
-import VSelect from '~/toolbar/components/VSelect.vue'
-import VTextarea from '~/toolbar/components/VTextarea.vue'
+import VCheckbox from '~/core/params/components/VCheckbox.vue'
+import VInput from '~/core/params/components/VInput.vue'
+import VNumberInput from '~/core/params/components/VNumberInput.vue'
+import VSelect from '~/core/params/components/VSelect.vue'
+import VTextarea from '~/core/params/components/VTextarea.vue'
 import { ControlType, ToolbarControl } from '~/types'
 
 const props = defineProps<{
@@ -22,7 +23,7 @@ const component = computed(() => {
       }
     case ControlType.NUMBER:
       return {
-        is: VInput,
+        is: VNumberInput,
         props: props.control.props ?? {},
       }
     case ControlType.CODE:
