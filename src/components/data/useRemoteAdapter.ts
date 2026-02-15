@@ -69,7 +69,10 @@ export const useRemoteAdapter = (options: RemoteAdapterOptions) => {
 
     const request = requestAdapter(ctx)
 
-    const headers: Record<string, string> = { ...(request.headers ?? {}) }
+    const headers: Record<string, string> = {
+      ...{ 'Content-Type': 'application/json' },
+      ...(request.headers ?? {}),
+    }
 
     const csrf = options.getCsrfToken()
     if (csrf) {

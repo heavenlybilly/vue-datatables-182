@@ -83,7 +83,7 @@ const displayedRows = computed(() => {
     <table-body>
       <table-row
         v-for="row of displayedRows"
-        :key="state.rowKeySelector(row)"
+        :key="state.rowKeySelector(row.item)"
         :grid-style="gridLayout.gridStyle"
         :rows-clickable="appearance.isRowsClickable()"
         :vertical-borders="appearance.isVerticalBordersEnabled()"

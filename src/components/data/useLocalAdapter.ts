@@ -8,10 +8,7 @@ export const useLocalAdapter = (options: LocalAdapterOptions) => {
     const { columnRegistry, core } = options
 
     let rowItems = options.getLocalItems() ?? []
-
-    core.setTableData({
-      total: rowItems.length,
-    })
+    const totalCount = rowItems.length
 
     const { searchQuery, searchEnabled, sort, page, rowsPerPageCount, paginationEnabled } =
       core.state
@@ -39,9 +36,7 @@ export const useLocalAdapter = (options: LocalAdapterOptions) => {
     }
 
     // local total after searching
-    core.setTableData({
-      filtered: rowItems.length,
-    })
+    const filteredCount = rowItems.length
 
     // sort
     if (sort.by && sort.direction) {
@@ -55,9 +50,8 @@ export const useLocalAdapter = (options: LocalAdapterOptions) => {
           const av = column.field ? a[column.field] : column.value!(a)
           const bv = column.field ? b[column.field] : column.value!(b)
 
-          if (av < bv) return -1 * sortDirection
-          if (av > bv) return 1 * sortDirection
-          return 0
+          if (av === bv) return 0
+          return av > bv ? sortDirection : -sortDirection
         })
       }
     }
@@ -74,6 +68,8 @@ export const useLocalAdapter = (options: LocalAdapterOptions) => {
     }
 
     core.setTableData({
+      total: totalCount,
+      filtered: filteredCount,
       items: rowItems,
     })
   }
