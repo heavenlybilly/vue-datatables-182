@@ -4,9 +4,9 @@ import { ref } from 'vue'
 import { usePersistentState } from '~/usePersistentState'
 
 export const useHeaderStore = defineStore('playground-header-store', () => {
-  const headerBgColor = ref<string>('#fff')
-  const bodyBgColor = ref<string>('#fff')
-  const tableBgColor = ref<string>('#fff')
+  const headerBgColor = ref<string>('#ffffff')
+  const bodyBgColor = ref<string>('#ffffff')
+  const tableBgColor = ref<string>('#ffffff')
   const showTableParams = ref<boolean>(false)
 
   usePersistentState('playground-header-header-bg-color', headerBgColor)

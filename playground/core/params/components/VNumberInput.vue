@@ -9,7 +9,8 @@ const emit = defineEmits(['input'])
 
 const handleInput = (event: Event) => {
   if (event.target instanceof HTMLInputElement) {
-    emit('input', +event.target.value)
+    const raw = event.target.value
+    emit('input', raw === '' ? undefined : +raw)
   }
 }
 </script>

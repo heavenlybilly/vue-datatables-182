@@ -1,3 +1,4 @@
+Ше
 <script setup lang="ts">
 import { computed } from 'vue'
 import ToolbarControl from '~/core/params/ToolbarControl.vue'
@@ -16,7 +17,7 @@ const controlItems = computed(() => {
     .map((control) => {
       let value = props.tableParams?.[control.name]
 
-      if (value === undefined && control.params?.defaultValue) {
+      if (value === undefined && control.params?.defaultValue !== undefined) {
         value = control.params.defaultValue
       }
 

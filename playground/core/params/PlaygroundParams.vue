@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useHeader } from '~/core/header/useHeader'
 import ReRenderBtn from '~/core/params/ReRenderBtn.vue'
 import ToolbarGroup from '~/core/params/ToolbarGroup.vue'
 import { useTableParams } from '~/core/params/useTableParams'
@@ -6,8 +7,13 @@ import { toolbarControls } from '~/toolbar-controls'
 import { useTableRendering } from '~/useTableRendering'
 import { Logger } from '~/utils/logger'
 
+const { setShowTableParams } = useHeader()
 const { tableParams, setTableParams } = useTableParams()
 const { reRender } = useTableRendering()
+
+const handleClose = (): void => {
+  setShowTableParams(false)
+}
 
 const handleReRender = (): void => {
   Logger.trigger('rendering', 're-render button click')
@@ -26,7 +32,12 @@ const handleControlInput = (payload: { name: string; value: unknown }) => {
     <div class="playground-toolbar-top">
       <re-render-btn @click="handleReRender" />
 
-      <div class="playground-toolbar-split"></div>
+      <div
+        class="playground-toolbar-close-btn"
+        @click="handleClose"
+      >
+        <i class="fa fa-times"></i>
+      </div>
     </div>
 
     <div class="playground-toolbar-content">
@@ -64,20 +75,25 @@ const handleControlInput = (payload: { name: string; value: unknown }) => {
   background-color: #fff;
   z-index: 1;
   padding-bottom: 20px;
-
-  .playground-toolbar-split {
-    margin: 15px 0;
-    height: 1px;
-    min-height: 1px;
-    max-height: 1px;
-    background-color: #dedef4;
-  }
 }
 
-.playground-toolbar-expand-btn {
-  position: absolute;
-  top: 30px;
-  right: 15px;
+.playground-toolbar-close-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 200ms ease-in-out;
+  color: #4848ca;
+  font-size: 14px;
+  border: 1px solid transparent;
+  background-color: #dedef4;
+
+  &:hover {
+    border-color: #4848ca;
+  }
 }
 
 .playground-toolbar-content {
