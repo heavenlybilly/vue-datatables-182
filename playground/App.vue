@@ -1,10 +1,26 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import PlaygroundHeader from '~/core/header/PlaygroundHeader.vue'
 import { useHeader } from '~/core/header/useHeader'
 import PlaygroundParams from '~/core/params/PlaygroundParams.vue'
 import PlaygroundTable from '~/core/table/PlaygroundTable.vue'
+import { useDraggableResizable } from '~/useDraggableResizable'
 
 const { headerStyleObject, bodyStyleObject, tableStyleObject, showTableParams } = useHeader()
+
+const paramsRef = ref<HTMLElement | null>(null)
+
+const { style: paramsStyle } = useDraggableResizable(paramsRef, {
+  dragHandleSelector: '.playground-toolbar-top',
+  storageKey: 'playground-params-geometry',
+  defaults: {
+    top: 0,
+    left: window.innerWidth - 400,
+    width: 400,
+    height: window.innerHeight,
+  },
+})
 </script>
 
 <template>
@@ -28,7 +44,9 @@ const { headerStyleObject, bodyStyleObject, tableStyleObject, showTableParams } 
 
     <div
       v-if="showTableParams"
+      ref="paramsRef"
       class="playground-params"
+      :style="paramsStyle"
     >
       <playground-params />
     </div>
@@ -55,14 +73,12 @@ const { headerStyleObject, bodyStyleObject, tableStyleObject, showTableParams } 
 }
 
 .playground-params {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 400px;
-  height: 100%;
   z-index: 1001;
   background-color: #fff;
   padding: 20px;
-  box-shadow: -4px 0px 5px -5px rgba(154, 154, 154, 0.6);
+  border-radius: 6px;
+  box-shadow:
+    0 2px 12px rgba(72, 72, 202, 0.1),
+    0 0 0 1px rgba(72, 72, 202, 0.08);
 }
 </style>

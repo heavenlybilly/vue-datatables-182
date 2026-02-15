@@ -72,9 +72,13 @@ const handleControlInput = (payload: { name: string; value: unknown }) => {
   justify-content: space-between;
   position: sticky;
   top: 0;
-  background-color: #fff;
+  background-color: #f7f7fd;
   z-index: 1;
-  padding-bottom: 20px;
+  padding: 10px 12px;
+  margin: -20px -20px 20px -20px;
+  border-bottom: 1px solid #ececf6;
+  border-radius: 6px 6px 0 0;
+  cursor: grab;
 }
 
 .playground-toolbar-close-btn {
