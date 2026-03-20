@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { defineStore } from 'pinia'
 import { computed, onMounted, ref } from 'vue'
+import { Preset } from '~/presets'
 import { toolbarControls } from '~/toolbar-controls'
 import { FieldDef } from '~/types'
 import { usePersistentState } from '~/usePersistentState'
@@ -35,6 +36,11 @@ export const useStore = defineStore('playground-store', () => {
     Logger.store('set table params', { ...value })
   }
 
+  const applyPreset = (preset: Preset) => {
+    tableParams.value = { ...preset.values }
+    Logger.store('apply preset', preset.name)
+  }
+
   onMounted(() => {
     toolbarControls.forEach((group) => {
       group.controls.forEach((control) => {
@@ -56,5 +62,6 @@ export const useStore = defineStore('playground-store', () => {
     setFields,
     setTableKey,
     setTableParams,
+    applyPreset,
   }
 })

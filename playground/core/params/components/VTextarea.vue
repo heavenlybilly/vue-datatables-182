@@ -19,7 +19,7 @@ const handleInput = (event: Event) => {
     <span
       v-if="props.label"
       class="playground-input-label"
-      >{{ props.label }}:</span
+      >{{ props.label }}</span
     >
     <textarea
       :disabled="props.disabled"
@@ -33,36 +33,44 @@ const handleInput = (event: Event) => {
 <style scoped lang="scss">
 .playground-input {
   display: block;
-  align-items: center;
-  gap: 5px;
   cursor: pointer;
 
   textarea {
     display: block;
     width: 100%;
-    accent-color: #4848ca;
-    padding: 8px 12px;
-    border-radius: 3px;
-    transition: all 300ms ease-in-out;
-    border: 1px solid #ececec;
+    padding: 7px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--pg-input-border);
     outline: none;
-    font-size: 11px;
+    font-size: 12px;
     resize: vertical;
+    background: var(--pg-input-bg);
+    color: var(--pg-text-primary);
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    line-height: 1.5;
+    transition: all 150ms;
 
-    &:not([disabled]):hover,
-    &:not([disabled]):active,
+    &:not([disabled]):hover {
+      border-color: var(--pg-text-muted);
+    }
+
     &:not([disabled]):focus {
-      border: 1px solid #4848ca;
+      border-color: var(--pg-accent);
+      box-shadow: var(--pg-focus-ring);
+    }
+
+    &[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 
   .playground-input-label {
     display: inline-block;
-    margin-bottom: 5px;
-    font-size: 9px;
-    color: #989898;
-    text-transform: uppercase;
-    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 11px;
+    color: var(--pg-text-muted);
+    font-weight: 500;
     line-height: 1;
   }
 }

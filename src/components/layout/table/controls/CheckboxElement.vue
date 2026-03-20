@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { CheckboxState } from '@/components/layout/table/types'
 import iconChecked from '@/assets/selection-checked.svg'
 import iconIndeterminate from '@/assets/selection-indeterminate.svg'
 import iconUnchecked from '@/assets/selection-unchecked.svg'
+import { CheckboxState } from '@/components/layout/table/types'
 
 const props = defineProps<{
   value: CheckboxState

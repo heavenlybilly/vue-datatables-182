@@ -25,26 +25,29 @@ const handleClick = () => {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding-inline: 14px;
-  height: 27px;
-  gap: 8px;
+  padding-inline: 12px;
+  height: 30px;
+  gap: 6px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: all 200ms ease-in-out;
-  color: #3e3e3e;
-  font-weight: 600;
+  border-radius: 8px;
+  transition: all 150ms;
+  color: var(--pg-text-secondary);
+  font-weight: 500;
   font-size: 12px;
-  border: 1px solid transparent;
+  border: 1px solid var(--pg-border);
   outline: none;
-  background-color: #c1c1c1;
+  background: var(--pg-input-bg);
+  user-select: none;
 
   &.active {
-    background-color: #3e3e3e;
-    color: #c1c1c1;
+    background-color: var(--pg-accent);
+    border-color: var(--pg-accent);
+    color: #fff;
   }
 
-  &:hover {
-    border-color: #7e7e7e;
+  &:not(.active):hover {
+    border-color: var(--pg-text-muted);
+    color: var(--pg-text-primary);
   }
 }
 </style>

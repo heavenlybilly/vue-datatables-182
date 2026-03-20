@@ -3,41 +3,27 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { usePersistentState } from '~/usePersistentState'
 
+export type Theme = 'light' | 'dark'
+
 export const useHeaderStore = defineStore('playground-header-store', () => {
-  const headerBgColor = ref<string>('#ffffff')
-  const bodyBgColor = ref<string>('#ffffff')
-  const tableBgColor = ref<string>('#ffffff')
   const showTableParams = ref<boolean>(false)
+  const theme = ref<Theme>('light')
 
-  usePersistentState('playground-header-header-bg-color', headerBgColor)
-  usePersistentState('playground-header-body-bg-color', bodyBgColor)
-  usePersistentState('playground-header-table-bg-color', tableBgColor)
   usePersistentState('playground-header-show-table-params', showTableParams)
-
-  const setHeaderBgColor = (value: string) => {
-    headerBgColor.value = value
-  }
-
-  const setBodyBgColor = (value: string) => {
-    bodyBgColor.value = value
-  }
-
-  const setTableBgColor = (value: string) => {
-    tableBgColor.value = value
-  }
+  usePersistentState('playground-header-theme', theme)
 
   const setShowTableParams = (value: boolean) => {
     showTableParams.value = value
   }
 
+  const toggleTheme = () => {
+    theme.value = theme.value === 'light' ? 'dark' : 'light'
+  }
+
   return {
-    headerBgColor,
-    bodyBgColor,
-    tableBgColor,
     showTableParams,
-    setHeaderBgColor,
-    setBodyBgColor,
-    setTableBgColor,
+    theme,
     setShowTableParams,
+    toggleTheme,
   }
 })

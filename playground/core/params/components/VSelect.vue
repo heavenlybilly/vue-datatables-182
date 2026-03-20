@@ -29,7 +29,7 @@ const handleChange = (event: Event) => {
     <span
       v-if="props.label"
       class="playground-select-label"
-      >{{ props.label }}:</span
+      >{{ props.label }}</span
     >
     <select
       class="playground-select-input"
@@ -53,32 +53,44 @@ const handleChange = (event: Event) => {
 .playground-select {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
   cursor: pointer;
 
   .playground-select-label {
-    font-size: 9px;
-    color: #989898;
-    text-transform: uppercase;
-    font-weight: 600;
+    font-size: 11px;
+    color: var(--pg-text-muted);
+    font-weight: 500;
     line-height: 1;
   }
 
   .playground-select-input {
     display: block;
     width: 100%;
-    accent-color: #4848ca;
-    padding: 7px 12px;
-    border-radius: 3px;
-    transition: all 300ms ease-in-out;
-    border: 1px solid #ececec;
+    padding: 7px 28px 7px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--pg-input-border);
     outline: none;
-    font-size: 11px;
+    font-size: 12px;
+    background: var(--pg-input-bg);
+    color: var(--pg-text-primary);
+    transition: all 150ms;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%237c7c9a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
 
-    &:not([disabled]):hover,
-    &:not([disabled]):active,
+    &:not([disabled]):hover {
+      border-color: var(--pg-text-muted);
+    }
+
     &:not([disabled]):focus {
-      border: 1px solid #4848ca;
+      border-color: var(--pg-accent);
+      box-shadow: var(--pg-focus-ring);
+    }
+
+    &[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 }

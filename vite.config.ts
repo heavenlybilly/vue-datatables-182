@@ -2,13 +2,15 @@ import vue from '@vitejs/plugin-vue2'
 import svgLoader from 'vite-svg-loader'
 import path from 'node:path'
 import { defineConfig } from 'vite'
+import { mockApiPlugin } from './playground/server/mock-api'
 
 export default defineConfig({
   plugins: [
     vue(),
     svgLoader({
       defaultImport: 'raw',
-    })
+    }),
+    mockApiPlugin(),
   ],
   resolve: {
     alias: [

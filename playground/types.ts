@@ -68,6 +68,7 @@ type ControlPropsMap = {
 export type ToolbarControl<Type extends ControlType = ControlType> = {
   type: Type
   name: string
+  description?: string
   params?: ControlParamsMap[Type]
   props?: ControlPropsMap[Type]
   required?: boolean

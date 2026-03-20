@@ -1,151 +1,84 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useColumnsStore } from '~/core/columns/store'
+import { useEventLogStore } from '~/core/events/store'
 import { useTableProps } from '~/core/table/useTableProps'
 import { useTableRendering } from '~/useTableRendering'
 import DataTable from '@/components/DataTable.vue'
 import DataTableColumn from '@/components/DataTableColumn.vue'
 
+const columnsStore = useColumnsStore()
+const eventLog = useEventLogStore()
 const { tableKey } = useTableRendering()
 const { tableProps } = useTableProps()
+
+const visibleColumns = computed(() => columnsStore.columns.filter((c) => c.visible))
+
+const handleUpdatePage = (page: number) => {
+  eventLog.addEvent('update:page', page)
+}
+
+const handleUpdateRowsPerPageCount = (count: number) => {
+  eventLog.addEvent('update:rowsPerPageCount', count)
+}
+
+const handleUpdateSearchQuery = (query: string) => {
+  eventLog.addEvent('update:searchQuery', query)
+}
+
+const handleUpdateSelectedRowKeys = (keys: unknown[]) => {
+  eventLog.addEvent('update:selectedRowKeys', keys)
+}
+
+const handleSelectionChange = (payload: unknown) => {
+  eventLog.addEvent('selectionChange', payload)
+}
+
+const handleRowClick = (payload: unknown) => {
+  eventLog.addEvent('rowClick', payload)
+}
+
+const handleRequestStart = (payload: unknown) => {
+  eventLog.addEvent('requestStart', payload)
+}
+
+const handleRequestEnd = (payload: unknown) => {
+  eventLog.addEvent('requestEnd', payload)
+}
+
+const handleRequestError = (payload: unknown) => {
+  eventLog.addEvent('requestError', payload)
+}
+
+const handleRequestSuccess = (payload: unknown) => {
+  eventLog.addEvent('requestSuccess', payload)
+}
 </script>
 
 <template>
-  <!--      <data-table-->
-  <!--        :key="tableKey"-->
-  <!--        :actions="tableParams.actions"-->
-  <!--        :disallow-select-all="tableParams.disallowSelectAll"-->
-  <!--        :fixed-columns-end="tableParams.fixedColumnsEnd"-->
-  <!--        :fixed-columns-start="tableParams.fixedColumnsStart"-->
-  <!--        :items="tableParams.items"-->
-  <!--        :numbering="tableParams.numbering"-->
-  <!--        :order-by="tableParams.orderBy ?? undefined"-->
-  <!--        :order-direction="tableParams.orderDirection ?? undefined"-->
-  <!--        :pagination="tableParams.paginationEnabled"-->
-  <!--        :row-selection="tableParams.rowSelection"-->
-  <!--        :rows-clickable="tableParams.rowsClickable"-->
-  <!--        :rows-per-page-count="tableParams.rowsPerPage ?? undefined"-->
-  <!--        :rows-per-page-options="displayedRowsPerPageOptions"-->
-  <!--        :scroll-x="tableParams.scrollX"-->
-  <!--        :searching="tableParams.searching"-->
-  <!--        :select-on-row-click="tableParams.selectOnRowClick"-->
-  <!--        :show-range-info="tableParams.showRangeInfo"-->
-  <!--        :source="source"-->
-  <!--        :sticky-header="tableParams.stickyHeader"-->
-  <!--        :url="tableParams.url ?? undefined"-->
-  <!--        :vertical-borders="tableParams.verticalBorders"-->
-  <!--        @loading-end="handleLoadingEnd"-->
-  <!--        @loading-start="handleLoadingStart"-->
-  <!--        @row-click="handleRowClick"-->
-  <!--        @update:selected-rows="handleSelectedRowsUpdate"-->
-  <!--      >-->
-  <!--        <template v-for="field of fields">-->
-  <!--          <template v-if="field.display">-->
-  <!--            <data-table-column-->
-  <!--              v-if="field.cellSlot"-->
-  <!--              :key="field.fieldName"-->
-  <!--              :field="field.fieldName"-->
-  <!--              :orderable="field.orderable"-->
-  <!--              :searchable="field.searchable"-->
-  <!--              :text-align="field.textAlign"-->
-  <!--              :title="field.title"-->
-  <!--              :width="field.width"-->
-  <!--            >-->
-  <!--              <template #cell="{ item, number, index }">-->
-  <!--                <dynamic-template-renderer-->
-  <!--                  :scope="{ item, number, index }"-->
-  <!--                  :template="field.cellSlot"-->
-  <!--                />-->
-  <!--              </template>-->
-  <!--            </data-table-column>-->
-  <!--            <data-table-column-->
-  <!--              v-else-->
-  <!--              :key="field.fieldName"-->
-  <!--              :field="field.fieldName"-->
-  <!--              :orderable="field.orderable"-->
-  <!--              :searchable="field.searchable"-->
-  <!--              :text-align="field.textAlign"-->
-  <!--              :title="field.title"-->
-  <!--              :width="field.width"-->
-  <!--            />-->
-  <!--          </template>-->
-  <!--        </template>-->
-
-  <!--        <template #actions>-->
-  <!--          <div @click.stop>-->
-  <!--            <button class="btn btn-primary">...</button>-->
-  <!--          </div>-->
-  <!--        </template>-->
-  <!--      </data-table>-->
-
   <data-table
     :key="tableKey"
     v-bind="tableProps"
+    @request-end="handleRequestEnd"
+    @request-error="handleRequestError"
+    @request-start="handleRequestStart"
+    @request-success="handleRequestSuccess"
+    @row-click="handleRowClick"
+    @selection-change="handleSelectionChange"
+    @update:page="handleUpdatePage"
+    @update:rows-per-page-count="handleUpdateRowsPerPageCount"
+    @update:search-query="handleUpdateSearchQuery"
+    @update:selected-row-keys="handleUpdateSelectedRowKeys"
   >
-    <template #topLeftBeforeActions>before</template>
-    <template #topLeftAfterActions>after</template>
-    <template #topRight>right</template>
-
     <data-table-column
-      key="id"
-      field="id"
-      title="Id"
-    />
-    <data-table-column
-      key="title"
-      field="title"
-      searchable
-      sortable
-      title="Title"
-    />
-    <data-table-column
-      field="author"
-      title="Author"
-    />
-    <data-table-column
-      field="genres"
-      title="Genres"
-    >
-      <template #cell="{ item }">
-        <div>
-          {{ item.genres }}
-        </div>
-      </template>
-    </data-table-column>
-    <data-table-column
-      field="published"
-      title="Published"
-    />
-    <data-table-column
-      field="pages"
-      sortable
-      title="Pages"
-    />
-    <data-table-column
-      field="rating"
-      title="Rating"
-    />
-    <data-table-column
-      field="isbn"
-      title="Isbn"
-    />
-    <data-table-column
-      field="in_stock"
-      title="In stock"
-    />
-    <data-table-column
-      field="language"
-      title="Language"
-    />
-    <data-table-column
-      field="format"
-      title="Format"
-    />
-    <data-table-column
-      key="price"
-      field="price"
-      sortable
-      text-align="center"
-      title="Price"
-      width="120px"
+      v-for="col of visibleColumns"
+      :key="col.field"
+      :field="col.field"
+      :searchable="col.searchable"
+      :sortable="col.sortable"
+      :text-align="col.textAlign || undefined"
+      :title="col.title"
+      :width="col.width || undefined"
     />
   </data-table>
 </template>

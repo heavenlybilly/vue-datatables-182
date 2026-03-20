@@ -1,5 +1,4 @@
-import { computed, onUnmounted, ref, watch, type CSSProperties, type Ref } from 'vue'
-
+import { type CSSProperties, type Ref, computed, onUnmounted, ref, watch } from 'vue'
 import { usePersistentState } from '~/usePersistentState'
 
 interface PanelRect {
