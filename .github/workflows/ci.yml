@@ -11,18 +11,14 @@ on:
 
 jobs:
   build:
-    name: Node ${{ matrix.node }} checks
+    name: Node 24 checks
     runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false
-      matrix:
-        node: ['22', '24']
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: '24'
           cache: 'npm'
 
       - run: npm ci
@@ -49,7 +45,7 @@ jobs:
       - name: Upload checked package
         uses: actions/upload-artifact@v4
         with:
-          name: checked-package-node-${{ matrix.node }}
+          name: checked-package-node-24
           path: release/
           if-no-files-found: error
 
@@ -58,14 +54,21 @@ jobs:
     runs-on: ubuntu-22.04
     needs: build
     if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: read
+      id-token: write
+    concurrency:
+      group: npm-publish-${{ github.ref }}
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-          registry-url: 'https://registry.npmjs.org/'
-          cache: 'npm'
+
+      - name: Install npm with trusted publishing support
+        run: npm install --global npm@11
 
       - run: npm ci
 
@@ -80,7 +83,6 @@ jobs:
         run: npm run check:release -- "$GITHUB_REF_NAME" release/package.tgz
 
       - name: Publish package
-        run: npm publish ./release/package.tgz --ignore-scripts --tag "$DIST_TAG"
+        run: npm publish ./release/package.tgz --ignore-scripts --access public --tag "$DIST_TAG" --registry https://registry.npmjs.org/
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           DIST_TAG: ${{ steps.tag.outputs.dist-tag }}

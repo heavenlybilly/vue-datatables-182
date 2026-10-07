@@ -309,7 +309,7 @@ createApp(App).use(VueDatatables182, { registerGlobally: true }).mount('#app')
 
 ## Разработка и проверка пакета
 
-Среда разработки: `Node.js 22.12+` или `24`. Зависимости устанавливаются через `npm ci`.
+Среда разработки: `Node.js 24`. Зависимости устанавливаются через `npm ci`.
 
 | Команда                   | Назначение                                                                  |
 | ------------------------- | --------------------------------------------------------------------------- |
@@ -326,3 +326,5 @@ createApp(App).use(VueDatatables182, { registerGlobally: true }).mount('#app')
 `check:package` не запускает сервер для просмотра в браузере. Перед запуском
 браузерных тестов устанавливается `Chromium` командой `npx playwright install chromium`.
 Порядок выпуска и оставшиеся проверки описаны в [плане релиза](https://github.com/heavenlybilly/vue-datatables-182/blob/dev/docs/major-release-plan.md).
+
+Порядок публикации по тегу: [настройка GitHub и npm](docs/publishing.md).
